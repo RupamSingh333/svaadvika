@@ -5,6 +5,10 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\SettingController;
 
 Route::middleware(['auth', \App\Http\Middleware\CheckUserPermission::class])->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('admin.dashboard');
+    });
+    
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     
     // Settings

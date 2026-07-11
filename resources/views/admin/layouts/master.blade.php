@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
     <!-- Custom Admin CSS -->
-    <link rel="stylesheet" href="{{ asset('admin/css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin-assets/css/admin.css') }}">
     
     @stack('styles')
 </head>
@@ -58,7 +58,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Custom Admin JS -->
-    <script src="{{ asset('admin/js/admin.js') }}"></script>
+    <script src="{{ asset('admin-assets/js/admin.js') }}"></script>
     
     <!-- TinyMCE -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
