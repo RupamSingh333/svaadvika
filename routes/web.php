@@ -13,6 +13,9 @@ Route::get('/product/{slug}', [FrontendController::class, 'productDetails'])->na
 Route::get('/recipes', [FrontendController::class, 'recipes'])->name('recipes');
 Route::get('/cart', [FrontendController::class, 'cart'])->name('cart');
 Route::get('/checkout', [FrontendController::class, 'checkout'])->name('checkout');
+Route::get('/blog', [FrontendController::class, 'blog'])->name('blog');
+Route::get('/blog/{slug}', [FrontendController::class, 'blogDetails'])->name('blog.details');
+Route::get('/page/{slug}', [FrontendController::class, 'page'])->name('page.details');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

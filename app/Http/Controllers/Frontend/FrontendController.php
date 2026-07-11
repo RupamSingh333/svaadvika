@@ -161,4 +161,26 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.checkout');
     }
+
+    public function blog()
+    {
+        $posts = \App\Models\Post::where('type', 'blog')
+            ->where(function($q) {
+                $q->where('status', 'published')->orWhere('status', 'active');
+            })
+            ->orderBy('created_at', 'desc')->paginate(10);
+        return view('frontend.pages.blog', compact('posts'));
+    }
+
+    public function blogDetails($slug)
+    {
+        $post = \App\Models\Post::where('slug', $slug)->where('type', 'blog')->firstOrFail();
+        return view('frontend.pages.blog_details', compact('post'));
+    }
+
+    public function page($slug)
+    {
+        $page = \App\Models\Post::where('slug', $slug)->where('type', 'page')->firstOrFail();
+        return view('frontend.pages.page_details', compact('page'));
+    }
 }

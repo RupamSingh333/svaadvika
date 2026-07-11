@@ -60,15 +60,19 @@
     <!-- Custom Admin JS -->
     <script src="{{ asset('admin/js/admin.js') }}"></script>
     
-    <!-- CKEditor 5 -->
-    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+    <!-- TinyMCE -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
     <script>
-        document.querySelectorAll('.richtext').forEach(element => {
-            ClassicEditor
-                .create(element)
-                .catch(error => {
-                    console.error(error);
-                });
+        tinymce.init({
+            selector: '.richtext',
+            plugins: 'code link image lists table media fullscreen visualblocks help wordcount preview searchreplace',
+            toolbar: 'undo redo | formatselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media table | removeformat | fullscreen preview code | help',
+            height: 500,
+            promotion: false,
+            branding: false,
+            image_title: true,
+            automatic_uploads: true,
+            file_picker_types: 'image',
         });
     </script>
 

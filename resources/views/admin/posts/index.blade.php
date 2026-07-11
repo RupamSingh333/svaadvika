@@ -54,6 +54,16 @@
                                     </td>
                                     <td>{{ $post->created_at->format('M d, Y') }}</td>
                                     <td class="text-end">
+                                        @if($post->type == 'blog')
+                                            <a href="{{ route('blog.details', $post->slug) }}" target="_blank" class="btn btn-sm btn-light border shadow-sm me-1" title="View Frontend">
+                                                <i class="fa-solid fa-eye text-info"></i>
+                                            </a>
+                                        @elseif($post->type == 'page')
+                                            <a href="{{ route('page.details', $post->slug) }}" target="_blank" class="btn btn-sm btn-light border shadow-sm me-1" title="View Frontend">
+                                                <i class="fa-solid fa-eye text-info"></i>
+                                            </a>
+                                        @endif
+                                        
                                         @hasPermission('posts', 'edit')
                                         <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-sm btn-light border shadow-sm">
                                             <i class="fa-solid fa-pen-to-square text-primary"></i>

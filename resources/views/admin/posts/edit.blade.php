@@ -26,7 +26,7 @@
 
                             <div class="mb-4">
                                 <label class="form-label fw-semibold">Body Content</label>
-                                <textarea name="content" class="form-control richtext @error('content') is-invalid @enderror" rows="15">{{ old('content', $post->content) }}</textarea>
+                                <textarea name="content" class="form-control richtext @error('content') is-invalid @enderror" rows="30">{{ old('content', $post->content) }}</textarea>
                                 @error('content')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                         </div>

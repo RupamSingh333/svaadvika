@@ -25,7 +25,7 @@
               </li>
               <li class="nav-item"><a class="nav-link {{ request()->routeIs('recipes') ? 'active' : '' }}" href="{{ route('recipes') }}">Recipes</a></li>
               <li class="nav-item"><a class="nav-link" href="{{ route('home') }}#manufacturing">Manufacturing</a></li>
-              <li class="nav-item"><a class="nav-link" href="{{ route('home') }}#blog">Blog</a></li>
+              <li class="nav-item"><a class="nav-link {{ request()->routeIs('blog*') ? 'active' : '' }}" href="{{ route('blog') }}">Blog</a></li>
               <li class="nav-item"><a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact</a></li>
             </ul>
           </div>
