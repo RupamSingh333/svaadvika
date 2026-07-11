@@ -57,3 +57,24 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+
+
+<!-- Important Commands  -->
+
+## Install PHP dependencies: composer install
+## Install JS dependencies: npm install
+## Generate app key: php artisan key:generate
+## Run migrations: php artisan migrate
+## (Optional) seed: php artisan db:seed
+## (Optional) compile assets: npm run dev or npm run prod
+## Start server: php artisan serve
+## git pull -> update code ko lana jis brnach se lena hai ushme ja kar 
+## git merge -> apna code dusre me merge karna ho to 
+## git push -> merge code ke baad push karna hai taki update ho jaye 
+git status - > chanegs dikhata hai files me 
+git add . -> ye command se add ho jayega merge ke liye 
+git push -> ye command se chanegs update ho jayega git pr
+
+
