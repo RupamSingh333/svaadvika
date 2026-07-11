@@ -15,14 +15,29 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        // Check if admin user already exists
-        if (User::where('email', 'admin@example.com')->doesntExist()) {
-            User::create([
+        $user = User::firstOrCreate(
+            ['email' => 'admin@gmail.com'],
+            [
                 'name' => 'Super Admin',
-                'email' => 'admin@example.com',
                 'password' => Hash::make('Admin@123'),
                 'is_active' => true,
-            ]);
+            ]
+        );
+
+        $actionIds = \App\Models\PermissionAction::pluck('id')->toArray();
+        $inserts = [];
+        foreach ($actionIds as $id) {
+            $inserts[] = [
+                'user_id' => $user->id,
+                'permission_action_id' => $id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+
+        \App\Models\UserPermission::where('user_id', $user->id)->delete();
+        if (count($inserts) > 0) {
+            \App\Models\UserPermission::insert($inserts);
         }
     }
 }

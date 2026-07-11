@@ -44,7 +44,12 @@
 
                             <div class="col-lg-6">
                                 <label class="form-label">Password <span>*</span></label>
-                                <input type="password" name="password" class="form-control" required autocomplete="new-password" placeholder="Enter Password">
+                                <div class="input-group">
+                                    <input type="password" name="password" id="reg-password" class="form-control" required autocomplete="new-password" placeholder="Enter Password">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('reg-password', this)">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
                                 @error('password')
                                     <div class="text-danger mt-1"><small>{{ $message }}</small></div>
                                 @enderror
@@ -52,7 +57,12 @@
 
                             <div class="col-lg-6">
                                 <label class="form-label">Confirm Password <span>*</span></label>
-                                <input type="password" name="password_confirmation" class="form-control" required autocomplete="new-password" placeholder="Confirm Password">
+                                <div class="input-group">
+                                    <input type="password" name="password_confirmation" id="reg-password-confirm" class="form-control" required autocomplete="new-password" placeholder="Confirm Password">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('reg-password-confirm', this)">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
                                 @error('password_confirmation')
                                     <div class="text-danger mt-1"><small>{{ $message }}</small></div>
                                 @enderror
@@ -83,4 +93,19 @@
 
     </div>
 </section>
+<script>
+    function togglePassword(inputId, btn) {
+        var input = document.getElementById(inputId);
+        var icon = btn.querySelector('i');
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+        } else {
+            input.type = "password";
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        }
+    }
+</script>
 @endsection

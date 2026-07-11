@@ -37,7 +37,12 @@
 
                         <div class="mb-4">
                             <label class="form-label">Password <span>*</span></label>
-                            <input type="password" name="password" class="form-control" required autocomplete="current-password" placeholder="Enter your password">
+                            <div class="input-group">
+                                <input type="password" name="password" id="login-password" class="form-control" required autocomplete="current-password" placeholder="Enter your password">
+                                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('login-password', this)">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
                             @error('password')
                                 <div class="text-danger mt-1"><small>{{ $message }}</small></div>
                             @enderror
@@ -73,4 +78,19 @@
 
     </div>
 </section>
+<script>
+    function togglePassword(inputId, btn) {
+        var input = document.getElementById(inputId);
+        var icon = btn.querySelector('i');
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+        } else {
+            input.type = "password";
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        }
+    }
+</script>
 @endsection
