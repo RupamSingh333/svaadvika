@@ -12,7 +12,7 @@
                 <!-- Session Status -->
                 <x-auth-session-status class="mb-4" :status="session('status')" />
 
-                <form method="POST" action="{{ route('login') }}" class="contact-panel contact-form">
+                <form method="POST" action="{{ route('admin.login.submit') }}" class="contact-panel contact-form">
                     @csrf
 
                     <div class="mb-4">

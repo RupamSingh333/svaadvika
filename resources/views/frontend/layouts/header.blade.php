@@ -28,8 +28,8 @@
             <button class="icon-btn" aria-label="Wishlist"><i class="bi bi-heart"></i></button> -->
             <button class="icon-btn cart-btn" aria-label="Cart"><i class="bi bi-bag"></i><span>2</span></button>
             <button class="icon-btn theme-toggle" type="button" aria-label="Toggle dark mode"><i class="bi bi-moon-stars"></i></button>
-            @auth
-              <a href="{{ route('dashboard') }}" class="icon-btn" aria-label="Dashboard"><i class="bi bi-person-circle"></i></a>
+            @auth('customer')
+              <a href="{{ route('home') }}" class="icon-btn" aria-label="Account"><i class="bi bi-person-circle"></i></a>
             @else
               <a href="{{ route('login') }}" class="icon-btn" aria-label="Login"><i class="bi bi-person"></i></a>
             @endauth
