@@ -25,36 +25,49 @@
         <div class="container-xl">
           <div class="row g-4 align-items-stretch">
             <div class="col-lg-7">
-              <form class="contact-panel contact-form reveal-up" id="contactForm" novalidate>
+              <form class="contact-panel contact-form reveal-up" id="contactForm" method="POST" action="{{ route('contact.store') }}" novalidate>
+                @csrf
                 <div class="contact-panel-head">
                   <h2>Send Us a Message</h2>
                 </div>
+                
+                @if(session('success'))
+                  <div class="alert alert-success">
+                    <i class="bi bi-check-circle me-2"></i> {{ session('success') }}
+                  </div>
+                @endif
+                
                 <div class="row g-4">
                   <div class="col-md-6">
                     <label for="fullName">Full Name <span>*</span></label>
-                    <input id="fullName" name="fullName" type="text" placeholder="Enter your full name" required>
+                    <input id="fullName" name="fullName" type="text" placeholder="Enter your full name" value="{{ old('fullName') }}" required>
+                    @error('fullName')<div class="text-danger mt-1"><small>{{ $message }}</small></div>@enderror
                   </div>
                   <div class="col-md-6">
                     <label for="contactEmail">Email Address <span>*</span></label>
-                    <input id="contactEmail" name="contactEmail" type="email" placeholder="Enter your email" required>
+                    <input id="contactEmail" name="contactEmail" type="email" placeholder="Enter your email" value="{{ old('contactEmail') }}" required>
+                    @error('contactEmail')<div class="text-danger mt-1"><small>{{ $message }}</small></div>@enderror
                   </div>
                   <div class="col-12">
                     <label for="phoneNumber">Phone Number</label>
-                    <input id="phoneNumber" name="phoneNumber" type="tel" placeholder="Enter your phone number" pattern="[0-9 +()-]{8,}">
+                    <input id="phoneNumber" name="phoneNumber" type="tel" placeholder="Enter your phone number" value="{{ old('phoneNumber') }}" pattern="[0-9 +()-]{8,}">
+                    @error('phoneNumber')<div class="text-danger mt-1"><small>{{ $message }}</small></div>@enderror
                   </div>
                   <div class="col-12">
                     <label for="subject">Subject <span>*</span></label>
                     <select id="subject" name="subject" required>
                       <option value="">Select a subject</option>
-                      <option>Order Support</option>
-                      <option>Product Enquiry</option>
-                      <option>Wholesale Enquiry</option>
-                      <option>Feedback</option>
+                      <option @if(old('subject') == 'Order Support') selected @endif>Order Support</option>
+                      <option @if(old('subject') == 'Product Enquiry') selected @endif>Product Enquiry</option>
+                      <option @if(old('subject') == 'Wholesale Enquiry') selected @endif>Wholesale Enquiry</option>
+                      <option @if(old('subject') == 'Feedback') selected @endif>Feedback</option>
                     </select>
+                    @error('subject')<div class="text-danger mt-1"><small>{{ $message }}</small></div>@enderror
                   </div>
                   <div class="col-12">
                     <label for="message">Your Message <span>*</span></label>
-                    <textarea id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>
+                    <textarea id="message" name="message" rows="5" placeholder="Type your message here..." required>{{ old('message') }}</textarea>
+                    @error('message')<div class="text-danger mt-1"><small>{{ $message }}</small></div>@enderror
                   </div>
                 </div>
                 <button class="btn btn-green w-100" type="submit"><i class="bi bi-send"></i> Send Message</button>

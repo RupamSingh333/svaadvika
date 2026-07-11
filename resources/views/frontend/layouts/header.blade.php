@@ -32,7 +32,28 @@
             <button class="icon-btn cart-btn" aria-label="Cart"><i class="bi bi-bag"></i><span>2</span></button>
             <button class="icon-btn theme-toggle" type="button" aria-label="Toggle dark mode"><i class="bi bi-moon-stars"></i></button>
             @auth('customer')
-              <a href="{{ route('home') }}" class="icon-btn" aria-label="Account"><i class="bi bi-person-circle"></i></a>
+              <div class="dropdown d-inline-block ms-2">
+                <a href="#" class="btn btn-outline-light rounded-pill d-flex align-items-center gap-2 px-3 py-1" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Account">
+                  <i class="bi bi-person-circle fs-5"></i>
+                  @php
+                      $nameParts = explode(' ', Auth::guard('customer')->user()->name);
+                      $lastName = count($nameParts) > 1 ? end($nameParts) : $nameParts[0];
+                  @endphp
+                  <span class="d-none d-md-inline fw-medium">{{ $lastName }}</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" aria-labelledby="accountDropdown">
+                  <li><a class="dropdown-item py-2" href="{{ route('home') }}"><i class="bi bi-person me-2 text-muted"></i>My Account</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li>
+                    <form method="POST" action="{{ route('logout') }}">
+                      @csrf
+                      <button type="submit" class="dropdown-item text-danger py-2">
+                        <i class="bi bi-box-arrow-right me-2"></i>Logout
+                      </button>
+                    </form>
+                  </li>
+                </ul>
+              </div>
             @else
               <a href="{{ route('login') }}" class="icon-btn" aria-label="Login"><i class="bi bi-person"></i></a>
             @endauth

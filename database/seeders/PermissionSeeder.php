@@ -21,6 +21,7 @@ class PermissionSeeder extends Seeder
             'customers' => ['view', 'edit', 'delete'],
             'settings' => ['view'],
             'audit-logs' => ['view'],
+            'contacts' => ['view', 'delete'],
         ];
 
         foreach ($modules as $moduleSlug => $actions) {

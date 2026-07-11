@@ -1089,16 +1089,11 @@ blockquote { margin: 10px 0; line-height: 1.5; }
 .contactmain-contact-hero {
   min-height: 486px;
   padding: 180px 0 36px;
-  /* background:
+  background:
     linear-gradient(90deg, rgba(4, 15, 9, 0.96) 0%, rgba(4, 15, 9, 0.78) 36%, rgba(4, 15, 9, 0.28) 66%, rgba(4, 15, 9, 0.64) 100%),
-    url("../images/heroimage.png") right 42% center / 560px 360px no-repeat,
-    radial-gradient(circle at 78% 42%, rgba(200,155,35,0.24), transparent 24%),
-    linear-gradient(115deg, #07180f 0%, #103321 48%, #070d09 100%); */
+    url("../images/heroimage.png") center / cover no-repeat;
   color: var(--white);
   overflow: hidden;
-  background: url(../images/heroimage.png);
-    background-size: cover;
-    background-repeat: no-repeat;
 }
 .contact-hero-copy {
   max-width: 630px;

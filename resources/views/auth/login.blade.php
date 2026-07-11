@@ -9,6 +9,8 @@
               <i class="bi bi-chevron-right"></i>
               <span>Login</span>
             </nav> 
+            <h1>Welcome <span>Back!</span></h1>
+            <p>Sign in to your account to continue.</p>
           </div>
         </div>
       </section>
@@ -29,7 +31,7 @@
 
                         <div class="mb-4">
                             <label class="form-label">Email <span>*</span></label>
-                            <input type="email" name="email" class="form-control" value="{{ old('email') }}" required autofocus autocomplete="username" placeholder="Enter your email address">
+                            <input type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" placeholder="Enter your email address">
                             @error('email')
                                 <div class="text-danger mt-1"><small>{{ $message }}</small></div>
                             @enderror
@@ -37,9 +39,9 @@
 
                         <div class="mb-4">
                             <label class="form-label">Password <span>*</span></label>
-                            <div class="input-group">
-                                <input type="password" name="password" id="login-password" class="form-control" required autocomplete="current-password" placeholder="Enter your password">
-                                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('login-password', this)">
+                            <div style="position: relative;">
+                                <input type="password" name="password" id="login-password" required autocomplete="current-password" placeholder="Enter your password" style="padding-right: 45px;">
+                                <button type="button" onclick="togglePassword('login-password', this)" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; padding: 0; color: #888;">
                                     <i class="bi bi-eye"></i>
                                 </button>
                             </div>
@@ -48,14 +50,14 @@
                             @enderror
                         </div>
 
-                        <div class="d-flex justify-content-between mb-4">
-                            <label for="remember_me" class="inline-flex items-center">
-                                <input id="remember_me" type="checkbox" class="form-check-input" name="remember">
-                                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                        <div class="d-flex justify-content-between mb-4 align-items-center">
+                            <label for="remember_me" class="d-flex align-items-center m-0" style="cursor: pointer;">
+                                <input id="remember_me" type="checkbox" name="remember" style="width: auto; margin-right: 8px; cursor: pointer;">
+                                <span style="font-size: 0.9rem; color: inherit;">Remember me</span>
                             </label>
 
                             @if (Route::has('password.request'))
-                                <a href="{{ route('password.request') }}" class="forgot-link">Forgot Password?</a>
+                                <a href="{{ route('password.request') }}" class="forgot-link" style="font-size: 0.9rem; color: var(--brand-gold, #c89b23); text-decoration: none;">Forgot Password?</a>
                             @endif
                         </div>
 

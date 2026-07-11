@@ -57,4 +57,7 @@ Route::middleware(['auth', \App\Http\Middleware\CheckUserPermission::class])->gr
     // Audit Logs
     Route::get('audit-logs', [\App\Http\Controllers\Admin\AuditLogController::class, 'index'])->name('audit-logs.index');
     Route::get('audit-logs/{auditLog}', [\App\Http\Controllers\Admin\AuditLogController::class, 'show'])->name('audit-logs.show');
+
+    // Contact Inquiries
+    Route::resource('contacts', \App\Http\Controllers\Admin\ContactController::class)->only(['index', 'show', 'destroy']);
 });

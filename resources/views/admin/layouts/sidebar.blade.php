@@ -58,6 +58,15 @@
             </li>
             @endhasPermission
 
+            @hasPermission('contacts', 'view')
+            <li class="nav-item">
+                <a href="{{ route('admin.contacts.index') }}" class="nav-link {{ request()->routeIs('admin.contacts.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>Contact Inquiries</span>
+                </a>
+            </li>
+            @endhasPermission
+
 
             @hasPermission('recipes', 'view')
             <li class="nav-item">

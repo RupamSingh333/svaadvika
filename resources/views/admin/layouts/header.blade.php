@@ -42,7 +42,7 @@
                 <li><a class="dropdown-item" href="#"><i class="fa-solid fa-cog me-2"></i> Settings</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
-                    <form method="POST" action="{{ route('logout') }}">
+                    <form method="POST" action="{{ route('admin.logout') }}">
                         @csrf
                         <button type="submit" class="dropdown-item text-danger"><i class="fa-solid fa-sign-out-alt me-2"></i> Logout</button>
                     </form>

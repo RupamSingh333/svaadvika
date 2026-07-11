@@ -69,19 +69,20 @@
   });
 
   const contactForm = document.querySelector("#contactForm");
-  contactForm?.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const message = contactForm.querySelector(".contact-form-message");
-    if (!contactForm.checkValidity()) {
-      message.innerHTML = '<i class="bi bi-exclamation-circle"></i> Please complete the required fields correctly.';
-      message.style.color = "var(--danger)";
-      contactForm.reportValidity();
-      return;
-    }
-    message.innerHTML = '<i class="bi bi-check-circle"></i> Thank you. Our team will contact you within 24 hours.';
-    message.style.color = "var(--success)";
-    contactForm.reset();
-  });
+  // contactForm?.addEventListener("submit", (event) => {
+  //   event.preventDefault();
+  //   const message = contactForm.querySelector(".contact-form-message");
+  //   if (!contactForm.checkValidity()) {
+  //     message.innerHTML = '<i class="bi bi-exclamation-circle"></i> Please complete the required fields correctly.';
+  //     message.style.color = "var(--danger)";
+  //     contactForm.reportValidity();
+  //     return;
+  //   }
+  //   message.innerHTML = '<i class="bi bi-check-circle"></i> Thank you. Our team will contact you within 24 hours.';
+  //   message.style.color = "var(--success)";
+  //   contactForm.reset();
+  // });
+
 
   document.querySelectorAll("[data-qty-minus], [data-qty-plus]").forEach((button) => {
     button.addEventListener("click", () => {

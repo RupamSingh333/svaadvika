@@ -21,6 +21,18 @@
         <button class="theme-row theme-toggle" type="button"><i class="bi bi-moon-stars"></i><span>Switch theme</span></button>
         <!-- <a class="btn btn-gold w-100" href="#products" data-bs-dismiss="offcanvas">Shop Now</a> -->
         <div class="mobile-quick">
+          @auth('customer')
+            <a href="{{ route('home') }}" aria-label="My Account"><i class="bi bi-person-circle"></i> Account</a>
+            <form method="POST" action="{{ route('logout') }}" class="d-inline">
+              @csrf
+              <button type="submit" class="btn btn-link text-danger text-decoration-none p-0 border-0 d-flex align-items-center gap-2" style="font-weight: 500; padding-top: 10px !important;"><i class="bi bi-box-arrow-right"></i> Logout</button>
+            </form>
+          @else
+            <a href="{{ route('login') }}" aria-label="Login"><i class="bi bi-person"></i> Login</a>
+            <a href="{{ route('register') }}" aria-label="Register"><i class="bi bi-person-plus"></i> Register</a>
+          @endauth
+        </div>
+        <div class="mobile-quick mt-3">
           <a href="https://wa.me/919999999999" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i> WhatsApp</a>
           <a href="tel:+919999999999" aria-label="Call Svaadvika"><i class="bi bi-telephone"></i> Call</a>
         </div>

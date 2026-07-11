@@ -8,6 +8,7 @@ use App\Http\Controllers\Frontend\FrontendController;
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/about', [FrontendController::class, 'about'])->name('about');
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
+Route::post('/contact', [\App\Http\Controllers\Frontend\ContactController::class, 'store'])->name('contact.store');
 Route::get('/products', [FrontendController::class, 'products'])->name('frontend.products');
 Route::get('/product/{slug}', [FrontendController::class, 'productDetails'])->name('frontend.product_details');
 Route::get('/recipes', [FrontendController::class, 'recipes'])->name('recipes');

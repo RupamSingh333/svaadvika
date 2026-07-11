@@ -9,6 +9,8 @@
               <i class="bi bi-chevron-right"></i>
               <span>Register Now</span>
             </nav> 
+            <h1>Create an <span>Account</span></h1>
+            <p>Join Svaadvika to enjoy seamless shopping and exclusive offers.</p>
           </div>
         </div>
       </section>
@@ -23,20 +25,34 @@
 
                     <form method="POST" action="{{ route('register') }}" class="contact-panel contact-form reveal-up is-visible">
                         @csrf
+                        
+                        @if(session('success'))
+                            <div class="alert alert-success mb-4 text-center">
+                                <i class="bi bi-check-circle me-2"></i> {{ session('success') }}
+                            </div>
+                        @endif
 
                         <div class="row g-4">
 
-                            <div class="col-12">
-                                <label class="form-label">Full Name <span>*</span></label>
-                                <input type="text" name="name" class="form-control" value="{{ old('name') }}" required autofocus autocomplete="name" placeholder="Enter Full Name">
-                                @error('name')
+                            <div class="col-md-6">
+                                <label class="form-label">First Name <span>*</span></label>
+                                <input type="text" name="first_name" value="{{ old('first_name') }}" required autofocus autocomplete="given-name" placeholder="First Name">
+                                @error('first_name')
+                                    <div class="text-danger mt-1"><small>{{ $message }}</small></div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Last Name <span>*</span></label>
+                                <input type="text" name="last_name" value="{{ old('last_name') }}" required autocomplete="family-name" placeholder="Last Name">
+                                @error('last_name')
                                     <div class="text-danger mt-1"><small>{{ $message }}</small></div>
                                 @enderror
                             </div>
 
                             <div class="col-12">
                                 <label class="form-label">Email <span>*</span></label>
-                                <input type="email" name="email" class="form-control" value="{{ old('email') }}" required autocomplete="username" placeholder="Enter your email address">
+                                <input type="email" name="email" value="{{ old('email') }}" required autocomplete="username" placeholder="Enter your email address">
                                 @error('email')
                                     <div class="text-danger mt-1"><small>{{ $message }}</small></div>
                                 @enderror
@@ -44,9 +60,9 @@
 
                             <div class="col-lg-6">
                                 <label class="form-label">Password <span>*</span></label>
-                                <div class="input-group">
-                                    <input type="password" name="password" id="reg-password" class="form-control" required autocomplete="new-password" placeholder="Enter Password">
-                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('reg-password', this)">
+                                <div style="position: relative;">
+                                    <input type="password" name="password" id="reg-password" required autocomplete="new-password" placeholder="Enter Password" style="padding-right: 45px;">
+                                    <button type="button" onclick="togglePassword('reg-password', this)" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; padding: 0; color: #888;">
                                         <i class="bi bi-eye"></i>
                                     </button>
                                 </div>
@@ -57,9 +73,9 @@
 
                             <div class="col-lg-6">
                                 <label class="form-label">Confirm Password <span>*</span></label>
-                                <div class="input-group">
-                                    <input type="password" name="password_confirmation" id="reg-password-confirm" class="form-control" required autocomplete="new-password" placeholder="Confirm Password">
-                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('reg-password-confirm', this)">
+                                <div style="position: relative;">
+                                    <input type="password" name="password_confirmation" id="reg-password-confirm" required autocomplete="new-password" placeholder="Confirm Password" style="padding-right: 45px;">
+                                    <button type="button" onclick="togglePassword('reg-password-confirm', this)" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; padding: 0; color: #888;">
                                         <i class="bi bi-eye"></i>
                                     </button>
                                 </div>

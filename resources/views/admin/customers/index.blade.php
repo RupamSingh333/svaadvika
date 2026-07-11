@@ -29,9 +29,9 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="avatar bg-primary-subtle text-primary fw-bold rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px;">
-                                                {{ strtoupper(substr($customer->first_name ?? $customer->email, 0, 1)) }}
+                                                {{ strtoupper(substr($customer->name ?? $customer->email, 0, 1)) }}
                                             </div>
-                                            <div class="fw-semibold">{{ $customer->first_name }} {{ $customer->last_name }}</div>
+                                            <div class="fw-semibold">{{ $customer->name }}</div>
                                         </div>
                                     </td>
                                     <td>{{ $customer->email }}</td>
