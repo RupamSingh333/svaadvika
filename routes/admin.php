@@ -3,6 +3,16 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\AdminAuthController;
+
+// Admin Auth Routes (Guest)
+Route::middleware('guest:web')->group(function () {
+    Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AdminAuthController::class, 'login'])->name('login.submit');
+});
+
+// Admin Logout
+Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::middleware(['auth', \App\Http\Middleware\CheckUserPermission::class])->group(function () {
     Route::get('/', function () {
