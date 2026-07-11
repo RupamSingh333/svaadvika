@@ -11,7 +11,6 @@
               <p class="hero-text">Experience restaurant-quality Indian food at home in just minutes with premium ingredients, chef-led recipes and authentic regional flavour.</p>
               <div class="hero-actions">
                 <a class="btn btn-gold" href="#products">Explore Collection <i class="bi bi-arrow-right"></i></a>
-                <button class="video-btn" type="button" aria-label="Watch brand story"><i class="bi bi-play-fill"></i><span>Watch Brand Story</span></button>
               </div>
               <div class="hero-stats">
                 <div><strong data-counter="25000">0</strong><small>Happy Families</small></div>
@@ -65,7 +64,7 @@
                 @if($product->sale_price)
                     <span class="tag">Sale</span>
                 @endif
-                <button class="card-icon" aria-label="Add {{ $product->name }} to wishlist"><i class="bi bi-heart"></i></button>
+                <!-- <button class="card-icon" aria-label="Add {{ $product->name }} to wishlist"><i class="bi bi-heart"></i></button> -->
                 <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?auto=format&fit=crop&w=900&q=85' }}" alt="{{ $product->name }}">
                 <div class="product-info">
                   <h3>{{ $product->name }}</h3>

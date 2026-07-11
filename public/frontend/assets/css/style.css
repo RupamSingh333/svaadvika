@@ -4506,4 +4506,11 @@ background-size:cover;
 
 .catalog-grid .product-card { max-width: 100%; flex: 1 1 100%; width: 100%; }
 
-.catalog-image button.quick-view-icon { top: 60px; right: 12px; }
+.catalog-image button.quick-view-icon { top: 10px; right: 12px;   display: block !important;}
+.catalog-image button{
+  display: none;
+}
+ 
+button.icon-btn.search-open{
+  display: none;
+}

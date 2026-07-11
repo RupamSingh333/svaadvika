@@ -7,22 +7,16 @@
         <button type="button" class="icon-btn" data-bs-dismiss="offcanvas" aria-label="Close menu"><i class="bi bi-x-lg"></i></button>
       </div>
       <div class="offcanvas-body">
-        <div class="mobile-search">
+        <!-- <div class="mobile-search">
           <i class="bi bi-search"></i>
           <input type="search" placeholder="Search products" aria-label="Search products">
-        </div>
+        </div> -->
         <div class="accordion mobile-accordion" id="navAccordion">
           <a href="{{ route('home') }}" data-bs-dismiss="offcanvas">Home</a>
           <a href="{{ route('about') }}" data-bs-dismiss="offcanvas">About</a>
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mobileProducts" aria-expanded="false">Products</button>
-          <div id="mobileProducts" class="accordion-collapse collapse" data-bs-parent="#navAccordion">
-            <a href="{{ route('frontend.products') }}" data-bs-dismiss="offcanvas">Biryani Kits</a>
-            <a href="{{ route('frontend.products') }}" data-bs-dismiss="offcanvas">Marinades</a>
-            <a href="{{ route('frontend.products') }}" data-bs-dismiss="offcanvas">Gift Packs</a>
-          </div>
+          <a href="{{ route('frontend.products') }}" data-bs-dismiss="offcanvas">Products</a>
           <a href="{{ route('recipes') }}" data-bs-dismiss="offcanvas">Recipes</a>
-          <a href="{{ route('home') }}#manufacturing" data-bs-dismiss="offcanvas">Manufacturing</a>
-          <a href="{{ route('home') }}#blog" data-bs-dismiss="offcanvas">Blog</a>
+          <a href="{{ route('blog') }}" data-bs-dismiss="offcanvas">Blog</a>
           <a href="{{ route('contact') }}" data-bs-dismiss="offcanvas">Contact</a>
         </div>
         <button class="theme-row theme-toggle" type="button"><i class="bi bi-moon-stars"></i><span>Switch theme</span></button>

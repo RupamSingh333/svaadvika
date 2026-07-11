@@ -41,17 +41,30 @@
                 <input id="productLiveSearch" type="search" placeholder="Search by product, category or description">
               </div>
             </div>
-            <div class="price-filter">
+            <div class="price-filter d-none">
               <label for="productPriceRange">Max Price <strong id="priceRangeValue">&#8377;600</strong></label>
               <input id="productPriceRange" type="range" min="100" max="600" value="600" step="10">
             </div>
-            <div class="rating-filter">
+            <div class="rating-filter d-none">
               <label for="productRatingFilter">Rating</label>
               <select id="productRatingFilter" aria-label="Filter by rating">
                 <option value="0">All Ratings</option>
                 <option value="5">★★★★★</option>
                 <option value="4">★★★★+</option>
                 <option value="3">★★★+</option>
+              </select>
+            </div>
+            <div class="rating-filter">
+              <label for="productRatingFilter">Sort products</label>
+                  <select id="productSortSelect" aria-label="Sort products">
+                <option value="best-selling">Sort by: Best Selling</option>
+                <option value="newest">Newest</option>
+                <option value="price-low">Price Low → High</option>
+                <option value="price-high">Price High → Low</option>
+                <option value="az">A → Z</option>
+                <option value="za">Z → A</option>
+                <!-- <option value="highest-rating">Highest Rating</option>
+                <option value="most-reviewed">Most Reviewed</option> -->
               </select>
             </div>
           </div>
@@ -61,19 +74,7 @@
               <h2>All Products</h2>
               <p id="productCountText">Showing 12 of 30 Products</p>
             </div>
-            <label>
-              <span class="visually-hidden">Sort products</span>
-              <select id="productSortSelect" aria-label="Sort products">
-                <option value="best-selling">Sort by: Best Selling</option>
-                <option value="newest">Newest</option>
-                <option value="price-low">Price Low → High</option>
-                <option value="price-high">Price High → Low</option>
-                <option value="az">A → Z</option>
-                <option value="za">Z → A</option>
-                <option value="highest-rating">Highest Rating</option>
-                <option value="most-reviewed">Most Reviewed</option>
-              </select>
-            </label>
+            
           </div>
 
           <div class="catalog-grid enhanced-catalog-grid" id="newProductGrid" aria-live="polite">

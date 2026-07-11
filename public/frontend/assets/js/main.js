@@ -625,11 +625,11 @@
       ["malai-kofta","Main Course","Malai Kofta","Soft koftas served in rich, creamy and aromatic curry.","Paneer",75,"Hard","Mild",560,4.8,700,"https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=900&q=85"]
     ].map((r, i) => ({ id:r[0], category:r[1], title:r[2], description:r[3], ingredients:r[4], time:r[5], difficulty:r[6], spice:r[7], calories:r[8], rating:r[9], reviews:r[10], image:r[11], newest:i }));
     const filterSets = {
-      Categories: ["Biryani","Starters","Main Course","Desserts","Rice"],
-      "Cooking Time": ["Under 30 Minutes","30-60 Minutes","1-2 Hours","More than 2 Hours"],
-      Diet: ["Vegetarian","Non-Vegetarian","Vegan"],
-      "Spice Level": ["Mild","Medium","Hot"],
-      "Ingredients (Include)": ["Chicken","Paneer","Rice","Basmati","Saffron"]
+      Categories: ["Biryani","Starters","Main Course","Desserts","Rice"]
+      // "Cooking Time": ["Under 30 Minutes","30-60 Minutes","1-2 Hours","More than 2 Hours"],
+      // Diet: ["Vegetarian","Non-Vegetarian","Vegan"],
+      // "Spice Level": ["Mild","Medium","Hot"],
+      // "Ingredients (Include)": ["Chicken","Paneer","Rice","Basmati","Saffron"]
     };
     const grid = document.querySelector("#recipeGrid");
     const count = document.querySelector("#recipeCount");

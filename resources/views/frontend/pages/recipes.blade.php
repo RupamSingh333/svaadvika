@@ -33,9 +33,9 @@
             <div class="recipe-results">
               <div class="recipes-toolbar reveal-up">
                 <div><h2>All Recipes <span id="recipeCount">(24)</span></h2></div>
-                <div class="recipe-search-sort">
+                <div class="recipe-search-sort ">
                   <label class="recipe-search"><i class="bi bi-search"></i><input id="recipeSearch" type="search" placeholder="Search recipes..." aria-label="Search recipes"></label>
-                  <select id="recipeSort" aria-label="Sort recipes">
+                  <select id="recipeSort" aria-label="Sort recipes" class="d-none">
                     <option value="latest">Sort by: Latest</option>
                     <option value="popular">Popular</option>
                     <option value="time">Cooking Time</option>
