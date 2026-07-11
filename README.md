@@ -77,4 +77,23 @@ git status - > chanegs dikhata hai files me
 git add . -> ye command se add ho jayega merge ke liye 
 git push -> ye command se chanegs update ho jayega git pr
 
+Step 1
+git checkout surendra
+git status
+git add .
+git commit -m "Putt Message some hhch"
 
+
+
+git checkout  main
+git pull 
+git checkout surendra 
+git merge main
+
+
+Step 2
+git checkout  main
+git pull 
+git merge surendra
+git push 
+git checkout surendra
