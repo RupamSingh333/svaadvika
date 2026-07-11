@@ -1,10 +1,10 @@
 @extends('frontend.layouts.master')
 
 @section('content')
-<section class="about-hero" style="background-color:#1a1a1a; padding:60px 0;">
-    <div class="container-xl text-center">
-        <h1 class="text-white">{{ $post->title }}</h1>
-        <p class="text-white-50">Published on {{ $post->created_at->format('M d, Y') }}</p>
+<section class="about-hero contactmain-contact-hero" style="background-color:#1a1a1a; padding:150px 0 60px 0;">
+    <div class="container-xl text-center" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;">
+        <h1 class="text-white" style="text-align: center !important; margin: 0 auto;">{{ $post->title }}</h1>
+        <p class="text-white-50 mt-2" style="text-align: center !important; margin: 0 auto;">Published on {{ $post->created_at->format('M d, Y') }}</p>
     </div>
 </section>
 
