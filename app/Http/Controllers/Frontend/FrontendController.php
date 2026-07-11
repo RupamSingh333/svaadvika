@@ -147,9 +147,64 @@ class FrontendController extends Controller
         return view('frontend.pages.product_details', compact('product', 'relatedProducts', 'jsProduct', 'jsRelatedProducts'));
     }
 
-    public function recipes()
+    public function recipeDetails($slug)
     {
-        return view('frontend.pages.recipes');
+        $recipe = \App\Models\Recipe::where('slug', $slug)
+            ->whereIn('status', ['Published', 'Featured'])
+            ->firstOrFail();
+
+        $relatedRecipes = \App\Models\Recipe::where('category', $recipe->category)
+            ->where('id', '!=', $recipe->id)
+            ->whereIn('status', ['Published', 'Featured'])
+            ->inRandomOrder()
+            ->take(3)
+            ->get();
+
+        return view('frontend.pages.recipe_details', compact('recipe', 'relatedRecipes'));
+    }
+
+    public function recipes(Request $request)
+    {
+        $query = \App\Models\Recipe::whereIn('status', ['Published', 'Featured']);
+
+        if ($request->filled('search')) {
+            $query->where(function($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->search . '%')
+                  ->orWhere('category', 'like', '%' . $request->search . '%')
+                  ->orWhere('ingredients', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        if ($request->filled('category') && $request->category !== 'all') {
+            $query->where('category', $request->category);
+        }
+
+        if ($request->filled('difficulty')) {
+            $query->whereIn('difficulty', (array) $request->difficulty);
+        }
+
+        if ($request->filled('diet_type')) {
+            $query->whereIn('diet_type', (array) $request->diet_type);
+        }
+
+        $sort = $request->get('sort', 'latest');
+        switch ($sort) {
+            case 'az':
+                $query->orderBy('title', 'asc');
+                break;
+            case 'newest':
+            case 'latest':
+                $query->latest();
+                break;
+        }
+
+        $recipes = $query->paginate(12)->withQueryString();
+
+        $categories = \App\Models\Recipe::whereIn('status', ['Published', 'Featured'])->distinct()->pluck('category')->filter()->toArray();
+        $dietTypes = ['Vegetarian', 'Non-Vegetarian', 'Vegan'];
+        $difficulties = ['Easy', 'Medium', 'Hard'];
+
+        return view('frontend.pages.recipes', compact('recipes', 'categories', 'dietTypes', 'difficulties'));
     }
 
     public function cart()
@@ -162,25 +217,5 @@ class FrontendController extends Controller
         return view('frontend.pages.checkout');
     }
 
-    public function blog()
-    {
-        $posts = \App\Models\Post::where('type', 'blog')
-            ->where(function($q) {
-                $q->where('status', 'published')->orWhere('status', 'active');
-            })
-            ->orderBy('created_at', 'desc')->paginate(10);
-        return view('frontend.pages.blog', compact('posts'));
-    }
 
-    public function blogDetails($slug)
-    {
-        $post = \App\Models\Post::where('slug', $slug)->where('type', 'blog')->firstOrFail();
-        return view('frontend.pages.blog_details', compact('post'));
-    }
-
-    public function page($slug)
-    {
-        $page = \App\Models\Post::where('slug', $slug)->where('type', 'page')->firstOrFail();
-        return view('frontend.pages.page_details', compact('page'));
-    }
 }

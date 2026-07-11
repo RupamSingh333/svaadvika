@@ -16,7 +16,6 @@
           <a href="{{ route('about') }}" data-bs-dismiss="offcanvas">About</a>
           <a href="{{ route('frontend.products') }}" data-bs-dismiss="offcanvas">Products</a>
           <a href="{{ route('recipes') }}" data-bs-dismiss="offcanvas">Recipes</a>
-          <a href="{{ route('blog') }}" data-bs-dismiss="offcanvas">Blog</a>
           <a href="{{ route('contact') }}" data-bs-dismiss="offcanvas">Contact</a>
         </div>
         <button class="theme-row theme-toggle" type="button"><i class="bi bi-moon-stars"></i><span>Switch theme</span></button>

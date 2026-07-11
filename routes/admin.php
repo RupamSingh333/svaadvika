@@ -38,6 +38,9 @@ Route::middleware(['auth', \App\Http\Middleware\CheckUserPermission::class])->gr
     Route::post('users/{user}/permissions', [\App\Http\Controllers\Admin\UserController::class, 'updatePermissions'])->name('users.permissions.update');
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->except(['show']);
 
+    // Recipes
+    Route::resource('recipes', \App\Http\Controllers\Admin\RecipeController::class)->except(['show']);
+
     // Products
     Route::resource('products', \App\Http\Controllers\Admin\ProductController::class)->except(['show']);
     Route::delete('product-images/{productImage}', [\App\Http\Controllers\Admin\ProductController::class, 'destroyImage'])->name('product-images.destroy');

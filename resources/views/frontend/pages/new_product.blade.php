@@ -5,7 +5,7 @@
         <div class="container-xl">
           <div class="products-hero-copy reveal-up">
             <nav class="breadcrumb-nav" aria-label="Breadcrumb">
-              <a href="index.html">Home</a>
+              <a href="{{ route('home') }}">Home</a>
               <i class="bi bi-chevron-right"></i>
               <span>Products</span>
             </nav>

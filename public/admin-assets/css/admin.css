@@ -179,7 +179,8 @@ body {
     border-right: 1px solid #333;
 }
 [data-bs-theme="dark"] .header.glass-effect,
-[data-bs-theme="dark"] .card.glass-effect {
+[data-bs-theme="dark"] .card.glass-effect,
+[data-bs-theme="dark"] .footer.glass-effect {
     background: rgba(30, 30, 30, 0.8) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
@@ -193,4 +194,22 @@ body {
 }
 [data-bs-theme="dark"] .table {
     color: #e0e0e0;
+}
+[data-bs-theme="dark"] .form-control,
+[data-bs-theme="dark"] .form-select {
+    background-color: #2b2b2b;
+    border-color: #444;
+    color: #e0e0e0;
+}
+[data-bs-theme="dark"] .form-control:focus,
+[data-bs-theme="dark"] .form-select:focus {
+    background-color: #333;
+    color: #fff;
+    border-color: var(--primary-color);
+}
+[data-bs-theme="dark"] .nav-pills .nav-link:not(.active) {
+    color: #b0b0b0;
+}
+[data-bs-theme="dark"] .nav-pills .nav-link:hover {
+    background: rgba(255, 255, 255, 0.05);
 }

@@ -5,7 +5,7 @@
         <div class="container-xl">
           <div class="contact-hero-copy reveal-up">
             <nav class="breadcrumb-nav" aria-label="Breadcrumb">
-              <a href="index.html">Home</a>
+              <a href="{{ route('home') }}">Home</a>
               <i class="bi bi-chevron-right"></i>
               <span>Contact</span>
             </nav>
@@ -68,19 +68,19 @@
                 </div>
                 <article>
                   <span class="contact-icon call"><i class="bi bi-telephone"></i></span>
-                  <div><h3>Call Us</h3><a href="tel:+919876543210">+91 98765 43210</a><small>Mon - Sat: 9:00 AM - 7:00 PM</small></div>
+                  <div><h3>Call Us</h3><a href="tel:{{ $settings['contact_phone'] ?? '+919999999999' }}">{{ $settings['contact_phone'] ?? '+91 99999 99999' }}</a><small>Mon - Sat: 9:00 AM - 7:00 PM</small></div>
                 </article>
                 <article>
                   <span class="contact-icon mail"><i class="bi bi-envelope"></i></span>
-                  <div><h3>Email Us</h3><a href="mailto:hello@svaadvika.com">hello@svaadvika.com</a><small>We reply within 24 hours</small></div>
+                  <div><h3>Email Us</h3><a href="mailto:{{ $settings['contact_email'] ?? 'hello@svaadvika.com' }}">{{ $settings['contact_email'] ?? 'hello@svaadvika.com' }}</a><small>We reply within 24 hours</small></div>
                 </article>
                 <article>
                   <span class="contact-icon whatsapp"><i class="bi bi-whatsapp"></i></span>
-                  <div><h3>WhatsApp Us</h3><a href="https://wa.me/919876543210">+91 98765 43210</a><small>Chat with us on WhatsApp</small></div>
+                  <div><h3>WhatsApp Us</h3><a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '919999999999' }}">+{{ $settings['whatsapp_number'] ?? '91 99999 99999' }}</a><small>Chat with us on WhatsApp</small></div>
                 </article>
                 <article>
                   <span class="contact-icon location"><i class="bi bi-geo-alt"></i></span>
-                  <div><h3>Our Office</h3><p>Svaadvika Foods Pvt. Ltd.<br>123, Flavour Street, Andheri (E)<br>Mumbai, Maharashtra 400069, India</p></div>
+                  <div><h3>Our Office</h3><p>{{ $settings['address'] ?? 'New Delhi, India' }}</p></div>
                 </article>
               </aside>
             </div>
@@ -96,18 +96,13 @@
                 <h2>We&rsquo;re Here for You</h2>
                 <p>Visit our office or connect with our team. We&rsquo;re always happy to help!</p>
               </div>
-              <a class="btn btn-green" href="https://www.google.com/maps/search/Mumbai" target="_blank" rel="noreferrer"><i class="bi bi-geo-alt"></i> View on Google Maps</a>
             </div>
-            <div class="contact-map" aria-label="Svaadvika Mumbai location map">
-              <span class="map-water"></span>
-              <span class="map-road road-one"></span>
-              <span class="map-road road-two"></span>
-              <span class="map-road road-three"></span>
-              <span class="map-pin"><span>S</span></span>
-              <strong>Mumbai</strong>
-              <em>Andheri East</em>
-              <small>Navi Mumbai</small>
+            
+            @if(isset($settings['google_map_url']) && $settings['google_map_url'])
+            <div class="ratio ratio-21x9 mt-4 mb-4" style="border-radius: var(--radius-xl); overflow: hidden;">
+                <iframe src="{{ $settings['google_map_url'] }}" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
+            @endif
             <div class="office-grid">
               <article><i class="bi bi-buildings"></i><h3>Head Office</h3><p>123, Flavour Street, Andheri (E), Mumbai, Maharashtra 400069</p><span>Mon - Sat: 9 AM - 7 PM</span></article>
               <article><i class="bi bi-shop"></i><h3>Experience Store</h3><p>Unit No. 5, Phoenix Marketcity, Kurla West, Mumbai, Maharashtra 400070</p><span>Mon - Sun: 10 AM - 9 PM</span></article>

@@ -1,18 +1,29 @@
 @extends('frontend.layouts.master')
 
 @section('content')
-<div class="details-main" data-product-details-page style="padding-top: 120px;">
+<section class="products-hero">
     <div class="container-xl">
-        <nav class="details-breadcrumb" aria-label="breadcrumb">
-          <ol class="breadcrumb" id="detailsBreadcrumb">
-            <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('frontend.products') }}">Products</a></li>
-            @if($product->category)
-            <li class="breadcrumb-item"><a href="{{ route('frontend.products') }}?category={{ $product->category->slug }}">{{ $product->category->name }}</a></li>
-            @endif
-            <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
-          </ol>
-        </nav>
+        <div class="products-hero-copy reveal-up">
+            <nav class="breadcrumb-nav" aria-label="Breadcrumb" id="detailsBreadcrumb">
+                <a href="/">Home</a>
+                <i class="bi bi-chevron-right"></i>
+                <a href="{{ route('frontend.products') }}">Products</a>
+                @if($product->category)
+                <i class="bi bi-chevron-right"></i>
+                <a href="{{ route('frontend.products') }}?category={{ $product->category->slug }}">{{ $product->category->name }}</a>
+                @endif
+                <i class="bi bi-chevron-right"></i>
+                <span>{{ $product->name }}</span>
+            </nav>
+            <h1>{{ $product->name }}</h1>
+            <p>Authentic flavours, premium ingredients crafted for your kitchen.</p>
+            <span class="products-divider" aria-hidden="true"></span>
+        </div>
+    </div>
+</section>
+
+<div class="details-main" data-product-details-page style="padding-top: 40px;">
+    <div class="container-xl">
 
         <section class="details-hero-grid">
           <div class="details-gallery reveal-up">

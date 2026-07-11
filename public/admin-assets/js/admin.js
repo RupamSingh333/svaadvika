@@ -32,11 +32,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.documentElement.classList.remove('dark-mode');
                 localStorage.setItem('adminTheme', 'light');
                 themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+                document.dispatchEvent(new CustomEvent('themeChanged', { detail: { isDark: false } }));
             } else {
                 document.documentElement.setAttribute('data-bs-theme', 'dark');
                 document.documentElement.classList.add('dark-mode');
                 localStorage.setItem('adminTheme', 'dark');
                 themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+                document.dispatchEvent(new CustomEvent('themeChanged', { detail: { isDark: true } }));
             }
         });
     }  

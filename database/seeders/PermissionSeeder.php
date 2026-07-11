@@ -16,7 +16,7 @@ class PermissionSeeder extends Seeder
             'categories' => ['view', 'create', 'edit', 'delete'],
             'orders' => ['view'],
             'coupons' => ['view', 'create', 'edit', 'delete'],
-            'posts' => ['view', 'create', 'edit', 'delete'],
+            'recipes' => ['view', 'create', 'edit', 'delete'],
             'users' => ['view', 'create', 'edit', 'delete'],
             'customers' => ['view', 'edit', 'delete'],
             'settings' => ['view'],

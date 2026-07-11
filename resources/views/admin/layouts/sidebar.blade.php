@@ -18,9 +18,7 @@
             </li>
             @endhasPermission
 
-            @if(auth()->user()->hasPermissionTo('products', 'view') || auth()->user()->hasPermissionTo('categories', 'view'))
-            <li class="nav-item-header">Food Management</li>
-            @endif
+
 
             @hasPermission('products', 'view')
             <li class="nav-item">
@@ -40,9 +38,7 @@
             </li>
             @endhasPermission
 
-            @if(auth()->user()->hasPermissionTo('orders', 'view') || auth()->user()->hasPermissionTo('coupons', 'view'))
-            <li class="nav-item-header">Sales & Business</li>
-            @endif
+
 
             @hasPermission('orders', 'view')
             <li class="nav-item">
@@ -62,19 +58,17 @@
             </li>
             @endhasPermission
 
-            @hasPermission('posts', 'view')
-            <li class="nav-item-header">Content Management</li>
+
+            @hasPermission('recipes', 'view')
             <li class="nav-item">
-                <a href="{{ route('admin.posts.index') }}" class="nav-link {{ request()->routeIs('admin.posts.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-file-alt"></i>
-                    <span>CMS & Blogs</span>
+                <a href="{{ route('admin.recipes.index') }}" class="nav-link {{ request()->routeIs('admin.recipes.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-utensils"></i>
+                    <span>Recipe Manager</span>
                 </a>
             </li>
             @endhasPermission
 
-            @if(auth()->user()->hasPermissionTo('customers', 'view') || auth()->user()->hasPermissionTo('users', 'view') || auth()->user()->hasPermissionTo('settings', 'view') || auth()->user()->hasPermissionTo('audit-logs', 'view'))
-            <li class="nav-item-header">System Settings</li>
-            @endif
+
 
             @hasPermission('customers', 'view')
             <li class="nav-item">

@@ -41,24 +41,50 @@
                                 <textarea name="site_description" class="form-control" rows="3">{{ $general->get('site_description', '') }}</textarea>
                             </div>
                             <div class="mb-4">
+                                <label class="form-label fw-semibold">Website Logo</label>
+                                @if($general->get('site_logo'))
+                                    <div class="mb-2">
+                                        <img src="{{ asset('storage/' . $general->get('site_logo')) }}" alt="Site Logo" style="height: 60px; object-fit: contain;">
+                                    </div>
+                                @endif
+                                <input type="file" name="site_logo" class="form-control" accept="image/*">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Header SEO Content (HTML / Meta Tags)</label>
+                                <textarea name="header_seo_content" class="form-control" rows="4" placeholder="<meta name='keywords' content='spices, india, recipes'>">{{ $general->get('header_seo_content', '') }}</textarea>
+                                <small class="text-muted">This content will be placed inside the &lt;head&gt; tag of your website.</small>
+                            </div>
+                            <div class="mb-4">
                                 <label class="form-label fw-semibold">Currency Symbol</label>
                                 <input type="text" name="currency_symbol" class="form-control" value="{{ $general->get('currency_symbol', '₹') }}" style="max-width: 150px;">
                             </div>
                         </div>
 
                         <!-- Contact Tab -->
+                        @php
+                            $contact = $settings->has('contact') ? $settings['contact']->pluck('value', 'key') : collect();
+                        @endphp
                         <div class="tab-pane fade" id="contact" role="tabpanel">
                             <div class="mb-4">
                                 <label class="form-label fw-semibold">Contact Email</label>
-                                <input type="email" name="contact_email" class="form-control" value="{{ $general->get('contact_email', 'info@svaadvika.com') }}">
+                                <input type="email" name="contact_email" class="form-control" value="{{ $contact->get('contact_email', 'info@svaadvika.com') }}">
                             </div>
                             <div class="mb-4">
                                 <label class="form-label fw-semibold">Contact Phone</label>
-                                <input type="text" name="contact_phone" class="form-control" value="{{ $general->get('contact_phone', '+91 99999 99999') }}">
+                                <input type="text" name="contact_phone" class="form-control" value="{{ $contact->get('contact_phone', '+91 99999 99999') }}">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">WhatsApp Number</label>
+                                <input type="text" name="whatsapp_number" class="form-control" value="{{ $contact->get('whatsapp_number', '919999999999') }}">
+                                <small class="text-muted">Include country code without '+' (e.g. 919999999999)</small>
                             </div>
                             <div class="mb-4">
                                 <label class="form-label fw-semibold">Office Address</label>
-                                <textarea name="address" class="form-control" rows="3">{{ $general->get('address', 'New Delhi, India') }}</textarea>
+                                <textarea name="address" class="form-control" rows="3">{{ $contact->get('address', 'New Delhi, India') }}</textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Google Map URL (Embed src link)</label>
+                                <textarea name="google_map_url" class="form-control" rows="2" placeholder="https://www.google.com/maps/embed?...">{{ $contact->get('google_map_url', '') }}</textarea>
                             </div>
                         </div>
 
@@ -75,6 +101,14 @@
                             <div class="mb-4">
                                 <label class="form-label fw-semibold"><i class="fa-brands fa-twitter text-info me-2"></i> Twitter URL</label>
                                 <input type="url" name="twitter_url" class="form-control" value="{{ $social->get('twitter_url', '') }}">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold"><i class="fa-brands fa-youtube text-danger me-2"></i> YouTube URL</label>
+                                <input type="url" name="youtube_url" class="form-control" value="{{ $social->get('youtube_url', '') }}">
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold"><i class="fa-brands fa-pinterest text-danger me-2"></i> Pinterest URL</label>
+                                <input type="url" name="pinterest_url" class="form-control" value="{{ $social->get('pinterest_url', '') }}">
                             </div>
                         </div>
                         

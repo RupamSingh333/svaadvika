@@ -1,11 +1,15 @@
     <header class="site-header fixed-top" id="siteHeader">
       <nav class="navbar navbar-expand-xl" aria-label="Primary navigation">
         <div class="container-xl">
-          <a class="brand" href="{{ route('home') }}" aria-label="Svaadvika home">
-            <span class="brand-emblem">S</span>
+          <a class="brand" href="{{ route('home') }}" aria-label="{{ $settings['site_name'] ?? 'Svaadvika' }} home">
+            @if(isset($settings['site_logo']) && $settings['site_logo'])
+                <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="{{ $settings['site_name'] ?? 'Svaadvika' }}" style="height: 40px; margin-right: 10px; border-radius: 4px;">
+            @else
+                <span class="brand-emblem">{{ substr($settings['site_name'] ?? 'S', 0, 1) }}</span>
+            @endif
             <span>
-              <strong>SVAADVIKA</strong>
-              <small>Flavours of India, Made Perfect</small>
+              <strong>{{ strtoupper($settings['site_name'] ?? 'SVAADVIKA') }}</strong>
+              <small>{{ $settings['site_description'] ?? 'Flavours of India, Made Perfect' }}</small>
             </span>
           </a>
           <button class="navbar-toggler menu-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-label="Open menu">
@@ -19,7 +23,6 @@
             
               <li class="nav-item"><a class="nav-link {{ request()->routeIs('recipes') ? 'active' : '' }}" href="{{ route('recipes') }}">Recipes</a></li>
               <!-- <li class="nav-item"><a class="nav-link" href="{{ route('home') }}#manufacturing">Manufacturing</a></li> -->
-              <li class="nav-item"><a class="nav-link {{ request()->routeIs('blog*') ? 'active' : '' }}" href="{{ route('blog') }}">Blog</a></li>
               <li class="nav-item"><a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact</a></li>
             </ul>
           </div>

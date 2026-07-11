@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Admin Panel') - {{ config('app.name', 'Food Ordering') }}</title>
+    <title>@yield('title', 'Admin Panel') - {{ $settings['site_name'] ?? config('app.name', 'Food Ordering') }}</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -63,16 +63,32 @@
     <!-- TinyMCE -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
     <script>
-        tinymce.init({
-            selector: '.richtext',
-            plugins: 'code link image lists table media fullscreen visualblocks help wordcount preview searchreplace',
-            toolbar: 'undo redo | formatselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media table | removeformat | fullscreen preview code | help',
-            height: 500,
-            promotion: false,
-            branding: false,
-            image_title: true,
-            automatic_uploads: true,
-            file_picker_types: 'image',
+        function initTinyMCE(isDark) {
+            tinymce.init({
+                selector: '.richtext',
+                skin: isDark ? 'oxide-dark' : 'oxide',
+                content_css: isDark ? 'dark' : 'default',
+                plugins: 'code link image lists table media fullscreen visualblocks help wordcount preview searchreplace',
+                toolbar: 'undo redo | formatselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media table | removeformat | fullscreen preview code | help',
+                height: 500,
+                promotion: false,
+                branding: false,
+                image_title: true,
+                automatic_uploads: true,
+                file_picker_types: 'image',
+            });
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+            initTinyMCE(isDark);
+        });
+
+        // Re-initialize on theme change
+        document.addEventListener('themeChanged', function(e) {
+            tinymce.remove('.richtext');
+            initTinyMCE(e.detail.isDark);
         });
     </script>
 
