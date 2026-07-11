@@ -15,23 +15,17 @@
             <ul class="navbar-nav main-nav">
               <li class="nav-item"><a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a></li>
               <li class="nav-item"><a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">About</a></li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle {{ request()->routeIs('frontend.products') ? 'active' : '' }}" href="{{ route('frontend.products') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">Products</a>
-                <div class="dropdown-menu premium-menu">
-                  <a class="dropdown-item" href="{{ route('frontend.products') }}">Biryani Kits</a>
-                  <a class="dropdown-item" href="{{ route('frontend.products') }}">Marinades</a>
-                  <a class="dropdown-item" href="{{ route('frontend.products') }}">Combos</a>
-                </div>
-              </li>
+               <li class="nav-item"><a class="nav-link {{ request()->routeIs('products') ? 'active' : '' }}" href="{{ route('frontend.products') }}">Products</a></li>
+            
               <li class="nav-item"><a class="nav-link {{ request()->routeIs('recipes') ? 'active' : '' }}" href="{{ route('recipes') }}">Recipes</a></li>
-              <li class="nav-item"><a class="nav-link" href="{{ route('home') }}#manufacturing">Manufacturing</a></li>
+              <!-- <li class="nav-item"><a class="nav-link" href="{{ route('home') }}#manufacturing">Manufacturing</a></li> -->
               <li class="nav-item"><a class="nav-link {{ request()->routeIs('blog*') ? 'active' : '' }}" href="{{ route('blog') }}">Blog</a></li>
               <li class="nav-item"><a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact</a></li>
             </ul>
           </div>
           <div class="header-actions d-none d-xl-flex">
-            <button class="icon-btn search-open" type="button" aria-label="Search" aria-haspopup="dialog"><i class="bi bi-search"></i></button>
-            <button class="icon-btn" aria-label="Wishlist"><i class="bi bi-heart"></i></button>
+            <!-- <button class="icon-btn search-open" type="button" aria-label="Search" aria-haspopup="dialog"><i class="bi bi-search"></i></button>
+            <button class="icon-btn" aria-label="Wishlist"><i class="bi bi-heart"></i></button> -->
             <button class="icon-btn cart-btn" aria-label="Cart"><i class="bi bi-bag"></i><span>2</span></button>
             <button class="icon-btn theme-toggle" type="button" aria-label="Toggle dark mode"><i class="bi bi-moon-stars"></i></button>
             @auth
