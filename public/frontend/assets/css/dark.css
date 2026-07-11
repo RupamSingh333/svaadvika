@@ -1,0 +1,499 @@
+body.dark-mode {
+  --cream: #08140e;
+  --cream-2: #12241a;
+  --text: #ffffff;
+  --muted: #d9d9d9;
+  --border: rgba(200, 155, 35, 0.28);
+  background: #08140e;
+  color: #ffffff;
+}
+body.dark-mode .site-header.scrolled,
+body.dark-mode .story-copy,
+body.dark-mode .story-section,
+body.dark-mode .social-section,
+body.dark-mode .mobile-offcanvas {
+  background: #09150f;
+}
+body.dark-mode .site-header.scrolled .brand,
+body.dark-mode .site-header.scrolled .nav-link,
+body.dark-mode .site-header.scrolled .icon-btn,
+body.dark-mode .video-btn.dark,
+body.dark-mode .mobile-offcanvas .brand,
+body.dark-mode .mobile-offcanvas .icon-btn,
+body.dark-mode .mobile-accordion a,
+body.dark-mode .mobile-accordion .accordion-button,
+body.dark-mode .theme-row {
+  color: #ffffff;
+}
+body.dark-mode .feature-bar,
+body.dark-mode .testimonial-card,
+body.dark-mode .newsletter-card,
+body.dark-mode .service-list,
+body.dark-mode .instagram-block,
+body.dark-mode .timeline span,
+body.dark-mode .premium-menu,
+body.dark-mode .search-dialog,
+body.dark-mode .contact-panel,
+body.dark-mode .office-grid article,
+body.dark-mode .faq-grid details,
+body.dark-mode .mission-card,
+body.dark-mode .cert-panel,
+body.dark-mode .values-grid,
+body.dark-mode .category-tabs button,
+body.dark-mode .catalog-card,
+body.dark-mode .catalog-pagination a,
+body.dark-mode .product-filter-panel,
+body.dark-mode .no-products-found,
+body.dark-mode .product-quick-modal .modal-content,
+body.dark-mode .video-modal .modal-content,
+body.dark-mode .details-panel,
+body.dark-mode .inside-card,
+body.dark-mode .details-feature-strip,
+body.dark-mode .reviews-grid article {
+  background: #12241a;
+  color: #ffffff;
+}
+body.dark-mode .newsletter-card input,
+body.dark-mode .mobile-search input,
+body.dark-mode .search-form input,
+body.dark-mode .contact-form input,
+body.dark-mode .contact-form select,
+body.dark-mode .contact-form textarea {
+  background: #08140e;
+  color: #ffffff;
+  border-color: rgba(200,155,35,0.35);
+}
+body.dark-mode .contact-form label,
+body.dark-mode .contact-details a,
+body.dark-mode .office-grid p,
+body.dark-mode .contact-map strong,
+body.dark-mode .contact-map em,
+body.dark-mode .contact-map small {
+  color: #ffffff;
+}
+body.dark-mode .contact-map {
+  background:
+    linear-gradient(90deg, rgba(10,34,24,0.72), rgba(18,36,26,0.82)),
+    repeating-linear-gradient(28deg, transparent 0 30px, rgba(200,155,35,0.18) 31px 33px),
+    #12241a;
+}
+body.dark-mode .office-grid span,
+body.dark-mode .office-grid a {
+  background: rgba(255,255,255,0.08);
+  color: #ffffff;
+}
+body.dark-mode .journey-timeline strong,
+body.dark-mode .cert-grid strong,
+body.dark-mode .achievement-grid strong,
+body.dark-mode .catalog-body p,
+body.dark-mode .qty-control button,
+body.dark-mode .details-info h1,
+body.dark-mode .details-price strong,
+body.dark-mode .nutrition-table th,
+body.dark-mode .nutrition-table td,
+body.dark-mode .details-faq .accordion-button {
+  color: #ffffff;
+}
+body.dark-mode .details-faq .accordion-button,
+body.dark-mode .mobile-detail-bar {
+  background: rgba(9,21,15,0.94);
+}
+body.dark-mode .video-modal .modal-title,
+body.dark-mode .details-breadcrumb .breadcrumb-item.active {
+  color: #ffffff;
+}
+body.dark-mode .products-toolbar select {
+  background: #08140e;
+  color: #ffffff;
+  border-color: rgba(200,155,35,0.35);
+}
+body.dark-mode .live-search-field input,
+body.dark-mode .rating-filter select {
+  background: #08140e;
+  color: #ffffff;
+  border-color: rgba(200,155,35,0.35);
+}
+body.dark-mode .category-tabs button.active,
+body.dark-mode .category-tabs button:hover,
+body.dark-mode .catalog-pagination a.active,
+body.dark-mode .catalog-pagination a:hover {
+  background: var(--green);
+}
+
+body.dark-mode .recipe-filter-sidebar,
+body.dark-mode .recipe-filter-canvas,
+body.dark-mode .recipe-card,
+body.dark-mode .recipe-quick-modal .modal-content {
+  background: #12241a;
+  color: #ffffff;
+}
+body.dark-mode .recipe-search input,
+body.dark-mode .recipe-search-sort select,
+body.dark-mode .recipe-newsletter input {
+  background: #08140e;
+  color: #ffffff;
+  border-color: rgba(200,155,35,0.35);
+}
+body.dark-mode .recipe-card-body h3 a,
+body.dark-mode .recipe-card-body p,
+body.dark-mode .recipe-meta,
+body.dark-mode .recipe-check,
+body.dark-mode .recipe-quick-content h2,
+body.dark-mode .recipes-toolbar h2 {
+  color: #ffffff;
+}
+body.dark-mode .journey-timeline span,
+body.dark-mode .cert-grid i,
+body.dark-mode .achievement-grid i {
+  background: #08140e;
+}
+body.dark-mode .values-grid article:hover {
+  background: rgba(255,255,255,0.06);
+}
+body.dark-mode .search-close {
+  background: rgba(255,255,255,0.08);
+  color: #ffffff;
+}
+body.dark-mode .mobile-bottom {
+  background: rgba(9, 21, 15, 0.92);
+}
+body.dark-mode .theme-toggle i {
+  transform: rotate(180deg);
+}
+/*=========================================
+    CART SECTION DARK MODE
+=========================================*/
+
+body.dark-mode .cart-section{
+    background:#08140e;
+}
+
+/* Cart Table */
+
+body.dark-mode .cart-section .cart-table{
+    background:#08140e;
+    border-color:#374151;
+}
+
+/* Table */
+
+body.dark-mode .cart-section .table{
+    color:#f9fafb;
+}
+
+body.dark-mode .cart-section .table thead th{
+    background:#08140e;
+    color:#ffffff;
+    border-bottom:1px solid #374151;
+}
+
+body.dark-mode .cart-section .table tbody td{
+    color:#d1d5db;
+    border-bottom:1px solid #374151;
+}
+
+body.dark-mode .cart-section .table tbody tr:hover{
+    background:#2a3646;
+}
+
+/* Product */
+
+body.dark-mode .cart-section .product-title{
+    color:#ffffff;
+}
+
+body.dark-mode .cart-section .price{
+    color:#fbbf24;
+    font-weight:600;
+}
+
+body.dark-mode .cart-section .product-img{
+    border:1px solid #4b5563;
+}
+
+/* Quantity */
+
+body.dark-mode .cart-section .qty-box{
+    background:#08140e;
+    border:1px solid #4b5563;
+}
+
+body.dark-mode .cart-section .qty-btn{
+    background:#08140e;
+    border:1px solid #4b5563;
+    color:#ffffff;
+}
+
+body.dark-mode .cart-section .qty-btn:hover{
+    background:#0d3421;
+    color:#ffffff;
+}
+
+body.dark-mode .cart-section .qty-box input{
+    background:transparent;
+    color:#ffffff;
+}
+
+/* Remove */
+
+body.dark-mode .cart-section .remove-btn{
+    color:#ef4444;
+}
+
+body.dark-mode .cart-section .remove-btn:hover{
+    color:#f87171;
+}
+
+/* Summary */
+
+body.dark-mode .cart-section .summary-card{
+    background:#08140e;
+    border:1px solid #374151;
+}
+
+body.dark-mode .cart-section .summary-title{
+    color:#ffffff;
+}
+
+body.dark-mode .cart-section .summary-item{
+    color:#d1d5db;
+}
+
+body.dark-mode .cart-section .summary-item.total{
+    color:#ffffff;
+    font-weight:600;
+}
+
+body.dark-mode .cart-section .summary-card hr{
+    border-color:#374151;
+}
+
+/* Buttons */
+
+body.dark-mode .cart-section .btn-green,
+body.dark-mode .cart-section .continue-btn,
+body.dark-mode .cart-section .checkout-btn{
+    background:#0d3421;
+    color:#ffffff;
+}
+
+body.dark-mode .cart-section .btn-green:hover,
+body.dark-mode .cart-section .continue-btn:hover,
+body.dark-mode .cart-section .checkout-btn:hover{
+    background:#c89b23;
+    color:#08140e;
+}
+
+/* Bootstrap Table Override */
+
+body.dark-mode .cart-section .table>:not(caption)>*>*{
+    background:transparent;
+    color:inherit;
+}
+
+body.dark-mode .cart-section .table-responsive{
+    border-color:#374151;
+}
+/*=========================================
+    CHECKOUT DARK MODE
+=========================================*/
+
+/* body.dark-mode .checkout-section{
+    background:#08140e;
+} */
+
+/* Cards */
+
+body.dark-mode .checkout-card,
+body.dark-mode .checkout-summary{
+    background:#08140e;
+    border-color:#374151;
+    box-shadow:none;
+}
+
+/* Heading */
+
+body.dark-mode .card-title{
+    border-bottom:1px solid #374151;
+}
+
+body.dark-mode .card-title h3{
+    color:#fff;
+}
+
+/* Labels */
+
+body.dark-mode .checkout-card .form-label{
+    color:#f3f4f6;
+}
+
+body.dark-mode .checkout-card .form-label span{
+    color:#ef4444;
+}
+
+/* Inputs */
+
+body.dark-mode .checkout-card .form-control,
+body.dark-mode .checkout-card .form-select{
+    background:#08140e;
+    color:#fff;
+    border-color:#4b5563;
+}
+
+body.dark-mode .checkout-card textarea.form-control{
+    background:#08140e;
+}
+
+body.dark-mode .checkout-card .form-control::placeholder{
+    color:#9ca3af;
+}
+
+body.dark-mode .checkout-card .form-control:focus,
+body.dark-mode .checkout-card .form-select:focus{
+    background:#08140e;
+    color:#fff;
+    border-color:#c89b23;
+    box-shadow:0 0 0 .15rem rgba(200,155,35,.20);
+}
+
+/* Select */
+
+body.dark-mode .checkout-card .form-select option{
+    background:#08140e;
+    color:#fff;
+}
+
+/* Autofill */
+
+body.dark-mode .checkout-card input:-webkit-autofill{
+    -webkit-box-shadow:0 0 0 1000px #08140e inset;
+    -webkit-text-fill-color:#fff;
+}
+
+/* Product List */
+
+body.dark-mode .product-item{
+    border-bottom:1px solid #374151;
+}
+
+body.dark-mode .product-item h6{
+    color:#fff;
+}
+
+body.dark-mode .product-item span{
+    color:#9ca3af;
+}
+
+body.dark-mode .product-item strong{
+    color:#fbbf24;
+}
+
+/* Summary */
+
+body.dark-mode .summary-list{
+    border-color:#374151;
+}
+
+body.dark-mode .summary-item span{
+    color:#d1d5db;
+}
+
+body.dark-mode .summary-item strong{
+    color:#fff;
+}
+
+body.dark-mode .summary-item.total{
+    border-top:1px dashed #4b5563;
+}
+
+body.dark-mode .summary-item.total span,
+body.dark-mode .summary-item.total strong{
+    color:#fbbf24;
+}
+
+/* Payment */
+
+body.dark-mode .payment-title{
+    color:#fff;
+}
+
+body.dark-mode .payment-option label{
+    color:#e5e7eb;
+}
+
+body.dark-mode .payment-option input[type="radio"]{
+    accent-color:#c89b23;
+}
+
+/* Terms */
+
+body.dark-mode .terms-box{
+    border-top:1px solid #374151;
+}
+
+body.dark-mode .terms-box .form-check-label{
+    color:#d1d5db;
+}
+
+body.dark-mode .terms-box a{
+    color:#fbbf24;
+}
+
+body.dark-mode .terms-box a:hover{
+    color:#fff;
+}
+
+/* Buttons */
+
+body.dark-mode .place-order-btn{
+    background:#0d3421;
+    color:#fff;
+}
+
+body.dark-mode .place-order-btn:hover{
+    background:#c89b23;
+    color:#08140e;
+}
+
+/* Secure Checkout */
+
+body.dark-mode .secure-checkout{
+    color:#4ade80;
+}
+
+/* Bootstrap Fix */
+
+body.dark-mode .form-check-input{
+    background-color:#08140e;
+    border-color:#4b5563;
+}
+
+body.dark-mode .form-check-input:checked{
+    background-color:#c89b23;
+    border-color:#c89b23;
+}
+
+body.dark-mode .form-control:disabled{
+    background:#374151;
+    color:#d1d5db;
+}
+
+/* Scrollbar */
+
+body.dark-mode ::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+}
+
+body.dark-mode ::-webkit-scrollbar-track{
+    background:#08140e;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb{
+    background:#4b5563;
+    border-radius:20px;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb:hover{
+    background:#6b7280;
+}

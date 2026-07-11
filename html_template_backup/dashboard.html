@@ -1,0 +1,1021 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Svaadvika | Premium Indian Ready-to-Cook Food</title>
+    <meta name="description" content="Svaadvika brings authentic Indian biryani kits, marinades and premium recipes to modern family kitchens with restaurant-quality taste.">
+    <link rel="canonical" href="./">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/variables.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/dark.css" rel="stylesheet">
+    <link href="assets/css/animations.css" rel="stylesheet">
+    <link href="assets/css/responsive.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="page-loader" aria-hidden="true">
+      <div class="loader-mark">
+        <span>S</span>
+        <small>Svaadvika</small>
+      </div>
+    </div>
+
+    <div class="contact-topbar">
+      <div class="container-xl">
+        <span><i class="bi bi-truck"></i> Free shipping on orders above &#8377;499</span>
+        <span>Authentic flavours. Premium ingredients. Made with <span class="heart">&hearts;</span> in India</span>
+        <span><a href="#contactForm">Track Order</a><a href="#faq">Help</a></span>
+      </div>
+    </div>
+
+    <header class="site-header fixed-top" id="siteHeader">
+      <nav class="navbar navbar-expand-xl" aria-label="Primary navigation">
+        <div class="container-xl">
+          <a class="brand" href="#home" aria-label="Svaadvika home">
+            <span class="brand-emblem">S</span>
+            <span>
+              <strong>SVAADVIKA</strong>
+              <small>Flavours of India, Made Perfect</small>
+            </span>
+          </a>
+          <button class="navbar-toggler menu-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-label="Open menu">
+            <i class="bi bi-list"></i>
+          </button>
+          <div class="collapse navbar-collapse justify-content-center">
+            <ul class="navbar-nav main-nav">
+              <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#products" role="button" data-bs-toggle="dropdown" aria-expanded="false">Products</a>
+                <div class="dropdown-menu premium-menu">
+                  <a class="dropdown-item" href="#products">Biryani Kits</a>
+                  <a class="dropdown-item" href="#products">Marinades</a>
+                  <a class="dropdown-item" href="#products">Combos</a>
+                </div>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="#recipes">Recipes</a></li>
+              <li class="nav-item"><a class="nav-link" href="#manufacturing">Manufacturing</a></li>
+              <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+              <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="header-actions d-none d-xl-flex">
+            <button class="icon-btn search-open" type="button" aria-label="Search" aria-haspopup="dialog"><i class="bi bi-search"></i></button>
+            <button class="icon-btn" aria-label="Wishlist"><i class="bi bi-heart"></i></button>
+            <button class="icon-btn cart-btn" aria-label="Cart"><i class="bi bi-bag"></i><span>2</span></button>
+            <button class="icon-btn theme-toggle" type="button" aria-label="Toggle dark mode"><i class="bi bi-moon-stars"></i></button>
+            <!-- <a class="btn btn-gold" href="#products">Shop Now <i class="bi bi-arrow-right"></i></a> -->
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="offcanvas offcanvas-start mobile-offcanvas" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+      <div class="offcanvas-header">
+        <a class="brand" id="mobileMenuLabel" href="#home">
+          <span class="brand-emblem">S</span>
+          <span><strong>SVAADVIKA</strong><small>Flavours of India</small></span>
+        </a>
+        <button type="button" class="icon-btn" data-bs-dismiss="offcanvas" aria-label="Close menu"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="mobile-search">
+          <i class="bi bi-search"></i>
+          <input type="search" placeholder="Search products" aria-label="Search products">
+        </div>
+        <div class="accordion mobile-accordion" id="navAccordion">
+          <a href="#home" data-bs-dismiss="offcanvas">Home</a>
+          <a href="#about" data-bs-dismiss="offcanvas">About</a>
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mobileProducts" aria-expanded="false">Products</button>
+          <div id="mobileProducts" class="accordion-collapse collapse" data-bs-parent="#navAccordion">
+            <a href="#products" data-bs-dismiss="offcanvas">Biryani Kits</a>
+            <a href="#products" data-bs-dismiss="offcanvas">Marinades</a>
+            <a href="#products" data-bs-dismiss="offcanvas">Gift Packs</a>
+          </div>
+          <a href="#recipes" data-bs-dismiss="offcanvas">Recipes</a>
+          <a href="#manufacturing" data-bs-dismiss="offcanvas">Manufacturing</a>
+          <a href="#blog" data-bs-dismiss="offcanvas">Blog</a>
+          <a href="#contact" data-bs-dismiss="offcanvas">Contact</a>
+        </div>
+        <button class="theme-row theme-toggle" type="button"><i class="bi bi-moon-stars"></i><span>Switch theme</span></button>
+        <a class="btn btn-gold w-100" href="#products" data-bs-dismiss="offcanvas">Shop Now</a>
+        <div class="mobile-quick">
+          <a href="https://wa.me/919999999999" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+          <a href="tel:+919999999999" aria-label="Call Svaadvika"><i class="bi bi-telephone"></i> Call</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="search-popup" id="searchPopup" aria-hidden="true">
+      <div class="search-backdrop" data-search-close></div>
+      <div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
+        <button class="icon-btn search-close" type="button" aria-label="Close search" data-search-close><i class="bi bi-x-lg"></i></button>
+        <p class="eyebrow">Search Svaadvika</p>
+        <h2 id="searchTitle">Find Your Favourite Flavour</h2>
+        <form class="search-form" role="search">
+          <label class="visually-hidden" for="desktopSearchInput">Search products and recipes</label>
+          <i class="bi bi-search"></i>
+          <input id="desktopSearchInput" type="search" placeholder="Search biryani kits, recipes, marinades..." autocomplete="off">
+          <button class="btn btn-gold" type="submit">Search <i class="bi bi-arrow-right"></i></button>
+        </form>
+      </div>
+    </div>
+
+    <main class="order-page-cart">
+      <section class="contactmain-contact-hero">
+        <div class="container-xl">
+          <div class="contact-hero-copy reveal-up">
+            <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+              <a href="index.html">Home</a>
+              <i class="bi bi-chevron-right"></i>
+              <span>Login</span>
+            </nav> 
+          </div>
+        </div>
+      </section>
+<section class="dashboard-section py-5">
+
+    <div class="container">
+
+        <!-- Mobile Menu Button -->
+
+        <div class="d-lg-none mb-4">
+
+            <button class="btn btn-dark"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#dashboardSidebar">
+
+                <i class="bi bi-list"></i>
+                Dashboard Menu
+
+            </button>
+
+        </div>
+
+        <div class="row g-4">
+
+            <!--====================================
+                    Sidebar
+            =====================================-->
+
+            <div class="col-lg-3 d-none d-lg-block">
+
+                <div class="dashboard-sidebar">
+
+                    <h2 class="dashboard-title">
+                        Dashboard
+                    </h2>
+
+                    <ul class="dashboard-menu">
+
+                        <li>
+
+                            <a href="#"
+                               class="active menu-link"
+                               data-target="dashboard-content">
+
+                                <i class="bi bi-grid"></i>
+
+                                Dashboard
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#"
+                               class="menu-link"
+                               data-target="orders-content">
+
+                                <i class="bi bi-bag"></i>
+
+                                Orders
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#"
+                               class="menu-link"
+                               data-target="account-content">
+
+                                <i class="bi bi-person"></i>
+
+                                Account Details
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#"
+                               class="menu-link"
+                               data-target="address-content">
+
+                                <i class="bi bi-geo-alt"></i>
+
+                                Address
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#"
+                               class="menu-link"
+                               data-target="wishlist-content">
+
+                                <i class="bi bi-heart"></i>
+
+                                Wishlist
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#"
+                               class="menu-link">
+
+                                <i class="bi bi-box-arrow-right"></i>
+
+                                Logout
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <!--====================================
+                Mobile Sidebar
+            =====================================-->
+
+            <div class="offcanvas offcanvas-start"
+                 tabindex="-1"
+                 id="dashboardSidebar">
+
+                <div class="offcanvas-header">
+
+                    <h5>Dashboard</h5>
+
+                    <button class="btn-close"
+                            data-bs-dismiss="offcanvas"></button>
+
+                </div>
+
+                <div class="offcanvas-body">
+
+                    <ul class="dashboard-menu mobile-menu">
+
+                        <li>
+                            <a href="#" class="active menu-link" data-target="dashboard-content">
+                                Dashboard
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="menu-link" data-target="orders-content">
+                                Orders
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="menu-link" data-target="account-content">
+                                Account Details
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="menu-link" data-target="address-content">
+                                Address
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="menu-link" data-target="wishlist-content">
+                                Wishlist
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                Logout
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <!--====================================
+                    Right Content
+            =====================================-->
+
+            <div class="col-lg-9">
+
+                <!-- Dashboard Content -->
+
+                <div id="dashboard-content" class="dashboard-page active-page">
+
+                    <!-- Cover -->
+
+                    <div class="profile-cover">
+
+                        <img src="https://scontent.fjai1-1.fna.fbcdn.net/v/t39.30808-6/736493949_1048296358148832_1576313786120375488_n.jpg?stp=dst-jpg_tt6&cstp=mx1942x809&ctp=s960x960&_nc_cat=106&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=x44XCB8Sk6gQ7kNvwHdFI9S&_nc_oc=AdowRxoZ572n8dHcbpRJFTdiLks77F_gCbsjJf13nYp_yGIzTQJRwoRR2ORI-Gl7SL2bhKFGHW6NPAoDqgPfIEDU&_nc_zt=23&_nc_ht=scontent.fjai1-1.fna&_nc_gid=zFjleI2GQxFvqRcL3Qprow&_nc_ss=7b2a8&oh=00_AQA-NOrG0lXS_1aEucYCG4iol85cHQGgRHvUABSkrSbhlw&oe=6A53C8C7"
+                             alt="Cover">
+
+                        <button class="btn btn-primary edit-btn">
+
+                            <i class="bi bi-pencil"></i>
+
+                            Edit Detail
+
+                        </button>
+
+                    </div>
+
+                    <!-- Profile -->
+
+                    <div class="profile-wrapper">
+
+                        <div class="profile-image">
+
+                            <img src="https://scontent.fjai1-4.fna.fbcdn.net/v/t39.30808-1/734313874_1048293371482464_7043703285326087481_n.jpg?stp=dst-jpg_tt6&cstp=mx1254x1254&ctp=s200x200&_nc_cat=110&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=6pGx0oS_QJkQ7kNvwGkLDzJ&_nc_oc=AdpPSEV2YbatFTj9_Ao_W4goqjJAFNXrLX1oK2j4YE5niYg3y-odd1mkrYaFgyeI7JU_RhD9JncUIQ1-YnWQ1o2H&_nc_zt=24&_nc_ht=scontent.fjai1-4.fna&_nc_gid=zFjleI2GQxFvqRcL3Qprow&_nc_ss=7b2a8&oh=00_AQDeppeCkYzu8G7NE4zK12QGghygadDyDFfTe-DWcb2Mxw&oe=6A53B4DC"
+                                 alt="Profile">
+
+                        </div>
+
+                        <div class="profile-info">
+
+                            <h3>Surendra Singh</h3>
+
+                            <p>
+
+                                Premium Customer
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <hr class="my-5">
+
+                    <h3 class="section-heading">
+
+                        Account Information
+
+                    </h3>
+
+                    <div class="row g-4">
+
+                        <div class="col-md-6">
+
+                            <div class="info-card">
+
+                                <p><strong>First Name :</strong> Surendra</p>
+
+                                <p><strong>Last Name :</strong> Singh</p>
+
+                                <p><strong>Email :</strong> demo@gmail.com</p>
+
+                                <p><strong>Phone :</strong> +91 9876543210</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="info-card">
+
+                                <p><strong>Street :</strong> Jaipur</p>
+
+                                <p><strong>City :</strong> Jaipur</p>
+
+                                <p><strong>State :</strong> Rajasthan</p>
+
+                                <p><strong>Zip Code :</strong> 302001</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Other Sections Part 2 me aayenge -->
+<!--====================================
+        Orders Section
+=====================================-->
+
+<div id="orders-content" class="dashboard-page d-none">
+
+    <div class="content-card">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h3 class="section-heading mb-0">
+                My Orders
+            </h3>
+
+            <button class="btn btn-green">
+                <i class="bi bi-plus-circle"></i>
+                New Order
+            </button>
+
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>#1001</td>
+                        <td>07 July 2026</td>
+                        <td>
+                            <span class="badge bg-success">
+                                Delivered
+                            </span>
+                        </td>
+                        <td>₹2,450</td>
+
+                        <td>
+
+                            <button class="btn btn-sm btn-primary">
+
+                                View
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>#1002</td>
+                        <td>03 July 2026</td>
+
+                        <td>
+
+                            <span class="badge bg-warning text-dark">
+
+                                Processing
+
+                            </span>
+
+                        </td>
+
+                        <td>₹4,980</td>
+
+                        <td>
+
+                            <button class="btn btn-sm btn-primary">
+
+                                View
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!--====================================
+        Account Details
+=====================================-->
+
+<div id="account-content" class="dashboard-page d-none">
+
+    <div class="content-card">
+
+        <h3 class="section-heading">
+
+            Account Details
+
+        </h3>
+
+        <form>
+
+            <div class="row g-4">
+
+                <div class="col-md-6">
+
+                    <label>First Name</label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="Surendra">
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <label>Last Name</label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="Singh">
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        class="form-control"
+                        value="demo@gmail.com">
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <label>Phone</label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="9876543210">
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        class="form-control">
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <label>Confirm Password</label>
+
+                    <input
+                        type="password"
+                        class="form-control">
+
+                </div>
+
+                <div class="col-12 mt-4">
+
+                    <button class="btn btn-green">
+
+                        Save Changes
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!--====================================
+        Address Section
+=====================================-->
+
+<div id="address-content" class="dashboard-page d-none">
+
+    <div class="content-card">
+
+        <h3 class="section-heading">
+
+            Billing Address
+
+        </h3>
+
+        <div class="row g-4">
+
+            <div class="col-md-6">
+
+                <label>Street</label>
+
+                <input
+                    class="form-control"
+                    type="text">
+
+            </div>
+
+            <div class="col-md-6">
+
+                <label>City</label>
+
+                <input
+                    class="form-control"
+                    type="text">
+
+            </div>
+
+            <div class="col-md-6">
+
+                <label>State</label>
+
+                <input
+                    class="form-control"
+                    type="text">
+
+            </div>
+
+            <div class="col-md-6">
+
+                <label>ZIP Code</label>
+
+                <input
+                    class="form-control"
+                    type="text">
+
+            </div>
+
+            <div class="col-12">
+
+                <button class="btn btn-green">
+
+                    Save Address
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!--====================================
+        Wishlist
+=====================================-->
+
+<div id="wishlist-content" class="dashboard-page d-none">
+
+    <div class="content-card">
+
+        <h3 class="section-heading">
+
+            Wishlist
+
+        </h3>
+
+        <div class="row g-4">
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="wishlist-card">
+
+                    <img
+                        src="images/product1.jpg"
+                        class="img-fluid">
+
+                    <h5 class="mt-3">
+
+                        Product Name
+
+                    </h5>
+
+                    <p>
+
+                        ₹1,250
+
+                    </p>
+
+                    <button class="btn btn-green w-100">
+
+                        Add to Cart
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="wishlist-card">
+
+                    <img
+                        src="images/product2.jpg"
+                        class="img-fluid">
+
+                    <h5 class="mt-3">
+
+                        Product Name
+
+                    </h5>
+
+                    <p>
+
+                        ₹2,450
+
+                    </p>
+
+                    <button class="btn btn-green w-100">
+
+                        Add to Cart
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+</main>
+<script>
+      /*=========================================
+    Dashboard JS
+=========================================*/
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const menuLinks = document.querySelectorAll(".menu-link");
+    const pages = document.querySelectorAll(".dashboard-page");
+
+    menuLinks.forEach(function (link) {
+
+        link.addEventListener("click", function (e) {
+
+            e.preventDefault();
+
+            const target = this.getAttribute("data-target");
+
+            // Skip logout
+            if (!target) return;
+
+            /*-----------------------------
+                Active Menu
+            ------------------------------*/
+
+            menuLinks.forEach(function (item) {
+                item.classList.remove("active");
+            });
+
+            this.classList.add("active");
+
+            /*-----------------------------
+                Hide All Pages
+            ------------------------------*/
+
+            pages.forEach(function (page) {
+
+                page.classList.add("d-none");
+                page.classList.remove("active-page");
+
+            });
+
+            /*-----------------------------
+                Show Selected Page
+            ------------------------------*/
+
+            const activePage = document.getElementById(target);
+
+            if (activePage) {
+
+                activePage.classList.remove("d-none");
+                activePage.classList.add("active-page");
+
+                // Fade Effect
+                activePage.animate(
+                    [
+                        {
+                            opacity: 0,
+                            transform: "translateY(15px)"
+                        },
+                        {
+                            opacity: 1,
+                            transform: "translateY(0)"
+                        }
+                    ],
+                    {
+                        duration: 300,
+                        easing: "ease"
+                    }
+                );
+
+            }
+
+            /*-----------------------------
+                Close Mobile Sidebar
+            ------------------------------*/
+
+            const sidebar = document.getElementById("dashboardSidebar");
+
+            if (sidebar) {
+
+                const offcanvas =
+                    bootstrap.Offcanvas.getInstance(sidebar);
+
+                if (offcanvas) {
+
+                    offcanvas.hide();
+
+                }
+
+            }
+
+        });
+
+    });
+
+});
+
+
+/*=========================================
+    Edit Profile Button
+=========================================*/
+
+const editBtn = document.querySelector(".edit-btn");
+
+if (editBtn) {
+
+    editBtn.addEventListener("click", function () {
+
+        alert("Edit Profile Clicked");
+
+    });
+
+}
+
+
+/*=========================================
+    Logout Button
+=========================================*/
+
+const logoutBtns = document.querySelectorAll(".menu-link");
+
+logoutBtns.forEach(function (btn) {
+
+    if (btn.textContent.trim() === "Logout") {
+
+        btn.addEventListener("click", function (e) {
+
+            e.preventDefault();
+
+            const logout = confirm("Are you sure you want to logout?");
+
+            if (logout) {
+
+                window.location.href = "login.html";
+
+            }
+
+        });
+
+    }
+
+});
+
+
+/*=========================================
+    Wishlist Buttons
+=========================================*/
+
+const wishlistBtns = document.querySelectorAll(".wishlist-card .btn");
+
+wishlistBtns.forEach(function (btn) {
+
+    btn.addEventListener("click", function () {
+
+        alert("Product Added To Cart");
+
+    });
+
+});
+
+
+/*=========================================
+    Orders View Button
+=========================================*/
+
+const orderBtns = document.querySelectorAll(".table .btn-primary");
+
+orderBtns.forEach(function (btn) {
+
+    btn.addEventListener("click", function () {
+
+        alert("Open Order Details");
+
+    });
+
+});
+</script>
+ <footer class="site-footer" id="contact">
+      <div class="container-xl">
+        <div class="row gy-4">
+          <div class="col-lg-3">
+            <a class="brand footer-brand" href="#home"><span class="brand-emblem">S</span><span><strong>SVAADVIKA</strong><small>Flavours of India, Made Perfect</small></span></a>
+            <div class="socials">
+              <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+              <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+              <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+              <a href="#" aria-label="Pinterest"><i class="bi bi-pinterest"></i></a>
+            </div>
+          </div>
+          <div class="col-6 col-lg-2"><h3>Company</h3><a href="#about">About Us</a><a href="#about">Our Story</a><a href="#contact">Careers</a><a href="#contact">Contact Us</a></div>
+          <div class="col-6 col-lg-2"><h3>Shop</h3><a href="#products">All Products</a><a href="#products">Biryani Kits</a><a href="#products">Marinades</a><a href="#products">Combos</a></div>
+          <div class="col-6 col-lg-2"><h3>Help</h3><a href="#contact">FAQs</a><a href="#contact">Shipping Policy</a><a href="#contact">Refund Policy</a><a href="#contact">Privacy Policy</a></div>
+          <div class="col-6 col-lg-2"><h3>Recipes</h3><a href="#recipes">All Recipes</a><a href="#recipes">Biryani Recipes</a><a href="#recipes">Veg Recipes</a><a href="#recipes">Video Recipes</a></div>
+          <div class="col-lg-1 certs"><i class="bi bi-patch-check"></i><i class="fa-solid fa-certificate"></i><i class="bi bi-award"></i></div>
+        </div>
+        <div class="footer-bottom">© 2026 Svaadvika. All Rights Reserved.</div>
+      </div>
+    </footer>
+
+    <a class="float-whatsapp" href="https://wa.me/919999999999" aria-label="Chat on WhatsApp"><i class="bi bi-whatsapp"></i><span>WhatsApp</span></a>
+    <a class="float-call" href="tel:+919999999999" aria-label="Call Svaadvika"><i class="bi bi-telephone"></i></a>
+    <button class="back-top" type="button" aria-label="Back to top"><i class="bi bi-arrow-up"></i></button>
+
+    <nav class="mobile-bottom" aria-label="Mobile quick navigation">
+      <a class="active" href="#home"><i class="bi bi-house"></i><span>Home</span></a>
+      <a href="#products"><i class="bi bi-grid"></i><span>Products</span></a>
+      <a class="shop" href="#products"><i class="bi bi-bag"></i><span>Shop</span></a>
+      <a href="https://wa.me/919999999999"><i class="bi bi-whatsapp"></i><span>WhatsApp</span></a>
+      <a href="tel:+919999999999"><i class="bi bi-telephone"></i><span>Call</span></a>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/slider.js"></script>
+    <script src="assets/js/mobile.js"></script>
+    <script src="assets/js/animation.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

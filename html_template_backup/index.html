@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Svaadvika | Premium Indian Ready-to-Cook Food</title>
+    <meta name="description" content="Svaadvika brings authentic Indian biryani kits, marinades and premium recipes to modern family kitchens with restaurant-quality taste.">
+    <link rel="canonical" href="./">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/variables.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/dark.css" rel="stylesheet">
+    <link href="assets/css/animations.css" rel="stylesheet">
+    <link href="assets/css/responsive.css" rel="stylesheet">
+  </head>
+  <body class="home">
+    <div class="page-loader" aria-hidden="true">
+      <div class="loader-mark">
+        <span>S</span>
+        <small>Svaadvika</small>
+      </div>
+    </div>
+
+    <header class="site-header fixed-top" id="siteHeader">
+      <nav class="navbar navbar-expand-xl" aria-label="Primary navigation">
+        <div class="container-xl">
+          <a class="brand" href="#home" aria-label="Svaadvika home">
+            <span class="brand-emblem">S</span>
+            <span>
+              <strong>SVAADVIKA</strong>
+              <small>Flavours of India, Made Perfect</small>
+            </span>
+          </a>
+          <button class="navbar-toggler menu-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-label="Open menu">
+            <i class="bi bi-list"></i>
+          </button>
+          <div class="collapse navbar-collapse justify-content-center">
+            <ul class="navbar-nav main-nav">
+              <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#products" role="button" data-bs-toggle="dropdown" aria-expanded="false">Products</a>
+                <div class="dropdown-menu premium-menu">
+                  <a class="dropdown-item" href="#products">Biryani Kits</a>
+                  <a class="dropdown-item" href="#products">Marinades</a>
+                  <a class="dropdown-item" href="#products">Combos</a>
+                </div>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="#recipes">Recipes</a></li>
+              <li class="nav-item"><a class="nav-link" href="#manufacturing">Manufacturing</a></li>
+              <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+              <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="header-actions d-none d-xl-flex">
+            <button class="icon-btn search-open" type="button" aria-label="Search" aria-haspopup="dialog"><i class="bi bi-search"></i></button>
+            <button class="icon-btn" aria-label="Wishlist"><i class="bi bi-heart"></i></button>
+            <button class="icon-btn cart-btn" aria-label="Cart"><i class="bi bi-bag"></i><span>2</span></button>
+            <button class="icon-btn theme-toggle" type="button" aria-label="Toggle dark mode"><i class="bi bi-moon-stars"></i></button>
+         
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="offcanvas offcanvas-start mobile-offcanvas" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+      <div class="offcanvas-header">
+        <a class="brand" id="mobileMenuLabel" href="#home">
+          <span class="brand-emblem">S</span>
+          <span><strong>SVAADVIKA</strong><small>Flavours of India</small></span>
+        </a>
+        <button type="button" class="icon-btn" data-bs-dismiss="offcanvas" aria-label="Close menu"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="mobile-search">
+          <i class="bi bi-search"></i>
+          <input type="search" placeholder="Search products" aria-label="Search products">
+        </div>
+        <div class="accordion mobile-accordion" id="navAccordion">
+          <a href="#home" data-bs-dismiss="offcanvas">Home</a>
+          <a href="#about" data-bs-dismiss="offcanvas">About</a>
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mobileProducts" aria-expanded="false">Products</button>
+          <div id="mobileProducts" class="accordion-collapse collapse" data-bs-parent="#navAccordion">
+            <a href="#products" data-bs-dismiss="offcanvas">Biryani Kits</a>
+            <a href="#products" data-bs-dismiss="offcanvas">Marinades</a>
+            <a href="#products" data-bs-dismiss="offcanvas">Gift Packs</a>
+          </div>
+          <a href="#recipes" data-bs-dismiss="offcanvas">Recipes</a>
+          <a href="#manufacturing" data-bs-dismiss="offcanvas">Manufacturing</a>
+          <a href="#blog" data-bs-dismiss="offcanvas">Blog</a>
+          <a href="#contact" data-bs-dismiss="offcanvas">Contact</a>
+        </div>
+        <button class="theme-row theme-toggle" type="button"><i class="bi bi-moon-stars"></i><span>Switch theme</span></button>
+        <!-- <a class="btn btn-gold w-100" href="#products" data-bs-dismiss="offcanvas">Shop Now</a> -->
+        <div class="mobile-quick">
+          <a href="https://wa.me/919999999999" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+          <a href="tel:+919999999999" aria-label="Call Svaadvika"><i class="bi bi-telephone"></i> Call</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="search-popup" id="searchPopup" aria-hidden="true">
+      <div class="search-backdrop" data-search-close></div>
+      <div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
+        <button class="icon-btn search-close" type="button" aria-label="Close search" data-search-close><i class="bi bi-x-lg"></i></button>
+        <p class="eyebrow">Search Svaadvika</p>
+        <h2 id="searchTitle">Find Your Favourite Flavour</h2>
+        <form class="search-form" role="search">
+          <label class="visually-hidden" for="desktopSearchInput">Search products and recipes</label>
+          <i class="bi bi-search"></i>
+          <input id="desktopSearchInput" type="search" placeholder="Search biryani kits, recipes, marinades..." autocomplete="off">
+          <button class="btn btn-gold" type="submit">Search <i class="bi bi-arrow-right"></i></button>
+        </form>
+      </div>
+    </div>
+
+    <main>
+      <section class="hero-section" id="home">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="container-xl">
+          <div class="row align-items-center min-vh-100 gy-5">
+            <div class="col-lg-6 hero-copy reveal-up">
+              <p class="eyebrow">Authentic Indian Taste</p>
+              <h1>Crafted For <span>Modern</span> Families</h1>
+              <p class="hero-text">Experience restaurant-quality Indian food at home in just minutes with premium ingredients, chef-led recipes and authentic regional flavour.</p>
+              <div class="hero-actions">
+                <a class="btn btn-gold" href="#products">Explore Collection <i class="bi bi-arrow-right"></i></a>
+                <button class="video-btn" type="button" aria-label="Watch brand story"><i class="bi bi-play-fill"></i><span>Watch Brand Story</span></button>
+              </div>
+              <div class="hero-stats">
+                <div><strong data-counter="25000">0</strong><small>Happy Families</small></div>
+                <div><strong data-counter="120">0</strong><small>Recipes Tested</small></div>
+                <div><strong data-counter="18">0</strong><small>Regions</small></div>
+              </div>
+            </div>
+            <!-- <div class="col-lg-6 hero-visual reveal-right">
+              <div class="steam steam-one"></div>
+              <div class="steam steam-two"></div>
+              <img class="hero-dish" src="assets/images/hero-dish-reference.png" alt="Hyderabadi biryani in a copper handi with aromatic steam">
+              <div class="product-pack floating">
+                <img src="assets/images/hero-pack-reference.png" alt="Svaadvika Hyderabadi Biryani restaurant style kit">
+              </div>
+              <div class="auth-badge floating-slow">
+                <i class="bi bi-patch-check"></i>
+                <span>Authentic<br>Indian Taste</span>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </section>
+
+      <section class="feature-strip" aria-label="Brand certifications">
+        <div class="container-xl">
+          <div class="feature-bar reveal-up">
+            <article><i class="bi bi-shield-check"></i><span><strong>ISO</strong><small>Certified</small></span></article>
+            <article><i class="fa-solid fa-certificate"></i><span><strong>FSSAI</strong><small>Approved</small></span></article>
+            <article><i class="bi bi-flower2"></i><span><strong>Made In</strong><small>India</small></span></article>
+            <article><i class="bi bi-flask"></i><span><strong>No Artificial</strong><small>Colours</small></span></article>
+            <article><i class="bi bi-person-check"></i><span><strong>Chef</strong><small>Approved</small></span></article>
+            <article><i class="bi bi-award"></i><span><strong>100%</strong><small>Authentic Recipes</small></span></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section product-section" id="products">
+        <div class="container-xl">
+          <div class="section-head reveal-up">
+            <div>
+              <p class="eyebrow">Our Bestsellers</p>
+              <h2>Featured <span>Collection</span></h2>
+            </div>
+            <a class="text-link" href="#products">View All Products <i class="bi bi-arrow-right"></i></a>
+          </div>
+          <div class="slider-wrap">
+            <button class="slider-nav prev" type="button" aria-label="Previous products"><i class="bi bi-chevron-left"></i></button>
+            <div class="product-slider" tabindex="0">
+              <article class="product-card reveal-up">
+                <span class="tag">Best Seller</span>
+                <button class="card-icon" aria-label="Add Mumbai Biryani to wishlist"><i class="bi bi-heart"></i></button>
+                <img src="https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?auto=format&fit=crop&w=900&q=85" alt="Mumbai biryani ready to cook kit">
+                <div class="product-info">
+                  <h3>Mumbai Biryani</h3>
+                  <div class="rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><span>(1200)</span></div>
+                  <div class="price-row"><strong>₹299</strong><button aria-label="Add Mumbai Biryani to cart"><i class="bi bi-bag-plus"></i></button>
+                  <button class="quick-view-btn" type="button" data-quick-view="mutton-biryani-kit">Quick View</button>
+                  </div>
+                </div>
+              </article>
+              <article class="product-card reveal-up">
+                <button class="card-icon" aria-label="Add Lucknowi Biryani to wishlist"><i class="bi bi-heart"></i></button>
+                <img src="https://images.unsplash.com/photo-1694849789325-914b71ab4075?auto=format&fit=crop&w=900&q=85" alt="Lucknowi biryani with saffron rice">
+                <div class="product-info">
+                  <h3>Lucknowi Biryani</h3>
+                  <div class="rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><span>(980)</span></div>
+                  <div class="price-row"><strong>₹299</strong><button aria-label="Add Lucknowi Biryani to cart"><i class="bi bi-bag-plus"></i></button></div>
+                </div>
+              </article>
+              <article class="product-card reveal-up">
+                <button class="card-icon" aria-label="Add Arabic Exotic Biryani to wishlist"><i class="bi bi-heart"></i></button>
+                <img src="https://images.unsplash.com/photo-1642821373181-696a54913e93?auto=format&fit=crop&w=900&q=85" alt="Arabic exotic biryani with premium spices">
+                <div class="product-info">
+                  <h3>Arabic Exotic Biryani</h3>
+                  <div class="rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><span>(860)</span></div>
+                  <div class="price-row"><strong>₹299</strong><button aria-label="Add Arabic Exotic Biryani to cart"><i class="bi bi-bag-plus"></i></button></div>
+                </div>
+              </article>
+              <article class="product-card reveal-up">
+                <button class="card-icon" aria-label="Add Arabic Exotic Biryani to wishlist"><i class="bi bi-heart"></i></button>
+                <img src="https://images.unsplash.com/photo-1642821373181-696a54913e93?auto=format&fit=crop&w=900&q=85" alt="Arabic exotic biryani with premium spices">
+                <div class="product-info">
+                  <h3>Arabic Exotic Biryani</h3>
+                  <div class="rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><span>(860)</span></div>
+                  <div class="price-row"><strong>₹299</strong><button aria-label="Add Arabic Exotic Biryani to cart"><i class="bi bi-bag-plus"></i></button></div>
+                </div>
+              </article>
+              <article class="product-card reveal-up">
+                <button class="card-icon" aria-label="Add Arabic Exotic Biryani to wishlist"><i class="bi bi-heart"></i></button>
+                <img src="https://images.unsplash.com/photo-1642821373181-696a54913e93?auto=format&fit=crop&w=900&q=85" alt="Arabic exotic biryani with premium spices">
+                <div class="product-info">
+                  <h3>Arabic Exotic Biryani</h3>
+                  <div class="rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><span>(860)</span></div>
+                  <div class="price-row"><strong>₹299</strong><button aria-label="Add Arabic Exotic Biryani to cart"><i class="bi bi-bag-plus"></i></button></div>
+                </div>
+              </article>
+              <article class="product-card reveal-up">
+                <button class="card-icon" aria-label="Add Hyderabadi Biryani to wishlist"><i class="bi bi-heart"></i></button>
+                <img src="https://images.unsplash.com/photo-1701579231305-d84d8af9a3fd?auto=format&fit=crop&w=900&q=85" alt="Hyderabadi biryani with chicken and fried onions">
+                <div class="product-info">
+                  <h3>Hyderabadi Biryani</h3>
+                  <div class="rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><span>(1500)</span></div>
+                  <div class="price-row"><strong>₹299</strong><button aria-label="Add Hyderabadi Biryani to cart"><i class="bi bi-bag-plus"></i></button></div>
+                </div>
+              </article>
+              <article class="product-card reveal-up">
+                <button class="card-icon" aria-label="Add Arabic Exotic Biryani to wishlist"><i class="bi bi-heart"></i></button>
+                <img src="https://images.unsplash.com/photo-1642821373181-696a54913e93?auto=format&fit=crop&w=900&q=85" alt="Arabic exotic biryani with premium spices">
+                <div class="product-info">
+                  <h3>Arabic Exotic Biryani</h3>
+                  <div class="rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><span>(860)</span></div>
+                  <div class="price-row"><strong>₹299</strong><button aria-label="Add Arabic Exotic Biryani to cart"><i class="bi bi-bag-plus"></i></button></div>
+                </div>
+              </article>
+            </div>
+            <button class="slider-nav next" type="button" aria-label="Next products"><i class="bi bi-chevron-right"></i></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="story-section" id="about">
+        <div class="container-fluid px-0">
+          <div class="row g-0 align-items-stretch">
+            <div class="col-lg-6">
+              <img class="story-image" src="assets/images/story-reference.png" alt="Grandmother and granddaughter cooking together in a warm Indian kitchen" loading="lazy">
+            </div>
+            <div class="col-lg-6 story-copy reveal-right">
+              <p class="eyebrow">Our Story</p>
+              <h2>Home Convenience. <br><span>Zero</span> Compromise.</h2>
+              <p>Svaadvika started with a simple belief: Indian flavours deserve pure ingredients, measured spice craft and the comfort of family kitchens.</p>
+              <div class="story-actions">
+                <a class="btn btn-green" href="#about">Know Our Story <i class="bi bi-arrow-right"></i></a>
+                <button class="video-btn dark" type="button"><i class="bi bi-play-fill"></i><span>Watch Our Journey</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section dark-band" id="manufacturing">
+        <div class="container-xl">
+          <div class="row gy-5 align-items-center">
+            <div class="col-lg-5 reveal-up">
+              <p class="eyebrow">Why Choose Svaadvika</p>
+              <div class="why-grid">
+                <article><i class="bi bi-egg-fried"></i><h3>Authentic Recipes</h3></article>
+                <article><i class="bi bi-flower1"></i><h3>Premium Ingredients</h3></article>
+                <article><i class="bi bi-hourglass-split"></i><h3>Easy Cooking</h3></article>
+                <article><i class="bi bi-patch-check"></i><h3>Certified Quality</h3></article>
+              </div>
+            </div>
+            <div class="col-lg-4 reveal-up">
+              <p class="eyebrow">Experience Regional India</p>
+              <div class="india-map" aria-label="Regional flavour map">
+                <span class="pin delhi">Delhi</span>
+                <span class="pin lucknow">Lucknow</span>
+                <span class="pin mumbai">Mumbai</span>
+                <span class="pin hyderabad">Hyderabad</span>
+                <span class="pin kerala">Kerala</span>
+              </div>
+            </div>
+            <div class="col-lg-3 reveal-right">
+              <p class="region-text">Each region has a story. Click any city to explore its authentic flavours.</p>
+              <a class="btn btn-gold" href="#recipes">Explore Now <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="video-band" id="recipes">
+        <img src="https://images.unsplash.com/photo-1604909052743-94e838986d24?auto=format&fit=crop&w=1800&q=85" alt="Chef tossing biryani in a premium Indian kitchen" loading="lazy">
+        <div class="video-content reveal-up">
+          <p class="eyebrow">Cook Like A Chef</p>
+          <h2>A Culinary Experience</h2>
+          <p>That brings families together</p>
+        </div>
+        <button class="play-large" type="button" aria-label="Play culinary experience video"><i class="bi bi-play-fill"></i></button>
+      </section>
+
+      <!-- <section class="section manufacturing-showcase">
+        <div class="container-xl">
+          <div class="row gy-4 align-items-center">
+            <div class="col-lg-6 reveal-up">
+              <p class="eyebrow">Hygienic Production</p>
+              <h2>Modern Manufacturing With Traditional Care</h2>
+              <p>Each kit is developed in clean, quality-controlled facilities with batch traceability, food safety checks and recipe calibration.</p>
+              <div class="timeline">
+                <span>Ingredient Sourcing</span>
+                <span>Quality Testing</span>
+                <span>Fresh Packing</span>
+              </div>
+            </div>
+            <div class="col-lg-6 reveal-right">
+              <img src="https://images.unsplash.com/photo-1581092160607-ee22731c4af5?auto=format&fit=crop&w=1200&q=85" alt="Modern hygienic food manufacturing facility with stainless steel machinery" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </section> -->
+
+      <section class="social-section" id="blog">
+        <div class="container-xl">
+          <div class="row g-4 align-items-stretch">
+            <div class="col-lg-3">
+              <article class="testimonial-card reveal-up">
+                <p class="eyebrow">What Our Customers Say</p>
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=240&q=85" alt="Customer Neha Sharma" loading="lazy">
+                <div class="rating text-start"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                <blockquote>“The taste is just like my grandmother’s biryani. Absolutely love it!”</blockquote>
+                <strong>Neha Sharma</strong>
+                <small>Verified Purchase</small>
+              </article>
+            </div>
+            <div class="col-lg-3">
+              <div class="instagram-block reveal-up">
+                <p class="eyebrow">From Our Instagram</p>
+                <div class="insta-grid">
+                  <img src="https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?auto=format&fit=crop&w=400&q=80" alt="Indian curry bowl" loading="lazy">
+                  <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?auto=format&fit=crop&w=400&q=80" alt="Indian chaat and spices" loading="lazy">
+                  <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=400&q=80" alt="Indian snacks platter" loading="lazy">
+                  <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=400&q=80" alt="Spiced biryani plate" loading="lazy">
+                  <img src="https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=400&q=80" alt="Fresh herbs and Indian dish" loading="lazy">
+                  <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=400&q=80" alt="Indian biryani serving bowl" loading="lazy">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <form class="newsletter-card reveal-up" id="newsletterForm" novalidate>
+                <p class="eyebrow">Join The Svaadvika Family</p>
+                <h3>Get exclusive offers, recipes and more!</h3>
+                <label class="visually-hidden" for="email">Email address</label>
+                <input id="email" type="email" placeholder="Enter your email" required>
+                <button class="btn btn-green w-100" type="submit">Subscribe Now <i class="bi bi-arrow-right"></i></button>
+                <small class="form-message" role="status">We respect your privacy.</small>
+              </form>
+            </div>
+            <div class="col-lg-3">
+              <aside class="service-list reveal-right" aria-label="Store benefits">
+                <article><i class="bi bi-truck"></i><span><strong>Free Shipping</strong><small>On orders above ₹699</small></span></article>
+                <article><i class="bi bi-shield-lock"></i><span><strong>Secure Payment</strong><small>100% protected</small></span></article>
+                <article><i class="bi bi-box-seam"></i><span><strong>Easy Returns</strong><small>Hassle free returns</small></span></article>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contact">
+      <div class="container-xl">
+        <div class="row gy-4">
+          <div class="col-lg-3">
+            <a class="brand footer-brand" href="#home"><span class="brand-emblem">S</span><span><strong>SVAADVIKA</strong><small>Flavours of India, Made Perfect</small></span></a>
+            <div class="socials">
+              <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+              <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+              <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+              <a href="#" aria-label="Pinterest"><i class="bi bi-pinterest"></i></a>
+            </div>
+          </div>
+          <div class="col-6 col-lg-2"><h3>Company</h3><a href="#about">About Us</a><a href="#about">Our Story</a><a href="#contact">Careers</a><a href="#contact">Contact Us</a></div>
+          <div class="col-6 col-lg-2"><h3>Shop</h3><a href="#products">All Products</a><a href="#products">Biryani Kits</a><a href="#products">Marinades</a><a href="#products">Combos</a></div>
+          <div class="col-6 col-lg-2"><h3>Help</h3><a href="#contact">FAQs</a><a href="#contact">Shipping Policy</a><a href="#contact">Refund Policy</a><a href="#contact">Privacy Policy</a></div>
+          <div class="col-6 col-lg-2"><h3>Recipes</h3><a href="#recipes">All Recipes</a><a href="#recipes">Biryani Recipes</a><a href="#recipes">Veg Recipes</a><a href="#recipes">Video Recipes</a></div>
+          <div class="col-lg-1 certs"><i class="bi bi-patch-check"></i><i class="fa-solid fa-certificate"></i><i class="bi bi-award"></i></div>
+        </div>
+        <div class="footer-bottom">© 2026 Svaadvika. All Rights Reserved.</div>
+      </div>
+    </footer>
+
+    <a class="float-whatsapp" href="https://wa.me/919999999999" aria-label="Chat on WhatsApp"><i class="bi bi-whatsapp"></i><span>WhatsApp</span></a>
+    <a class="float-call" href="tel:+919999999999" aria-label="Call Svaadvika"><i class="bi bi-telephone"></i></a>
+    <button class="back-top" type="button" aria-label="Back to top"><i class="bi bi-arrow-up"></i></button>
+
+    <nav class="mobile-bottom" aria-label="Mobile quick navigation">
+      <a class="active" href="#home"><i class="bi bi-house"></i><span>Home</span></a>
+      <a href="#products"><i class="bi bi-grid"></i><span>Products</span></a>
+      <a class="shop" href="#products"><i class="bi bi-bag"></i><span>Shop</span></a>
+      <a href="https://wa.me/919999999999"><i class="bi bi-whatsapp"></i><span>WhatsApp</span></a>
+      <a href="tel:+919999999999"><i class="bi bi-telephone"></i><span>Call</span></a>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/slider.js"></script>
+    <script src="assets/js/mobile.js"></script>
+    <script src="assets/js/animation.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

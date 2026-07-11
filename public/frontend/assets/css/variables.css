@@ -1,0 +1,26 @@
+:root {
+  --green: #103321;
+  --green-900: #08140e;
+  --green-800: #0c2418;
+  --gold: #c89b23;
+  --gold-soft: #e4bf67;
+  --cream: #fff9f2;
+  --cream-2: #f8eddd;
+  --white: #ffffff;
+  --text: #1e1e1e;
+  --muted: #6c757d;
+  --success: #2e7d32;
+  --danger: #d32f2f;
+  --border: rgba(200, 155, 35, 0.34);
+  --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.12);
+  --radius-card: 20px;
+  --radius-input: 16px;
+  --radius-pill: 999px;
+  --transition: 0.35s ease;
+  --font-heading: "Playfair Display", serif;
+  --font-body: "Inter", sans-serif;
+  --font-button: "Poppins", sans-serif;
+  --section-y: 100px;
+  --container: 1320px;
+}

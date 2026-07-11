@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Svaadvika | Premium Indian Ready-to-Cook Food</title>
+  <meta name="description"
+    content="Svaadvika brings authentic Indian biryani kits, marinades and premium recipes to modern family kitchens with restaurant-quality taste.">
+  <link rel="canonical" href="./">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+  <link href="assets/css/variables.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/dark.css" rel="stylesheet">
+  <link href="assets/css/animations.css" rel="stylesheet">
+  <link href="assets/css/responsive.css" rel="stylesheet">
+</head>
+
+<body class="product-details-page">
+  <div class="page-loader" aria-hidden="true">
+    <div class="loader-mark">
+      <span>S</span>
+      <small>Svaadvika</small>
+    </div>
+  </div>
+
+  <div class="contact-topbar">
+    <div class="container-xl">
+      <span><i class="bi bi-truck"></i> Free shipping on orders above &#8377;499</span>
+      <span>Authentic flavours. Premium ingredients. Made with <span class="heart">&hearts;</span> in India</span>
+      <span><a href="#contactForm">Track Order</a><a href="#faq">Help</a></span>
+    </div>
+  </div>
+
+  <header class="site-header fixed-top" id="siteHeader">
+    <nav class="navbar navbar-expand-xl" aria-label="Primary navigation">
+      <div class="container-xl">
+        <a class="brand" href="#home" aria-label="Svaadvika home">
+          <span class="brand-emblem">S</span>
+          <span>
+            <strong>SVAADVIKA</strong>
+            <small>Flavours of India, Made Perfect</small>
+          </span>
+        </a>
+        <button class="navbar-toggler menu-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu"
+          aria-controls="mobileMenu" aria-label="Open menu">
+          <i class="bi bi-list"></i>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center">
+          <ul class="navbar-nav main-nav">
+            <li class="nav-item"><a class="nav-link " href="#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link " href="#about">About</a></li>
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle" href="#products" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">Products</a>
+              <div class="dropdown-menu premium-menu">
+                <a class="dropdown-item" href="#products">Biryani Kits</a>
+                <a class="dropdown-item" href="#products">Marinades</a>
+                <a class="dropdown-item" href="#products">Combos</a>
+              </div>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#recipes">Recipes</a></li>
+            <li class="nav-item"><a class="nav-link" href="#manufacturing">Manufacturing</a></li>
+            <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="header-actions d-none d-xl-flex">
+          <button class="icon-btn search-open" type="button" aria-label="Search" aria-haspopup="dialog"><i
+              class="bi bi-search"></i></button>
+          <button class="icon-btn" aria-label="Wishlist"><i class="bi bi-heart"></i></button>
+          <button class="icon-btn cart-btn" aria-label="Cart"><i class="bi bi-bag"></i><span>2</span></button>
+          <button class="icon-btn theme-toggle" type="button" aria-label="Toggle dark mode"><i
+              class="bi bi-moon-stars"></i></button>
+          <!-- <a class="btn btn-gold" href="#products">Shop Now <i class="bi bi-arrow-right"></i></a> -->
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="offcanvas offcanvas-start mobile-offcanvas" tabindex="-1" id="mobileMenu"
+    aria-labelledby="mobileMenuLabel">
+    <div class="offcanvas-header">
+      <a class="brand" id="mobileMenuLabel" href="#home">
+        <span class="brand-emblem">S</span>
+        <span><strong>SVAADVIKA</strong><small>Flavours of India</small></span>
+      </a>
+      <button type="button" class="icon-btn" data-bs-dismiss="offcanvas" aria-label="Close menu"><i
+          class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="mobile-search">
+        <i class="bi bi-search"></i>
+        <input type="search" placeholder="Search products" aria-label="Search products">
+      </div>
+      <div class="accordion mobile-accordion" id="navAccordion">
+        <a href="#home" data-bs-dismiss="offcanvas">Home</a>
+        <a href="#about" data-bs-dismiss="offcanvas">About</a>
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+          data-bs-target="#mobileProducts" aria-expanded="false">Products</button>
+        <div id="mobileProducts" class="accordion-collapse collapse" data-bs-parent="#navAccordion">
+          <a href="#products" data-bs-dismiss="offcanvas">Biryani Kits</a>
+          <a href="#products" data-bs-dismiss="offcanvas">Marinades</a>
+          <a href="#products" data-bs-dismiss="offcanvas">Gift Packs</a>
+        </div>
+        <a href="#recipes" data-bs-dismiss="offcanvas">Recipes</a>
+        <a href="#manufacturing" data-bs-dismiss="offcanvas">Manufacturing</a>
+        <a href="#blog" data-bs-dismiss="offcanvas">Blog</a>
+        <a href="#contact" data-bs-dismiss="offcanvas">Contact</a>
+      </div>
+      <button class="theme-row theme-toggle" type="button"><i class="bi bi-moon-stars"></i><span>Switch
+          theme</span></button>
+      <a class="btn btn-gold w-100" href="#products" data-bs-dismiss="offcanvas">Shop Now</a>
+      <div class="mobile-quick">
+        <a href="https://wa.me/919999999999" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+        <a href="tel:+919999999999" aria-label="Call Svaadvika"><i class="bi bi-telephone"></i> Call</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="search-popup" id="searchPopup" aria-hidden="true">
+    <div class="search-backdrop" data-search-close></div>
+    <div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
+      <button class="icon-btn search-close" type="button" aria-label="Close search" data-search-close><i
+          class="bi bi-x-lg"></i></button>
+      <p class="eyebrow">Search Svaadvika</p>
+      <h2 id="searchTitle">Find Your Favourite Flavour</h2>
+      <form class="search-form" role="search">
+        <label class="visually-hidden" for="desktopSearchInput">Search products and recipes</label>
+        <i class="bi bi-search"></i>
+        <input id="desktopSearchInput" type="search" placeholder="Search biryani kits, recipes, marinades..."
+          autocomplete="off">
+        <button class="btn btn-gold" type="submit">Search <i class="bi bi-arrow-right"></i></button>
+      </form>
+    </div>
+  </div>
+
+  <main class="details-main" data-product-details-page>
+    <div class="container-xl">
+      <nav class="details-breadcrumb" aria-label="breadcrumb">
+        <ol class="breadcrumb" id="detailsBreadcrumb"></ol>
+      </nav>
+
+      <section class="details-hero-grid">
+        <div class="details-gallery reveal-up">
+          <div class="details-main-image" id="detailsMainImage" data-zoom-stage>
+            <span class="details-badge">Bestseller</span>
+            <button class="gallery-full" type="button" aria-label="View fullscreen" data-gallery-fullscreen><i
+                class="bi bi-arrows-fullscreen"></i></button>
+            <div id="productGalleryCarousel" class="carousel slide carousel-fade details-carousel" data-bs-touch="true"
+              data-bs-interval="false">
+              <div class="carousel-inner" id="detailsCarouselInner"></div>
+              <button class="carousel-control-prev gallery-nav gallery-prev" type="button"
+                data-bs-target="#productGalleryCarousel" data-bs-slide="prev" aria-label="Previous image"><i
+                  class="bi bi-chevron-left"></i></button>
+              <button class="carousel-control-next gallery-nav gallery-next" type="button"
+                data-bs-target="#productGalleryCarousel" data-bs-slide="next" aria-label="Next image"><i
+                  class="bi bi-chevron-right"></i></button>
+            </div>
+          </div>
+          <div class="details-thumbs" id="detailsThumbs" aria-label="Product images"></div>
+        </div>
+
+        <aside class="details-info reveal-right">
+          <h1 id="detailsTitle">Hyderabadi Biryani Kit</h1>
+          <div class="details-rating" id="detailsRating"></div>
+          <p id="detailsDescription">Authentic Hyderabadi dum biryani made easy at home.</p>
+          <div class="details-price"><strong id="detailsPrice">&#8377;349</strong><del
+              id="detailsOldPrice">&#8377;399</del><span id="detailsDiscount">12% Off</span></div>
+          <div class="details-actions">
+            <div class="qty-control"><button type="button" data-qty-minus>-</button><span>1</span><button type="button"
+                data-qty-plus>+</button></div>
+            <button class="add-cart" type="button" data-details-add-cart>Add To Cart</button>
+          </div>
+          <button class="details-buy" type="button" data-details-buy>Buy Now</button>
+          <div class="details-meta"><span>SKU: <strong id="detailsSku">SVA-HBK</strong></span><span>Availability:
+              <strong>In Stock</strong></span></div>
+          <div class="details-trust">
+            <article><i class="bi bi-truck"></i><strong>Free Shipping</strong><small>On orders above &#8377;699</small>
+            </article>
+            <article><i class="bi bi-shield-lock"></i><strong>Secure Payment</strong><small>100% secure checkout</small>
+            </article>
+            <article><i class="bi bi-arrow-repeat"></i><strong>Easy Returns</strong><small>7 days return policy</small>
+            </article>
+          </div>
+          <div class="inside-card">
+            <div>
+              <h2>What&rsquo;s Inside the Kit?</h2>
+              <ul>
+                <li>Basmati Rice</li>
+                <li>Biryani Masala</li>
+                <li>Marinade Paste</li>
+                <li>Fried Onions</li>
+                <li>Whole Spices</li>
+                <li>Ghee</li>
+                <li>Saffron</li>
+              </ul>
+            </div>
+            <div class="inside-pack"></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="details-feature-strip reveal-up">
+        <article><i class="bi bi-fire"></i><span><strong>Authentic Recipe</strong><small>Traditional
+              flavours</small></span></article>
+        <article><i class="bi bi-basket2"></i><span><strong>Premium Ingredients</strong><small>Handpicked &amp;
+              natural</small></span></article>
+        <article><i class="bi bi-heart-pulse"></i><span><strong>No Artificial Colours</strong><small>100%
+              natural</small></span></article>
+        <article><i class="bi bi-flower1"></i><span><strong>Made in India</strong><small>Proudly Indian</small></span>
+        </article>
+      </section>
+
+      <section class="details-panel details-ingredients-grid">
+        <div>
+          <h2>Ingredients</h2>
+          <p>Made with the finest quality ingredients for an authentic taste.</p>
+          <div class="ingredient-row">
+            <article><i class="bi bi-circle"></i><span>Basmati Rice</span></article>
+            <article><i class="bi bi-droplet"></i><span>Biryani Masala</span></article>
+            <article><i class="bi bi-cup-hot"></i><span>Marinade Paste</span></article>
+            <article><i class="bi bi-flower2"></i><span>Fried Onions</span></article>
+            <article><i class="bi bi-stars"></i><span>Whole Spices</span></article>
+            <article><i class="bi bi-circle-fill"></i><span>Ghee</span></article>
+            <article><i class="bi bi-brightness-high"></i><span>Saffron</span></article>
+          </div>
+        </div>
+        <aside>
+          <h2>Nutrition Information</h2>
+          <p>Per 100g (Approx.)</p>
+          <table class="table nutrition-table">
+            <tbody>
+              <tr>
+                <th>Energy</th>
+                <td>350 kcal</td>
+              </tr>
+              <tr>
+                <th>Protein</th>
+                <td>8 g</td>
+              </tr>
+              <tr>
+                <th>Carbohydrates</th>
+                <td>58 g</td>
+              </tr>
+              <tr>
+                <th>Total Fat</th>
+                <td>9 g</td>
+              </tr>
+              <tr>
+                <th>Sugar</th>
+                <td>2 g</td>
+              </tr>
+              <tr>
+                <th>Sodium</th>
+                <td>620 mg</td>
+              </tr>
+            </tbody>
+          </table>
+        </aside>
+      </section>
+
+      <section class="details-panel">
+        <h2>Cooking Steps</h2>
+        <p>Simple steps to cook delicious biryani at home.</p>
+        <div class="cooking-steps">
+          <article><i class="bi bi-hand-index"></i><strong>Step 1</strong>
+            <h3>Marinate</h3>
+            <p>Marinate meat with the paste for 30 minutes.</p>
+          </article>
+          <article><i class="bi bi-arrow-right"></i></article>
+          <article><i class="bi bi-cup-hot"></i><strong>Step 2</strong>
+            <h3>Cook Rice</h3>
+            <p>Cook basmati rice until 70% done.</p>
+          </article>
+          <article><i class="bi bi-arrow-right"></i></article>
+          <article><i class="bi bi-layers"></i><strong>Step 3</strong>
+            <h3>Layer</h3>
+            <p>Layer rice and marinated meat, add spices.</p>
+          </article>
+          <article><i class="bi bi-arrow-right"></i></article>
+          <article><i class="bi bi-alarm"></i><strong>Step 4</strong>
+            <h3>Dum Cook</h3>
+            <p>Cook on low heat for 20-25 minutes.</p>
+          </article>
+          <article><i class="bi bi-arrow-right"></i></article>
+          <article><i class="bi bi-stars"></i><strong>Step 5</strong>
+            <h3>Serve</h3>
+            <p>Fluff gently and serve hot with raita.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="details-media-grid">
+        <div class="details-panel video-panel">
+          <div>
+            <h2>Video</h2>
+            <p>Watch our chef prepare Hyderabadi Biryani step by step.</p>
+          </div>
+          <div class="details-video"><button type="button" aria-label="Play video" data-bs-toggle="modal"
+              data-bs-target="#videoModal"><i class="bi bi-play-fill"></i></button></div>
+        </div>
+        <div class="details-panel">
+          <h2>Frequently Asked Questions</h2>
+          <div class="accordion details-faq" id="detailsFaq">
+            <div class="accordion-item">
+              <h3 class="accordion-header"><button class="accordion-button collapsed" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#faqOne">Can I make it vegetarian?</button></h3>
+              <div id="faqOne" class="accordion-collapse collapse" data-bs-parent="#detailsFaq">
+                <div class="accordion-body">Yes, use paneer, vegetables, soya chunks or mushrooms instead of meat.</div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h3 class="accordion-header"><button class="accordion-button collapsed" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#faqTwo">How spicy is the biryani?</button></h3>
+              <div id="faqTwo" class="accordion-collapse collapse" data-bs-parent="#detailsFaq">
+                <div class="accordion-body">It is medium-spiced and balanced for family meals.</div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h3 class="accordion-header"><button class="accordion-button collapsed" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#faqThree">How much time does it take?</button></h3>
+              <div id="faqThree" class="accordion-collapse collapse" data-bs-parent="#detailsFaq">
+                <div class="accordion-body">Most recipes are ready in 35-45 minutes.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="details-panel reviews-panel">
+        <h2>Customer Reviews</h2>
+        <div class="reviews-grid">
+          <div class="overall-rating"><strong>4.8</strong>
+            <div class="catalog-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i></div>
+            <p>Based on 128 reviews</p>
+          </div>
+          <div class="rating-bars"><span>5 ★ <b></b>102</span><span>4 ★ <b></b>18</span><span>3 ★ <b></b>6</span><span>2
+              ★ <b></b>1</span><span>1 ★ <b></b>1</span></div>
+          <article><img
+              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80"
+              alt="Neha Sharma" loading="lazy">
+            <h3>Neha Sharma</h3>
+            <div class="catalog-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <small>Verified Buyer</small>
+            <p>Super easy to cook and taste just like authentic Hyderabadi biryani.</p>
+          </article>
+          <article><img
+              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80"
+              alt="Rahul Verma" loading="lazy">
+            <h3>Rahul Verma</h3>
+            <div class="catalog-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+            <small>Verified Buyer</small>
+            <p>The flavours are rich and ingredients are of premium quality.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="details-related" id="detailsRelated">
+        <h2>You May Also Like</h2>
+        <div class="catalog-grid" id="detailsRelatedGrid"></div>
+      </section>
+
+      <section class="details-feature-strip bottom">
+        <article><i class="bi bi-fire"></i><span><strong>Authentic Recipes</strong><small>Traditional
+              flavours</small></span></article>
+        <article><i class="bi bi-basket2"></i><span><strong>Premium Ingredients</strong><small>Handpicked &amp;
+              natural</small></span></article>
+        <article><i class="bi bi-box-seam"></i><span><strong>Secure Packaging</strong><small>Hygienic &amp;
+              safe</small></span></article>
+        <article><i class="bi bi-flower1"></i><span><strong>Made in India</strong><small>Proudly Indian</small></span>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="cartToast" class="toast premium-toast" role="status" aria-live="polite" aria-atomic="true"
+      data-bs-delay="2400">
+      <div class="toast-body"><i class="bi bi-check-circle-fill"></i><span>Added to cart successfully.</span></div>
+    </div>
+  </div>
+
+  <div class="modal fade gallery-modal" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="galleryModalTitle">Product Gallery</h2>
+          <div class="modal-tools">
+            <button class="icon-btn" type="button" data-gallery-zoom aria-label="Zoom image"><i
+                class="bi bi-zoom-in"></i></button>
+            <button class="icon-btn" type="button" data-bs-dismiss="modal" aria-label="Close gallery"><i
+                class="bi bi-x-lg"></i></button>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div id="galleryModalCarousel" class="carousel slide carousel-fade modal-gallery-carousel"
+            data-bs-touch="true" data-bs-interval="false">
+            <div class="carousel-inner" id="modalCarouselInner"></div>
+            <button class="carousel-control-prev gallery-nav gallery-prev" type="button"
+              data-bs-target="#galleryModalCarousel" data-bs-slide="prev" aria-label="Previous fullscreen image"><i
+                class="bi bi-chevron-left"></i></button>
+            <button class="carousel-control-next gallery-nav gallery-next" type="button"
+              data-bs-target="#galleryModalCarousel" data-bs-slide="next" aria-label="Next fullscreen image"><i
+                class="bi bi-chevron-right"></i></button>
+          </div>
+          <div class="details-thumbs modal-thumbs" id="modalThumbs" aria-label="Fullscreen product images"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade video-modal" id="videoModal" tabindex="-1" aria-labelledby="videoModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="videoModalTitle">Cooking Video</h2>
+          <button class="icon-btn" type="button" data-bs-dismiss="modal" aria-label="Close video"><i
+              class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="details-video modal-video-frame"><button type="button" aria-label="Video preview"><i
+                class="bi bi-play-fill"></i></button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer" id="contact">
+    <div class="container-xl">
+      <div class="row gy-4">
+        <div class="col-lg-3">
+          <a class="brand footer-brand" href="#home"><span
+              class="brand-emblem">S</span><span><strong>SVAADVIKA</strong><small>Flavours of India, Made
+                Perfect</small></span></a>
+          <div class="socials">
+            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="bi bi-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3>Company</h3><a href="#about">About Us</a><a href="#about">Our Story</a><a href="#contact">Careers</a><a
+            href="#contact">Contact Us</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3>Shop</h3><a href="#products">All Products</a><a href="#products">Biryani Kits</a><a
+            href="#products">Marinades</a><a href="#products">Combos</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3>Help</h3><a href="#contact">FAQs</a><a href="#contact">Shipping Policy</a><a href="#contact">Refund
+            Policy</a><a href="#contact">Privacy Policy</a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h3>Recipes</h3><a href="#recipes">All Recipes</a><a href="#recipes">Biryani Recipes</a><a href="#recipes">Veg
+            Recipes</a><a href="#recipes">Video Recipes</a>
+        </div>
+        <div class="col-lg-1 certs"><i class="bi bi-patch-check"></i><i class="fa-solid fa-certificate"></i><i
+            class="bi bi-award"></i></div>
+      </div>
+      <div class="footer-bottom">© 2026 Svaadvika. All Rights Reserved.</div>
+    </div>
+  </footer>
+
+  <a class="float-whatsapp" href="https://wa.me/919999999999" aria-label="Chat on WhatsApp"><i
+      class="bi bi-whatsapp"></i><span>WhatsApp</span></a>
+  <a class="float-call" href="tel:+919999999999" aria-label="Call Svaadvika"><i class="bi bi-telephone"></i></a>
+  <button class="back-top" type="button" aria-label="Back to top"><i class="bi bi-arrow-up"></i></button>
+
+  <nav class="mobile-bottom" aria-label="Mobile quick navigation">
+    <a class="active" href="#home"><i class="bi bi-house"></i><span>Home</span></a>
+    <a href="#products"><i class="bi bi-grid"></i><span>Products</span></a>
+    <a class="shop" href="#products"><i class="bi bi-bag"></i><span>Shop</span></a>
+    <a href="https://wa.me/919999999999"><i class="bi bi-whatsapp"></i><span>WhatsApp</span></a>
+    <a href="tel:+919999999999"><i class="bi bi-telephone"></i><span>Call</span></a>
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/slider.js"></script>
+  <script src="assets/js/mobile.js"></script>
+  <script src="assets/js/animation.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>

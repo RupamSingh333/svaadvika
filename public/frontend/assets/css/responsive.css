@@ -1,0 +1,624 @@
+@media (max-width: 1199.98px) {
+  .menu-toggle { color: var(--white); border: 0; font-size: 1.8rem; }
+  .site-header.scrolled .menu-toggle { color: var(--text); }
+  .hero-dish { right: 0; }
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+  .feature-bar { grid-template-columns: repeat(3, 1fr); }
+  .feature-bar article:nth-child(3) { border-right: 0; }
+  .product-slider { grid-template-columns: none; grid-auto-columns: minmax(280px, 34%); }
+  .contact-benefits { grid-template-columns: repeat(2, 1fr); max-width: 430px; }
+  .office-grid, .faq-grid { grid-template-columns: repeat(2, 1fr); }
+  .contact-hero { background-size: 480px 310px, auto, auto, auto; }
+  .journey-timeline { grid-template-columns: repeat(3, 1fr); row-gap: 34px; }
+  .journey-timeline::before { display: none; }
+  .values-grid { grid-template-columns: repeat(3, 1fr); }
+  .values-grid article:nth-child(3) { border-right: 0; }
+  .founder-card { grid-template-columns: 240px 1fr; padding: 34px; }
+  .cert-grid, .achievement-grid { grid-template-columns: repeat(2, 1fr); }
+  .category-tabs { gap: 18px; }
+  .catalog-grid { grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .catalog-actions { grid-template-columns: 78px 1fr; gap: 10px; }
+  .enhanced-category-tabs { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 991.98px) {
+  :root { --section-y: 80px; }
+  h1 { font-size: 3.8rem; }
+  h2 { font-size: 2.4rem; }
+  .hero-copy { padding-top: 136px; text-align: center; }
+  .hero-text { margin-inline: auto; }
+  .hero-actions, .hero-stats { justify-content: center; }
+  .hero-visual { min-height: 520px; }
+  .hero-dish { inset: 44px 0 auto; margin: auto; height: 380px; border-radius: 22px; }
+  .product-pack { right: 8%; bottom: 30px; }
+  .auth-badge { right: 12%; top: 64px; }
+  .story-image, .story-copy { min-height: auto; height: auto; }
+  .story-image { height: 410px; }
+  .story-copy { padding: 46px 42px; }
+  .video-content { position: relative; left: auto; text-align: center; padding: 80px 24px 160px; }
+  .play-large { position: absolute; bottom: 70px; }
+  .float-call { display: grid; }
+  .mobile-bottom {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 95;
+    height: 70px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    background: rgba(255,249,242,0.94);
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.14);
+    backdrop-filter: blur(16px);
+  }
+  .mobile-bottom a {
+    min-height: 48px;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    font: 700 0.66rem var(--font-button);
+    color: var(--green);
+  }
+  .mobile-bottom i { font-size: 1.2rem; }
+  .mobile-bottom .shop i {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--gold);
+    color: var(--white);
+    margin-top: -22px;
+  }
+  body { padding-bottom: 70px; }
+  .contact-topbar { display: none; }
+  .contact-header { top: 0; }
+  .contact-hero {
+    padding: 140px 0 54px;
+    background:
+      linear-gradient(90deg, rgba(4, 15, 9, 0.94), rgba(4, 15, 9, 0.74)),
+      url("../images/hero-dish-reference.png") right -80px bottom 18px / 360px 230px no-repeat,
+      linear-gradient(115deg, #07180f 0%, #103321 48%, #070d09 100%);
+  }
+  .contact-hero h1 { font-size: 2.4rem; }
+  .map-head { flex-direction: column; }
+  .map-head .btn { width: 100%; }
+  .about-hero { padding: 135px 0 70px; min-height: 460px; background-position: center right 35%; }
+  .about-hero h1 { font-size: 2.8rem; }
+  .about-story-copy { padding: 58px 34px; min-height: auto; }
+  .about-story-image-wrap img { min-height: 360px; }
+  .founder-card { grid-template-columns: 1fr; }
+  .mission-card { grid-template-columns: 1fr; }
+  .values-grid { grid-template-columns: repeat(2, 1fr); }
+  .values-grid article:nth-child(3) { border-right: 1px solid rgba(200,155,35,0.16); }
+  .values-grid article:nth-child(even) { border-right: 0; }
+  .about-manufacturing-card { padding: 44px 34px; }
+  .products-hero { padding: 132px 0 58px; min-height: 340px; }
+  .products-hero h1 { font-size: 2.8rem; }
+  .category-tabs { grid-template-columns: repeat(3, 1fr); }
+  .catalog-grid { grid-template-columns: repeat(2, 1fr); }
+  .product-filter-panel { grid-template-columns: 1fr 1fr; }
+  .live-search-field { grid-column: 1 / -1; }
+  .quick-view-layout { grid-template-columns: 1fr; }
+  .quick-view-image { min-height: 300px; }
+  .recipes-layout { grid-template-columns: 1fr; }
+  .recipe-filter-sidebar { display: none; }
+  .mobile-recipe-tools { display: block; margin-bottom: 18px; }
+  .recipes-toolbar { align-items: stretch; flex-direction: column; }
+  .recipe-search-sort { grid-template-columns: 1fr 190px; }
+  .recipe-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .recipe-newsletter { grid-template-columns: 86px 1fr; }
+  .recipe-newsletter form { grid-column: 1 / -1; }
+  .recipe-quick-layout { grid-template-columns: 1fr; }
+  .details-hero-grid,
+  .details-ingredients-grid,
+  .details-media-grid { grid-template-columns: 1fr; }
+  .details-main-image { height: 500px; }
+  .details-info h1 { font-size: 2rem; }
+  .inside-card { grid-template-columns: 1fr 160px; }
+  .ingredient-row { grid-template-columns: repeat(4, 1fr); }
+  .cooking-steps { grid-template-columns: 1fr; }
+  .cooking-steps article:has(.bi-arrow-right) { display: none; }
+  .reviews-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 767.98px) {
+  :root { --section-y: 60px; }
+  body { font-size: 16px; }
+  h1 { font-size: 3rem; }
+  h2 { font-size: 2.15rem; }
+  .brand strong { font-size: 1.02rem; }
+  .brand-emblem { width: 42px; height: 42px; }
+  .hero-section .row { min-height: auto !important; }
+  .hero-copy { padding-top: 124px; }
+  .hero-actions .btn, .hero-actions .video-btn { width: 100%; justify-content: center; }
+  .hero-stats { flex-direction: column; align-items: center; gap: 10px; }
+  .hero-stats div { border-left: 0; padding-left: 0; }
+  .hero-visual { min-height: 420px; }
+  .hero-dish { height: 300px; top: 38px; }
+  .product-pack { width: 164px; min-height: 190px; padding: 18px 14px; bottom: 12px; right: 4%; }
+  .auth-badge { width: 78px; height: 78px; right: 6%; font-size: 0.5rem; }
+  .feature-strip { margin-top: 0; padding: 26px 0 0; }
+  .feature-bar { grid-template-columns: repeat(2, 1fr); }
+  .feature-bar article { min-height: 76px; justify-content: flex-start; }
+  .feature-bar article:nth-child(odd) { border-right: 1px solid rgba(200,155,35,0.24); }
+  .feature-bar article:nth-child(even) { border-right: 0; }
+  .section-head { align-items: start; flex-direction: column; }
+  .product-slider { grid-auto-columns: 84%; gap: 18px; }
+  .slider-nav { display: none; }
+  .story-copy { padding: 46px 24px; }
+  .why-grid { grid-template-columns: 1fr; gap: 12px; }
+  .why-grid article { min-height: 112px; padding: 14px; }
+  .search-dialog { padding: 36px 22px 28px; }
+  .search-form { grid-template-columns: 1fr; }
+  .search-form .btn { width: 100%; }
+  .instagram-block, .newsletter-card, .service-list, .testimonial-card { padding: 20px; }
+  .site-footer { padding-bottom: 100px; }
+  .float-whatsapp span { display: none; }
+  .float-whatsapp { width: 48px; height: 48px; padding: 0; justify-content: center; bottom: 88px; }
+  .back-top { bottom: 88px; right: 82px; }
+  .contact-hero { padding-top: 118px; }
+  .contact-benefits { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .contact-panel { padding: 22px; }
+  .contact-details article { grid-template-columns: 52px 1fr; gap: 14px; }
+  .contact-icon { width: 48px; height: 48px; }
+  .office-grid, .faq-grid { grid-template-columns: 1fr; }
+  .contact-map strong { left: 36%; }
+  .contact-map small { right: 7%; }
+  .footer-newsletter { grid-template-columns: 1fr; gap: 8px; }
+  .footer-newsletter input,
+  .footer-newsletter button { min-height: 48px; border-radius: 8px; }
+  .about-hero { padding-top: 116px; min-height: 430px; }
+  .about-hero h1 { font-size: 2.35rem; }
+  .journey-timeline { grid-template-columns: 1fr; gap: 24px; }
+  .journey-timeline article {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    text-align: left;
+    column-gap: 16px;
+  }
+  .journey-timeline span { grid-row: span 4; margin: 0; }
+  .about-section-title h2::before,
+  .about-section-title h2::after { width: 54px; }
+  .mission-card { padding: 26px; }
+  .values-grid { grid-template-columns: 1fr; }
+  .values-grid article,
+  .values-grid article:nth-child(3) { border-right: 0; border-bottom: 1px solid rgba(200,155,35,0.16); }
+  .values-grid article:last-child { border-bottom: 0; }
+  .founder-card { gap: 28px; padding: 28px; }
+  .about-manufacturing-card { min-height: 380px; }
+  .about-cta h2 { font-size: 2rem; }
+  .products-hero { padding-top: 118px; min-height: 320px; }
+  .products-hero h1 { font-size: 2.35rem; }
+  .category-tabs {
+    display: flex;
+    overflow-x: auto;
+    gap: 14px;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .category-tabs::-webkit-scrollbar { display: none; }
+  .category-tabs button {
+    min-width: 180px;
+  }
+  .enhanced-category-tabs button { min-width: 155px; }
+  .product-filter-panel { grid-template-columns: 1fr; }
+  .products-toolbar { align-items: start; flex-direction: column; }
+  .products-toolbar select { width: min(100%, 300px); }
+  .catalog-grid { grid-template-columns: 1fr; }
+  .recipes-hero { padding-top: 118px; min-height: 330px; background-position: right 30% center; }
+  .recipes-hero h1 { font-size: 2.35rem; }
+  .recipes-hero h2 { font-size: 1.25rem; }
+  .recipes-catalog-section { padding-top: 20px; }
+  .recipe-search-sort { grid-template-columns: 1fr; }
+  .recipe-grid { grid-template-columns: 1fr; gap: 18px; }
+  .recipe-card-actions button,
+  .recipe-bookmark-inline { width: 48px; height: 48px; opacity: 1; transform: none; }
+  .recipe-image,
+  .recipe-image img { min-height: 220px; height: 220px; }
+  .recipe-card-body p { min-height: auto; }
+  .recipe-newsletter { grid-template-columns: 1fr; padding: 24px; }
+  .recipe-newsletter form { grid-template-columns: 1fr; gap: 10px; }
+  .recipe-newsletter input,
+  .recipe-newsletter button { border-radius: 8px; min-height: 52px; }
+  .recipe-filter-actions.sticky { position: sticky; bottom: 0; padding-top: 12px; background: var(--cream); }
+  .catalog-image { min-height: 220px; }
+  .catalog-body p { min-height: auto; }
+  .quick-view-btn {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .details-main { padding-top: 98px; }
+  .details-thumbs { display: flex; overflow-x: auto; scrollbar-width: none; }
+  .details-thumbs::-webkit-scrollbar { display: none; }
+  .details-thumbs button { min-width: 96px; height: 78px; }
+  .details-main-image { height: 380px; }
+  .modal-gallery-carousel img { height: calc(100vh - 210px); }
+  .modal-thumbs { justify-content: flex-start; }
+  .details-actions,
+  .inside-card,
+  .video-panel { grid-template-columns: 1fr; }
+  .details-meta,
+  .details-trust { grid-template-columns: 1fr; display: grid; }
+  .details-feature-strip { grid-template-columns: 1fr 1fr; }
+  .ingredient-row { grid-template-columns: repeat(2, 1fr); }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .details-panel { padding: 20px; }
+  .mobile-detail-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 70px;
+    z-index: 94;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 10px 14px;
+    background: rgba(255,249,242,0.94);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.12);
+  }
+  .mobile-detail-bar button {
+    min-height: 46px;
+    border: 0;
+    border-radius: 999px;
+    color: var(--white);
+    font: 800 0.8rem var(--font-button);
+    text-transform: uppercase;
+  }
+  .mobile-detail-bar button:first-child { background: #e97809; }
+  .mobile-detail-bar button:last-child { background: var(--green); }
+}
+@media (max-width: 425px) {
+  h1 { font-size: 2.62rem; }
+  .hero-text { font-size: 1rem; }
+  .feature-bar { grid-template-columns: 1fr; }
+  .feature-bar article { border-right: 0 !important; border-bottom: 1px solid rgba(200,155,35,0.24); }
+  .product-slider { grid-auto-columns: 92%; }
+  .insta-grid { grid-template-columns: repeat(2, 1fr); }
+  .contact-benefits { grid-template-columns: 1fr; text-align: left; }
+  .contact-benefits article { text-align: left; }
+  .contact-hero h1 { font-size: 2.15rem; }
+  .contact-map { min-height: 170px; }
+  .about-hero h1 { font-size: 2.05rem; }
+  .about-story-copy { padding: 46px 24px; }
+  .founder-portrait img { width: 170px; height: 170px; }
+  .cert-grid, .achievement-grid { grid-template-columns: 1fr; }
+  .about-manufacturing-card { padding: 34px 24px; }
+  .products-hero h1 { font-size: 2.1rem; }
+  .catalog-actions { grid-template-columns: 86px 1fr; }
+  .details-feature-strip { grid-template-columns: 1fr; }
+  .ingredient-row { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .details-info h1 { font-size: 1.85rem; }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .recipe-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+  .recipe-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Product details page: mobile-first responsive layout */
+.product-details-page .details-main { padding-top: 98px; }
+.product-details-page .details-breadcrumb {
+  order: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.product-details-page .details-breadcrumb::-webkit-scrollbar { display: none; }
+.product-details-page .details-breadcrumb .breadcrumb {
+  width: max-content;
+  min-width: 100%;
+}
+.product-details-page .details-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+.product-details-page .details-gallery { order: 1; min-width: 0; }
+.product-details-page .details-info { order: 2; min-width: 0; }
+.product-details-page .details-main-image {
+  height: 380px;
+  aspect-ratio: 1 / 1.18;
+}
+.product-details-page .details-thumbs {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.product-details-page .details-thumbs::-webkit-scrollbar { display: none; }
+.product-details-page .details-thumbs button {
+  flex: 0 0 92px;
+  height: 76px;
+  scroll-snap-align: start;
+}
+.product-details-page .details-info h1 {
+  font-size: 1.85rem;
+  line-height: 1.12;
+}
+.product-details-page .details-actions,
+.product-details-page .video-panel,
+.product-details-page .inside-card {
+  grid-template-columns: 1fr;
+}
+.product-details-page .details-actions .add-cart,
+.product-details-page .details-buy,
+.product-details-page .mobile-detail-bar button {
+  width: 100%;
+  min-height: 52px;
+}
+.product-details-page .details-trust,
+.product-details-page .details-meta {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.product-details-page .details-feature-strip {
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+.product-details-page .details-ingredients-grid,
+.product-details-page .details-media-grid {
+  grid-template-columns: 1fr;
+}
+.product-details-page .ingredient-row {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.product-details-page .details-ingredients-grid aside {
+  min-width: 0;
+  overflow: hidden;
+}
+.product-details-page .nutrition-table,
+.product-details-page .nutrition-table tbody,
+.product-details-page .nutrition-table tr,
+.product-details-page .nutrition-table th,
+.product-details-page .nutrition-table td {
+  display: block;
+  width: 100%;
+}
+.product-details-page .nutrition-table tr {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(200,155,35,0.18);
+}
+.product-details-page .nutrition-table th,
+.product-details-page .nutrition-table td {
+  border: 0;
+  padding: 0;
+}
+.product-details-page .cooking-steps {
+  grid-template-columns: 1fr;
+}
+.product-details-page .cooking-steps article:has(.bi-arrow-right) {
+  display: none;
+}
+.product-details-page .reviews-grid {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.product-details-page .reviews-grid::-webkit-scrollbar { display: none; }
+.product-details-page .reviews-grid > * {
+  flex: 0 0 min(88vw, 330px);
+  scroll-snap-align: start;
+}
+.product-details-page .details-related .catalog-grid {
+  display: flex;
+  overflow-x: auto;
+  gap: 18px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.product-details-page .details-related .catalog-grid::-webkit-scrollbar { display: none; }
+.product-details-page .details-related .catalog-card {
+  flex: 0 0 min(86vw, 330px);
+  scroll-snap-align: start;
+}
+.product-details-page .mobile-detail-bar {
+  bottom: 70px;
+}
+.product-details-page .gallery-modal .modal-body {
+  padding: 14px;
+}
+.product-details-page .modal-gallery-carousel img {
+  height: calc(100vh - 210px);
+}
+
+@media (min-width: 576px) {
+  .product-details-page .details-info h1 { font-size: 2rem; }
+  .product-details-page .details-feature-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .product-details-page .ingredient-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .product-details-page .reviews-grid > * {
+    flex-basis: 330px;
+  }
+  .product-details-page .details-related .catalog-card {
+    flex-basis: 330px;
+  }
+}
+
+@media (min-width: 768px) {
+  .product-details-page .details-main { padding-top: 118px; }
+  .product-details-page .details-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .product-details-page .details-main-image {
+    height: 500px;
+    aspect-ratio: 16 / 10;
+  }
+  .product-details-page .details-thumbs {
+    display: flex;
+    overflow-x: auto;
+  }
+  .product-details-page .details-thumbs button {
+    flex-basis: 112px;
+    height: 84px;
+  }
+  .product-details-page .details-actions,
+  .product-details-page .details-buy {
+    width: 100%;
+  }
+  .product-details-page .details-actions {
+    grid-template-columns: 140px 1fr;
+  }
+  .product-details-page .details-actions .add-cart,
+  .product-details-page .details-buy {
+    width: 100%;
+  }
+  .product-details-page .details-ingredients-grid {
+    grid-template-columns: 1fr;
+  }
+  .product-details-page .ingredient-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .product-details-page .nutrition-table {
+    display: table;
+    table-layout: fixed;
+  }
+  .product-details-page .nutrition-table tbody { display: table-row-group; }
+  .product-details-page .nutrition-table tr {
+    display: table-row;
+    padding: 0;
+    border-bottom: 0;
+  }
+  .product-details-page .nutrition-table th,
+  .product-details-page .nutrition-table td {
+    display: table-cell;
+    width: auto;
+    padding: 0.5rem;
+    border-bottom: 1px solid rgba(200,155,35,0.18);
+  }
+  .product-details-page .cooking-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .product-details-page .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: visible;
+  }
+  .product-details-page .reviews-grid > * {
+    flex: initial;
+  }
+  .product-details-page .details-related .catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: visible;
+  }
+  .product-details-page .details-related .catalog-card {
+    flex: initial;
+  }
+  .product-details-page .mobile-detail-bar { display: none; }
+}
+
+@media (min-width: 992px) {
+  .product-details-page .details-main {         padding-top: 150px;
+        display: block; }
+  .product-details-page .details-hero-grid {
+    grid-template-columns: minmax(0, 1.18fr) minmax(330px, 0.82fr);
+    gap: 28px;
+  }
+  .product-details-page .details-main-image {
+    height: 600px;
+    aspect-ratio: 13 / 12;
+  }
+  .product-details-page .details-thumbs {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    overflow: visible;
+  }
+  .product-details-page .details-thumbs button {
+    width: auto;
+    height: 82px;
+    flex: initial;
+  }
+  .product-details-page .details-info h1 { font-size: 2.15rem; }
+  .product-details-page .details-actions {
+    display: flex;
+    align-items: center;
+  }
+  .product-details-page .details-actions .qty-control {
+    width: 126px;
+    flex: 0 0 126px;
+  }
+  .product-details-page .details-actions .add-cart,
+  .product-details-page .details-buy {
+    width: auto;
+    min-width: 220px;
+    padding-inline: 32px;
+  }
+  .product-details-page .details-meta {
+    display: flex;
+  }
+  .product-details-page .details-trust {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .product-details-page .inside-card {
+    grid-template-columns: 1fr 190px;
+  }
+  .product-details-page .details-feature-strip {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .product-details-page .details-ingredients-grid {
+    grid-template-columns: minmax(0, 1fr) 300px;
+  }
+  .product-details-page .ingredient-row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .product-details-page .cooking-steps {
+    grid-template-columns: 1fr 24px 1fr 24px 1fr 24px 1fr 24px 1fr;
+  }
+  .product-details-page .cooking-steps article:has(.bi-arrow-right) {
+    display: grid;
+  }
+  .product-details-page .details-media-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+  .product-details-page .video-panel {
+    grid-template-columns: 180px 1fr;
+  }
+  .product-details-page .reviews-grid {
+    grid-template-columns: 160px 220px 1fr 1fr;
+    gap: 18px;
+  }
+  .product-details-page .details-related .catalog-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .product-details-page .details-hero-grid {
+    grid-template-columns: minmax(0, 1.22fr) minmax(380px, 0.78fr);
+    gap: 42px;
+  }
+  .product-details-page .details-info h1 { font-size: 2.35rem; }
+  .product-details-page .details-thumbs button { height: 90px; }
+  .product-details-page .details-ingredients-grid {
+    grid-template-columns: minmax(0, 1fr) 310px;
+  }
+  .product-details-page .ingredient-row {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+  .product-details-page .reviews-grid {
+    grid-template-columns: 160px 260px 1fr 1fr;
+    gap: 24px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .product-details-page .details-main-image { height: 650px; }
+}

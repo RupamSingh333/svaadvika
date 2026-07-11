@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Svaadvika | Premium Indian Ready-to-Cook Food</title>
+    <meta name="description" content="Svaadvika brings authentic Indian biryani kits, marinades and premium recipes to modern family kitchens with restaurant-quality taste.">
+    <link rel="canonical" href="./">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/variables.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/dark.css" rel="stylesheet">
+    <link href="assets/css/animations.css" rel="stylesheet">
+    <link href="assets/css/responsive.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="page-loader" aria-hidden="true">
+      <div class="loader-mark">
+        <span>S</span>
+        <small>Svaadvika</small>
+      </div>
+    </div>
+
+    <div class="contact-topbar">
+      <div class="container-xl">
+        <span><i class="bi bi-truck"></i> Free shipping on orders above &#8377;499</span>
+        <span>Authentic flavours. Premium ingredients. Made with <span class="heart">&hearts;</span> in India</span>
+        <span><a href="#contactForm">Track Order</a><a href="#faq">Help</a></span>
+      </div>
+    </div>
+
+    <header class="site-header fixed-top" id="siteHeader">
+      <nav class="navbar navbar-expand-xl" aria-label="Primary navigation">
+        <div class="container-xl">
+          <a class="brand" href="#home" aria-label="Svaadvika home">
+            <span class="brand-emblem">S</span>
+            <span>
+              <strong>SVAADVIKA</strong>
+              <small>Flavours of India, Made Perfect</small>
+            </span>
+          </a>
+          <button class="navbar-toggler menu-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-label="Open menu">
+            <i class="bi bi-list"></i>
+          </button>
+          <div class="collapse navbar-collapse justify-content-center">
+            <ul class="navbar-nav main-nav">
+              <li class="nav-item"><a class="nav-link " href="#home">Home</a></li>
+              <li class="nav-item"><a class="nav-link active" href="#about">About</a></li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#products" role="button" data-bs-toggle="dropdown" aria-expanded="false">Products</a>
+                <div class="dropdown-menu premium-menu">
+                  <a class="dropdown-item" href="#products">Biryani Kits</a>
+                  <a class="dropdown-item" href="#products">Marinades</a>
+                  <a class="dropdown-item" href="#products">Combos</a>
+                </div>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="#recipes">Recipes</a></li>
+              <li class="nav-item"><a class="nav-link" href="#manufacturing">Manufacturing</a></li>
+              <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+              <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="header-actions d-none d-xl-flex">
+            <button class="icon-btn search-open" type="button" aria-label="Search" aria-haspopup="dialog"><i class="bi bi-search"></i></button>
+            <button class="icon-btn" aria-label="Wishlist"><i class="bi bi-heart"></i></button>
+            <button class="icon-btn cart-btn" aria-label="Cart"><i class="bi bi-bag"></i><span>2</span></button>
+            <button class="icon-btn theme-toggle" type="button" aria-label="Toggle dark mode"><i class="bi bi-moon-stars"></i></button>
+            <!-- <a class="btn btn-gold" href="#products">Shop Now <i class="bi bi-arrow-right"></i></a> -->
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="offcanvas offcanvas-start mobile-offcanvas" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+      <div class="offcanvas-header">
+        <a class="brand" id="mobileMenuLabel" href="#home">
+          <span class="brand-emblem">S</span>
+          <span><strong>SVAADVIKA</strong><small>Flavours of India</small></span>
+        </a>
+        <button type="button" class="icon-btn" data-bs-dismiss="offcanvas" aria-label="Close menu"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="mobile-search">
+          <i class="bi bi-search"></i>
+          <input type="search" placeholder="Search products" aria-label="Search products">
+        </div>
+        <div class="accordion mobile-accordion" id="navAccordion">
+          <a href="#home" data-bs-dismiss="offcanvas">Home</a>
+          <a href="#about" data-bs-dismiss="offcanvas">About</a>
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mobileProducts" aria-expanded="false">Products</button>
+          <div id="mobileProducts" class="accordion-collapse collapse" data-bs-parent="#navAccordion">
+            <a href="#products" data-bs-dismiss="offcanvas">Biryani Kits</a>
+            <a href="#products" data-bs-dismiss="offcanvas">Marinades</a>
+            <a href="#products" data-bs-dismiss="offcanvas">Gift Packs</a>
+          </div>
+          <a href="#recipes" data-bs-dismiss="offcanvas">Recipes</a>
+          <a href="#manufacturing" data-bs-dismiss="offcanvas">Manufacturing</a>
+          <a href="#blog" data-bs-dismiss="offcanvas">Blog</a>
+          <a href="#contact" data-bs-dismiss="offcanvas">Contact</a>
+        </div>
+        <button class="theme-row theme-toggle" type="button"><i class="bi bi-moon-stars"></i><span>Switch theme</span></button>
+        <a class="btn btn-gold w-100" href="#products" data-bs-dismiss="offcanvas">Shop Now</a>
+        <div class="mobile-quick">
+          <a href="https://wa.me/919999999999" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+          <a href="tel:+919999999999" aria-label="Call Svaadvika"><i class="bi bi-telephone"></i> Call</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="search-popup" id="searchPopup" aria-hidden="true">
+      <div class="search-backdrop" data-search-close></div>
+      <div class="search-dialog" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
+        <button class="icon-btn search-close" type="button" aria-label="Close search" data-search-close><i class="bi bi-x-lg"></i></button>
+        <p class="eyebrow">Search Svaadvika</p>
+        <h2 id="searchTitle">Find Your Favourite Flavour</h2>
+        <form class="search-form" role="search">
+          <label class="visually-hidden" for="desktopSearchInput">Search products and recipes</label>
+          <i class="bi bi-search"></i>
+          <input id="desktopSearchInput" type="search" placeholder="Search biryani kits, recipes, marinades..." autocomplete="off">
+          <button class="btn btn-gold" type="submit">Search <i class="bi bi-arrow-right"></i></button>
+        </form>
+      </div>
+    </div>
+
+    <main>
+      <section class="about-hero">
+        <div class="container-xl">
+          <div class="about-hero-copy reveal-up">
+           <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+              <a href="index.html">Home</a>
+              <i class="bi bi-chevron-right"></i>
+              <span>About Us</span>
+            </nav>
+            <h1>Crafted From Tradition. <span>Served With Love.</span></h1>
+            <p>Svaadvika is more than just a food brand - it is a celebration of India&rsquo;s rich culinary heritage, authentic flavours, and timeless traditions.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-story">
+        <div class="container-fluid px-0">
+          <div class="row g-0 align-items-stretch">
+            <div class="col-lg-6">
+              <div class="about-story-copy reveal-up">
+                <p class="eyebrow">Our Story</p>
+                <h2>A Journey Rooted in Tradition, <span>Inspired by India</span></h2>
+                <p>Svaadvika was born from a simple belief - that every home deserves restaurant flavour without the hours of preparation.</p>
+                <p>We blend authentic recipes, premium ingredients and modern technology to deliver purity, taste and trust. From our kitchens to your home, we ensure every bite brings the warmth of tradition and the comfort of home.</p>
+                <a class="btn btn-gold" href="index.html#products">Explore Our Products</a>
+              </div>
+            </div>
+            <div class="col-lg-6 about-story-image-wrap reveal-right">
+              <img src="assets/images/story-reference.png" alt="Indian grandmother and granddaughter preparing biryani in a heritage kitchen" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="about-journey-section py-5">
+        <div class="container-xl">
+          <div class="about-section-title reveal-up">
+            <h2>Our Journey</h2>
+          </div>
+          <div class="journey-timeline reveal-up">
+            <article><span><i class="bi bi-building"></i></span><strong>2018</strong><h3>The Idea</h3><p>Svaadvika was founded with a passion for authentic Indian flavours.</p></article>
+            <article><span><i class="bi bi-basket"></i></span><strong>2019</strong><h3>First Kitchen</h3><p>Our first production kitchen opened, bringing traditional recipes to life.</p></article>
+            <article><span><i class="bi bi-people"></i></span><strong>2020</strong><h3>Growing Together</h3><p>Expanded our product range and reached thousands of happy homes.</p></article>
+            <article><span><i class="bi bi-patch-check"></i></span><strong>2021</strong><h3>Quality First</h3><p>Achieved quality certifications and strengthened our commitment.</p></article>
+            <article><span><i class="bi bi-box-seam"></i></span><strong>2022</strong><h3>Pan India</h3><p>Delivered our products to homes across India with love and trust.</p></article>
+            <article><span><i class="bi bi-stars"></i></span><strong>2026</strong><h3>The Future</h3><p>Continuing to innovate and bring you the best of Indian flavours.</p></article>
+          </div>
+        </div>
+      </section>
+      <section class="founder-section">
+        <div class="container-fluid px-0">
+          <div class="founder-card reveal-up">
+            <div class="founder-portrait">
+              <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=500&q=85" alt="Neha Sharma, co-founder of Svaadvika" loading="lazy">
+              <strong>Neha Sharma</strong>
+              <small>Co-Founder</small>
+            </div>
+            <div class="founder-message">
+              <p class="eyebrow">Founder&rsquo;s Message</p>
+              <h2>Bringing Authentic Flavours To Every Home</h2>
+              <p>At Svaadvika, we believe food is an emotion that connects hearts and creates memories. Our mission is to make authentic, wholesome and delicious meals accessible to every home with convenience and trust.</p>
+              <p>Thank you for letting us be a part of your culinary journey.</p>
+              <span>Neha Sharma</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      <section class="mission-section">
+        <div class="container-xl">
+          <div class="row g-4">
+            <div class="col-lg-6">
+              <article class="mission-card reveal-up">
+                <i class="bi bi-bullseye"></i>
+                <div>
+                  <p class="eyebrow">Our Mission</p>
+                  <p>To deliver authentic, nutritious and delicious Indian food products made with premium ingredients and modern technology. We aim to make every meal easy, flavourful and memorable.</p>
+                </div>
+              </article>
+            </div>
+            <div class="col-lg-6">
+              <article class="mission-card reveal-right">
+                <i class="bi bi-eye"></i>
+                <div>
+                  <p class="eyebrow">Our Vision</p>
+                  <p>To be India&rsquo;s most trusted food brand known for authenticity, quality and innovation - bringing the joy of traditional flavours to every home across the world.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="values-section">
+        <div class="container-xl">
+          <div class="about-section-title reveal-up">
+            <h2>Our Core Values</h2>
+          </div>
+          <div class="values-grid">
+            <article class="reveal-up"><i class="bi bi-arrow-repeat"></i><h3>Authenticity</h3><p>Rooted in traditional recipes and true Indian flavours.</p></article>
+            <article class="reveal-up"><i class="bi bi-award"></i><h3>Quality</h3><p>We use the finest ingredients and follow highest standards.</p></article>
+            <article class="reveal-up"><i class="bi bi-shield-check"></i><h3>Integrity</h3><p>Honest practices and transparency in everything we do.</p></article>
+            <article class="reveal-up"><i class="bi bi-lightbulb"></i><h3>Innovation</h3><p>Blending tradition with modern technology for better experiences.</p></article>
+            <article class="reveal-up"><i class="bi bi-heart"></i><h3>Customer First</h3><p>Your trust and happiness are at the heart of every decision.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-manufacturing">
+        <div class="container-xl">
+          <div class="about-manufacturing-card reveal-up">
+            <div>
+              <p class="eyebrow">Our Manufacturing</p>
+              <h2>Where Tradition Meets Technology</h2>
+              <ul>
+                <li><i class="bi bi-check-circle"></i> State-of-the-art production facility</li>
+                <li><i class="bi bi-check-circle"></i> Hygienic and automated process</li>
+                <li><i class="bi bi-check-circle"></i> Premium quality ingredients</li>
+                <li><i class="bi bi-check-circle"></i> Zero preservatives and chemicals</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cert-achievement-section">
+        <div class="container-xl">
+          <div class="row g-4">
+            <div class="col-lg-6">
+              <div class="cert-panel reveal-up">
+                <p class="eyebrow">Our Certifications</p>
+                <div class="cert-grid">
+                  <article><i class="fa-solid fa-certificate"></i><strong>FSSAI</strong><small>Approved</small></article>
+                  <article><i class="bi bi-patch-check"></i><strong>ISO</strong><small>22000:2018 Certified</small></article>
+                  <article><i class="bi bi-shield-check"></i><strong>HACCP</strong><small>Certified</small></article>
+                  <article><i class="bi bi-award"></i><strong>GMP</strong><small>Certified</small></article>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="cert-panel reveal-right">
+                <p class="eyebrow">Our Achievements</p>
+                <div class="achievement-grid">
+                  <article><i class="bi bi-basket2"></i><strong data-counter="10">0</strong><small>Authentic Recipes</small></article>
+                  <article><i class="bi bi-box-seam"></i><strong data-counter="50">0</strong><small>Premium Products</small></article>
+                  <article><i class="bi bi-person-heart"></i><strong>1M+</strong><small>Happy Customers</small></article>
+                  <article><i class="bi bi-award"></i><strong>100%</strong><small>Quality &amp; Trust</small></article>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-cta">
+        <div class="container-xl">
+          <div class="about-cta-copy reveal-up">
+            <h2>Experience Authentic Flavours At Home</h2>
+            <p>Bring home the perfect blend of tradition, quality and taste with Svaadvika.</p>
+            <a class="btn btn-gold" href="index.html#products">Explore Our Products</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contact">
+      <div class="container-xl">
+        <div class="row gy-4">
+          <div class="col-lg-3">
+            <a class="brand footer-brand" href="#home"><span class="brand-emblem">S</span><span><strong>SVAADVIKA</strong><small>Flavours of India, Made Perfect</small></span></a>
+            <div class="socials">
+              <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+              <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+              <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+              <a href="#" aria-label="Pinterest"><i class="bi bi-pinterest"></i></a>
+            </div>
+          </div>
+          <div class="col-6 col-lg-2"><h3>Company</h3><a href="#about">About Us</a><a href="#about">Our Story</a><a href="#contact">Careers</a><a href="#contact">Contact Us</a></div>
+          <div class="col-6 col-lg-2"><h3>Shop</h3><a href="#products">All Products</a><a href="#products">Biryani Kits</a><a href="#products">Marinades</a><a href="#products">Combos</a></div>
+          <div class="col-6 col-lg-2"><h3>Help</h3><a href="#contact">FAQs</a><a href="#contact">Shipping Policy</a><a href="#contact">Refund Policy</a><a href="#contact">Privacy Policy</a></div>
+          <div class="col-6 col-lg-2"><h3>Recipes</h3><a href="#recipes">All Recipes</a><a href="#recipes">Biryani Recipes</a><a href="#recipes">Veg Recipes</a><a href="#recipes">Video Recipes</a></div>
+          <div class="col-lg-1 certs"><i class="bi bi-patch-check"></i><i class="fa-solid fa-certificate"></i><i class="bi bi-award"></i></div>
+        </div>
+        <div class="footer-bottom">© 2026 Svaadvika. All Rights Reserved.</div>
+      </div>
+    </footer>
+
+    <a class="float-whatsapp" href="https://wa.me/919999999999" aria-label="Chat on WhatsApp"><i class="bi bi-whatsapp"></i><span>WhatsApp</span></a>
+    <a class="float-call" href="tel:+919999999999" aria-label="Call Svaadvika"><i class="bi bi-telephone"></i></a>
+    <button class="back-top" type="button" aria-label="Back to top"><i class="bi bi-arrow-up"></i></button>
+
+    <nav class="mobile-bottom" aria-label="Mobile quick navigation">
+      <a class="active" href="#home"><i class="bi bi-house"></i><span>Home</span></a>
+      <a href="#products"><i class="bi bi-grid"></i><span>Products</span></a>
+      <a class="shop" href="#products"><i class="bi bi-bag"></i><span>Shop</span></a>
+      <a href="https://wa.me/919999999999"><i class="bi bi-whatsapp"></i><span>WhatsApp</span></a>
+      <a href="tel:+919999999999"><i class="bi bi-telephone"></i><span>Call</span></a>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/slider.js"></script>
+    <script src="assets/js/mobile.js"></script>
+    <script src="assets/js/animation.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
