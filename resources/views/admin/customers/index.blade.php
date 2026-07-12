@@ -51,6 +51,11 @@
                                         </a>
                                         @endhasPermission
                                         @hasPermission('customers', 'edit')
+                                        <a href="{{ route('admin.customers.edit', $customer->id) }}" class="btn btn-sm btn-light border shadow-sm" title="Edit Profile">
+                                            <i class="fa-solid fa-pen text-primary"></i>
+                                        </a>
+                                        @endhasPermission
+                                        @hasPermission('customers', 'edit')
                                         <form action="{{ route('admin.customers.toggle-block', $customer->id) }}" method="POST" class="d-inline-block">
                                             @csrf
                                             <button type="submit" class="btn btn-sm btn-light border shadow-sm" title="{{ $customer->is_blocked ? 'Unblock' : 'Block' }}">

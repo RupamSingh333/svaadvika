@@ -12,14 +12,21 @@ class Customer extends Authenticatable
     use HasFactory, Notifiable, SoftDeletes;
 
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
+        'image',
         'phone',
         'is_active',
         'is_blocked',
         'email_verified_at',
     ];
+
+    public function getNameAttribute()
+    {
+        return trim($this->first_name . ' ' . $this->last_name);
+    }
 
     protected $hidden = [
         'password',

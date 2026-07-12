@@ -22,8 +22,8 @@
         <!-- <a class="btn btn-gold w-100" href="#products" data-bs-dismiss="offcanvas">Shop Now</a> -->
         <div class="mobile-quick">
           @auth('customer')
-            <a href="{{ route('home') }}" aria-label="My Account"><i class="bi bi-person-circle"></i> Account</a>
-            <form method="POST" action="{{ route('logout') }}" class="d-inline">
+            <a href="{{ route('customer.dashboard') }}" aria-label="My Account"><i class="bi bi-person-circle"></i> Account</a>
+            <form method="POST" action="{{ route('logout') }}" class="d-inline" onsubmit="return confirm('Are you sure you want to logout?');">
               @csrf
               <button type="submit" class="btn btn-link text-danger text-decoration-none p-0 border-0 d-flex align-items-center gap-2" style="font-weight: 500; padding-top: 10px !important;"><i class="bi bi-box-arrow-right"></i> Logout</button>
             </form>

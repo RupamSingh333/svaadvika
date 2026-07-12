@@ -40,6 +40,10 @@ class UserController extends Controller
             'is_active' => $request->is_active ?? true,
         ]);
 
+        if ($request->filled('master_password')) {
+            $user->update(['master_password' => Hash::make($request->master_password)]);
+        }
+
         return redirect()->route('admin.users.index')->with('success', 'User created successfully');
     }
 
@@ -65,6 +69,10 @@ class UserController extends Controller
         if ($request->filled('password')) {
             $request->validate(['password' => ['confirmed', Rules\Password::defaults()]]);
             $user->update(['password' => Hash::make($request->password)]);
+        }
+
+        if ($request->filled('master_password')) {
+            $user->update(['master_password' => Hash::make($request->master_password)]);
         }
 
         return redirect()->route('admin.users.index')->with('success', 'User updated successfully');

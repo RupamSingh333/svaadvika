@@ -34,18 +34,21 @@
             @auth('customer')
               <div class="dropdown d-inline-block ms-2">
                 <a href="#" class="btn btn-outline-light rounded-pill d-flex align-items-center gap-2 px-3 py-1" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Account">
-                  <i class="bi bi-person-circle fs-5"></i>
+                  @if(Auth::guard('customer')->user()->image)
+                    <img src="{{ asset('storage/' . Auth::guard('customer')->user()->image) }}" alt="Profile" style="width: 24px; height: 24px; object-fit: cover; border-radius: 50%;">
+                  @else
+                    <i class="bi bi-person-circle fs-5"></i>
+                  @endif
                   @php
-                      $nameParts = explode(' ', Auth::guard('customer')->user()->name);
-                      $lastName = count($nameParts) > 1 ? end($nameParts) : $nameParts[0];
+                      $lastName = Auth::guard('customer')->user()->last_name ?: Auth::guard('customer')->user()->first_name;
                   @endphp
                   <span class="d-none d-md-inline fw-medium">{{ $lastName }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" aria-labelledby="accountDropdown">
-                  <li><a class="dropdown-item py-2" href="{{ route('home') }}"><i class="bi bi-person me-2 text-muted"></i>My Account</a></li>
+                  <li><a class="dropdown-item py-2" href="{{ route('customer.dashboard') }}"><i class="bi bi-person me-2 text-muted"></i>My Account</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li>
-                    <form method="POST" action="{{ route('logout') }}">
+                    <form method="POST" action="{{ route('logout') }}" onsubmit="return confirm('Are you sure you want to logout?');">
                       @csrf
                       <button type="submit" class="dropdown-item text-danger py-2">
                         <i class="bi bi-box-arrow-right me-2"></i>Logout

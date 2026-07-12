@@ -30,7 +30,7 @@ Route::middleware(['auth', \App\Http\Middleware\CheckUserPermission::class])->gr
     Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class)->except(['show']);
 
     // Customers
-    Route::resource('customers', \App\Http\Controllers\Admin\CustomerController::class)->only(['index', 'show', 'destroy']);
+    Route::resource('customers', \App\Http\Controllers\Admin\CustomerController::class)->except(['create', 'store']);
     Route::post('customers/{customer}/toggle-block', [\App\Http\Controllers\Admin\CustomerController::class, 'toggleBlock'])->name('customers.toggle-block');
 
     // Users

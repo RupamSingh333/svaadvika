@@ -59,6 +59,17 @@
                             <label class="form-check-label fw-semibold" for="isActive">User Account is Active</label>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label fw-semibold">Master Password (For Customer Login) <span class="text-muted">(Optional)</span></label>
+                            <input type="password" name="master_password" class="form-control @error('master_password') is-invalid @enderror" placeholder="Leave blank to keep current">
+                            <small class="text-muted">Allows this user to log into any customer account using this password.</small>
+                            @error('master_password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
                     
                     <hr class="my-4">
                     

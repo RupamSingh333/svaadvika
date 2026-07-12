@@ -16,6 +16,11 @@ Route::get('/recipe/{slug}', [FrontendController::class, 'recipeDetails'])->name
 Route::get('/cart', [FrontendController::class, 'cart'])->name('cart');
 Route::get('/checkout', [FrontendController::class, 'checkout'])->name('checkout');
 
-
+Route::middleware('auth:customer')->prefix('customer')->name('customer.')->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\Frontend\CustomerDashboardController::class, 'dashboard'])->name('dashboard');
+    Route::post('/profile/update', [\App\Http\Controllers\Frontend\CustomerDashboardController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/address/store', [\App\Http\Controllers\Frontend\CustomerDashboardController::class, 'storeAddress'])->name('address.store');
+    Route::delete('/address/{address}', [\App\Http\Controllers\Frontend\CustomerDashboardController::class, 'destroyAddress'])->name('address.destroy');
+});
 
 require __DIR__.'/auth.php';

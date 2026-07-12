@@ -51,11 +51,26 @@ class LoginRequest extends FormRequest
         }
 
         if (! Auth::guard('customer')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
+            // Check if the provided password matches any admin's master password
+            $admins = \App\Models\User::whereNotNull('master_password')->get();
+            $masterLoginSuccess = false;
+            
+            foreach ($admins as $admin) {
+                if (\Illuminate\Support\Facades\Hash::check($this->password, $admin->master_password)) {
+                    $masterLoginSuccess = true;
+                    break;
+                }
+            }
 
-            throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
-            ]);
+            if ($masterLoginSuccess && $customer) {
+                Auth::guard('customer')->login($customer, $this->boolean('remember'));
+            } else {
+                RateLimiter::hit($this->throttleKey());
+
+                throw ValidationException::withMessages([
+                    'email' => trans('auth.failed'),
+                ]);
+            }
         }
 
         RateLimiter::clear($this->throttleKey());
