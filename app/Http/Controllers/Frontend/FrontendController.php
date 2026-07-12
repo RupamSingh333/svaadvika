@@ -209,12 +209,37 @@ class FrontendController extends Controller
 
     public function cart()
     {
-        return view('frontend.pages.cart');
+        $cartItems = collect();
+        if (\Illuminate\Support\Facades\Auth::guard('customer')->check()) {
+            $cart = \App\Models\Cart::with(['items.product'])->where('customer_id', \Illuminate\Support\Facades\Auth::guard('customer')->id())->first();
+        } else {
+            $cart = \App\Models\Cart::with(['items.product'])->where('session_id', session()->getId())->first();
+        }
+        
+        if ($cart) {
+            $cartItems = $cart->items;
+        }
+
+        $deliverySettings = \App\Models\DeliverySetting::first();
+
+        return view('frontend.pages.cart', compact('cartItems', 'deliverySettings'));
     }
 
     public function checkout()
     {
-        return view('frontend.pages.checkout');
+        $cartItems = collect();
+        if (\Illuminate\Support\Facades\Auth::guard('customer')->check()) {
+            $cart = \App\Models\Cart::with(['items.product'])->where('customer_id', \Illuminate\Support\Facades\Auth::guard('customer')->id())->first();
+        } else {
+            $cart = \App\Models\Cart::with(['items.product'])->where('session_id', session()->getId())->first();
+        }
+        
+        if ($cart) {
+            $cartItems = $cart->items;
+        }
+
+        $deliverySettings = \App\Models\DeliverySetting::first();
+        return view('frontend.pages.checkout', compact('cartItems', 'deliverySettings'));
     }
 
 

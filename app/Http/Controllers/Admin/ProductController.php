@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductImage;
+use App\Models\Tax;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,13 +23,15 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.products.create', compact('categories'));
+        $taxes = Tax::where('status', 'active')->get();
+        return view('admin.products.create', compact('categories', 'taxes'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'category_id' => 'required|exists:categories,id',
+            'tax_id' => 'nullable|exists:taxes,id',
             'name' => 'required|string|max:255',
             'sku' => 'required|string|max:255|unique:products',
             'short_description' => 'nullable|string',
@@ -79,14 +82,16 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::all();
-        $product->load('images', 'featuredImage');
-        return view('admin.products.edit', compact('product', 'categories'));
+        $taxes = Tax::where('status', 'active')->get();
+        $product->load('images', 'featuredImage', 'tax');
+        return view('admin.products.edit', compact('product', 'categories', 'taxes'));
     }
 
     public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
             'category_id' => 'required|exists:categories,id',
+            'tax_id' => 'nullable|exists:taxes,id',
             'name' => 'required|string|max:255',
             'sku' => 'required|string|max:255|unique:products,sku,'.$product->id,
             'short_description' => 'nullable|string',

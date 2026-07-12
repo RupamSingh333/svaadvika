@@ -60,4 +60,11 @@ Route::middleware(['auth', \App\Http\Middleware\CheckUserPermission::class])->gr
 
     // Contact Inquiries
     Route::resource('contacts', \App\Http\Controllers\Admin\ContactController::class)->only(['index', 'show', 'destroy']);
+
+    // Masters
+    Route::resource('taxes', \App\Http\Controllers\Admin\TaxController::class)->except(['create', 'show', 'edit']);
+    
+    // Delivery Settings
+    Route::get('/delivery-settings', [\App\Http\Controllers\Admin\DeliverySettingController::class, 'index'])->name('delivery-settings.index');
+    Route::put('/delivery-settings', [\App\Http\Controllers\Admin\DeliverySettingController::class, 'update'])->name('delivery-settings.update');
 });

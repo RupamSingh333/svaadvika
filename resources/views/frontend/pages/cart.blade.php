@@ -45,222 +45,174 @@
                                     </thead>
 
                                     <tbody>
-
-                                        <!-- Product 1 -->
-
-                                        <tr>
-
+                                        @forelse($cartItems as $item)
+                                        @php
+                                            $product = $item->product;
+                                            $price = $product->sale_price ?: $product->price;
+                                            $tax = $product->tax ? $product->tax->percentage : 0;
+                                            $taxAmount = ($price * $tax) / 100;
+                                            $total = ($price + $taxAmount) * $item->quantity;
+                                            
+                                            $imageUrl = 'https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?auto=format&fit=crop&w=900&q=85';
+                                            if ($product->featuredImage) {
+                                                $imageUrl = asset('storage/' . $product->featuredImage->image_path);
+                                            } elseif ($product->images->isNotEmpty()) {
+                                                $imageUrl = asset('storage/' . $product->images->first()->image_path);
+                                            }
+                                        @endphp
+                                        <tr data-item-id="{{ $item->id }}">
                                             <td>
-
-                                                <img src="images/product1.jpg') }}" class="img-fluid product-img" alt="">
-
+                                                <img src="{{ $imageUrl }}" class="img-fluid product-img" alt="{{ $product->name }}">
                                             </td>
-
                                             <td>
-
-                                                <h6 class="product-title">
-                                                    Sulemani Hakik Crystal Bracelet
-                                                </h6>
-
+                                                <h6 class="product-title">{{ $product->name }}</h6>
                                             </td>
-
                                             <td>
-
-                                                <span class="price">
-                                                    ₹2,400
-                                                </span>
-
+                                                <span class="price">₹{{ number_format($price, 2) }}</span>
                                             </td>
-
                                             <td>
-
-                                                ₹72 (₹3%)
-
+                                                ₹{{ number_format($taxAmount, 2) }} ({{ $tax }}%)
                                             </td>
-
                                             <td>
-
-                                                <div class="qty-box">
-
-                                                    <button class="qty-btn minus">
-                                                        -
-                                                    </button>
-
-                                                    <input type="text" value="1" readonly>
-
-                                                    <button class="qty-btn plus">
-                                                        +
-                                                    </button>
-
+                                                <div class="qty-box" data-item-id="{{ $item->id }}">
+                                                    <button class="qty-btn minus">-</button>
+                                                    <input type="text" value="{{ $item->quantity }}" readonly>
+                                                    <button class="qty-btn plus">+</button>
                                                 </div>
-
                                             </td>
-
                                             <td>
-
-                                                <strong>
-                                                    ₹2,400
-                                                </strong>
-
+                                                <strong>₹{{ number_format($total, 2) }}</strong>
                                             </td>
-
                                             <td>
-
-                                                <button class="remove-btn">
-
+                                                <button class="remove-btn" data-item-id="{{ $item->id }}">
                                                     <i class="bi bi-trash"></i>
-
                                                 </button>
-
                                             </td>
-
                                         </tr>
-
-                                        <!-- Product 2 -->
-
+                                        @empty
                                         <tr>
-
-                                            <td>
-
-                                                <img src="images/product2.jpg') }}" class="img-fluid product-img" alt="">
-
-                                            </td>
-
-                                            <td>
-
-                                                <h6 class="product-title">
-                                                    COSMIC ROGE NEVARAN YANTRA
-                                                </h6>
-
-                                            </td>
-
-                                            <td>
-
-                                                <span class="price">
-                                                    ₹25,000
-                                                </span>
-
-                                            </td>
-
-                                            <td>
-
-                                                ₹4,500 (₹18%)
-
-                                            </td>
-
-                                            <td>
-
-                                                <div class="qty-box">
-
-                                                    <button class="qty-btn minus">
-                                                        -
-                                                    </button>
-
-                                                    <input type="text" value="1" readonly>
-
-                                                    <button class="qty-btn plus">
-                                                        +
-                                                    </button>
-
-                                                </div>
-
-                                            </td>
-
-                                            <td>
-
-                                                <strong>
-                                                    ₹25,000
-                                                </strong>
-
-                                            </td>
-
-                                            <td>
-
-                                                <button class="remove-btn">
-
-                                                    <i class="bi bi-trash"></i>
-
-                                                </button>
-
-                                            </td>
-
+                                            <td colspan="7" class="text-center py-4">Your cart is empty.</td>
                                         </tr>
-
-                                        
-
+                                        @endforelse
                                     </tbody>
-
                                 </table>
-
                             </div>
-
                         </div>
 
                         <!-- Continue Shopping -->
-
                         <div class="mt-5">
-
-                            <a href="#" class="btn btn-green w-100">
-
-                                CONTINUE SHOPPING
-
-                            </a>
-
+                            <a href="{{ route('frontend.products') }}" class="btn btn-green w-100">CONTINUE SHOPPING</a>
                         </div>
-
                     </div>
 
                     <!--==============================
                 Cart Summary
             ===============================-->
-
                     <div class="col-lg-3">
-
                         <div class="summary-card">
-
-                            <h4 class="summary-title">
-                                Summary
-                            </h4>
+                            <h4 class="summary-title">Summary</h4>
+                            
+                            @php
+                                $subtotal = 0;
+                                $totalTax = 0;
+                                foreach($cartItems as $item) {
+                                    $price = $item->product->sale_price ?: $item->product->price;
+                                    $tax = $item->product->tax ? $item->product->tax->percentage : 0;
+                                    $taxAmount = ($price * $tax) / 100;
+                                    
+                                    $subtotal += $price * $item->quantity;
+                                    $totalTax += $taxAmount * $item->quantity;
+                                }
+                                $grandTotal = $subtotal + $totalTax;
+                            @endphp
 
                             <div class="summary-item">
-
                                 <span>Sub-Total</span>
-
-                                <span>₹27,400</span>
-
+                                <span id="cartSubtotal">₹{{ number_format($subtotal, 2) }}</span>
                             </div>
-
                             <div class="summary-item">
-
                                 <span>Tax</span>
-
-                                <span>₹4,572</span>
-
+                                <span id="cartTax">₹{{ number_format($totalTax, 2) }}</span>
                             </div>
-
                             <hr>
-
                             <div class="summary-item total">
-
                                 <span>Total Amount</span>
-
-                                <span>₹31,972</span>
-
+                                <span id="cartGrandTotal">₹{{ number_format($grandTotal, 2) }}</span>
                             </div>
-
-                            <button class="btn btn-green w-100">
-
-                                Check Out
-
-                            </button>
-
+                            <a href="{{ route('checkout') }}" class="btn btn-green w-100 {{ $cartItems->isEmpty() ? 'disabled' : '' }}">Check Out</a>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const qtyBoxes = document.querySelectorAll(".qty-box");
+    qtyBoxes.forEach((box) => {
+        const minus = box.querySelector(".minus");
+        const plus = box.querySelector(".plus");
+        const input = box.querySelector("input");
+        const itemId = box.dataset.itemId;
+
+        const updateBackend = (quantity) => {
+            fetch('/api/cart/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ item_id: itemId, quantity: quantity })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.status === 'success') {
+                    window.location.reload(); // simple reload to update all totals correctly
+                }
+            });
+        };
+
+        plus.addEventListener("click", function () {
+            let value = parseInt(input.value);
+            value++;
+            input.value = value;
+            updateBackend(value);
+        });
+
+        minus.addEventListener("click", function () {
+            let value = parseInt(input.value);
+            if (value > 1) {
+                value--;
+                input.value = value;
+                updateBackend(value);
+            }
+        });
+    });
+
+    const removeBtns = document.querySelectorAll(".remove-btn");
+    removeBtns.forEach((btn) => {
+        btn.addEventListener("click", function () {
+            if (confirm("Remove this product from cart?")) {
+                const itemId = btn.dataset.itemId;
+                fetch('/api/cart/remove', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ item_id: itemId })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if(data.status === 'success') {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    });
+});
+</script>
+@endpush

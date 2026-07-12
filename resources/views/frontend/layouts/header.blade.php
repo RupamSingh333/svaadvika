@@ -27,15 +27,32 @@
             </ul>
           </div>
           <div class="header-actions d-none d-xl-flex">
-            <!-- <button class="icon-btn search-open" type="button" aria-label="Search" aria-haspopup="dialog"><i class="bi bi-search"></i></button>
-            <button class="icon-btn" aria-label="Wishlist"><i class="bi bi-heart"></i></button> -->
-            <button class="icon-btn cart-btn" aria-label="Cart"><i class="bi bi-bag"></i><span>2</span></button>
+            @php
+                $cartCount = 0;
+                $wishlistCount = 0;
+                if (Auth::guard('customer')->check()) {
+                    $cart = \App\Models\Cart::where('customer_id', Auth::guard('customer')->id())->first();
+                    if ($cart) $cartCount = $cart->items()->sum('quantity');
+                    
+                    $wishlist = \App\Models\Wishlist::where('customer_id', Auth::guard('customer')->id())->first();
+                    if ($wishlist) $wishlistCount = $wishlist->items()->count();
+                } else {
+                    $cart = \App\Models\Cart::where('session_id', session()->getId())->first();
+                    if ($cart) $cartCount = $cart->items()->sum('quantity');
+                    
+                    $wishlist = \App\Models\Wishlist::where('session_id', session()->getId())->first();
+                    if ($wishlist) $wishlistCount = $wishlist->items()->count();
+                }
+            @endphp
+            <!-- <button class="icon-btn search-open" type="button" aria-label="Search" aria-haspopup="dialog"><i class="bi bi-search"></i></button> -->
+            <a href="{{ url('/wishlist') }}" class="icon-btn wishlist-btn" aria-label="Wishlist"><i class="bi bi-heart"></i><span class="wishlist-count-badge">{{ $wishlistCount }}</span></a>
+            <a href="{{ route('cart') }}" class="icon-btn cart-btn" aria-label="Cart"><i class="bi bi-bag"></i><span class="cart-count-badge">{{ $cartCount }}</span></a>
             <button class="icon-btn theme-toggle" type="button" aria-label="Toggle dark mode"><i class="bi bi-moon-stars"></i></button>
             @auth('customer')
               <div class="dropdown d-inline-block ms-2">
                 <a href="#" class="btn btn-outline-light rounded-pill d-flex align-items-center gap-2 px-3 py-1" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Account">
                   @if(Auth::guard('customer')->user()->image)
-                    <img src="{{ asset('storage/' . Auth::guard('customer')->user()->image) }}" alt="Profile" style="width: 24px; height: 24px; object-fit: cover; border-radius: 50%;">
+                    <img src="{{ asset('storage/' . Auth::guard('customer')->user()->image) }}" alt="Profile" class="rounded-circle" style="width: 24px; height: 24px; object-fit: cover;">
                   @else
                     <i class="bi bi-person-circle fs-5"></i>
                   @endif
@@ -45,7 +62,7 @@
                   <span class="d-none d-md-inline fw-medium">{{ $lastName }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" aria-labelledby="accountDropdown">
-                  <li><a class="dropdown-item py-2" href="{{ route('customer.dashboard') }}"><i class="bi bi-person me-2 text-muted"></i>My Account</a></li>
+                  <li><a class="dropdown-item py-2" href="{{ route('customer.dashboard') }}"><i class="bi bi-person me-2 text-muted"></i>Dashboard</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li>
                     <form method="POST" action="{{ route('logout') }}" onsubmit="return confirm('Are you sure you want to logout?');">

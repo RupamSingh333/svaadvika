@@ -10,7 +10,7 @@ class Product extends Model
     use Auditable;
 
     protected $fillable = [
-        'category_id', 'name', 'slug', 'sku', 'short_description', 
+        'category_id', 'tax_id', 'name', 'slug', 'sku', 'short_description', 
         'long_description', 'price', 'sale_price', 'stock_quantity', 
         'is_featured', 'status', 'image', 'is_out_of_stock',
         'rating', 'reviews_count', 'ingredients', 'weight'
@@ -19,6 +19,11 @@ class Product extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function tax()
+    {
+        return $this->belongsTo(Tax::class);
     }
 
     public function images()

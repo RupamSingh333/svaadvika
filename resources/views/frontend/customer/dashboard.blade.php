@@ -32,15 +32,13 @@
     body.dark-mode .text-dark { color: #ffffff !important; }
     body.dark-mode .text-muted { color: var(--muted, #d9d9d9) !important; }
 </style>
-<section class="contactmain-contact-hero">
+<section class="page-title-section pt-5 pb-3 mt-5">
     <div class="container-xl">
-        <div class="contact-hero-copy reveal-up">
         <nav class="breadcrumb-nav" aria-label="Breadcrumb">
             <a href="{{ route('home') }}">Home</a>
             <i class="bi bi-chevron-right"></i>
             <span>Dashboard</span>
-        </nav> 
-        </div>
+        </nav>
     </div>
 </section>
 
@@ -198,9 +196,9 @@
                                     <label>Profile Image</label>
                                     <div class="d-flex align-items-center gap-3">
                                         @if(auth('customer')->user()->image)
-                                            <img src="{{ asset('storage/' . auth('customer')->user()->image) }}" alt="Profile" style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%;">
+                                            <img src="{{ asset('storage/' . auth('customer')->user()->image) }}" alt="Profile" class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover;">
                                         @else
-                                            <div class="avatar bg-light text-secondary d-flex justify-content-center align-items-center" style="width: 60px; height: 60px; border-radius: 50%; font-size: 24px; border: 1px solid #ddd;">
+                                            <div class="avatar bg-light text-secondary rounded-circle d-flex justify-content-center align-items-center" style="width: 60px; height: 60px; font-size: 24px; border: 1px solid #ddd;">
                                                 <i class="bi bi-person"></i>
                                             </div>
                                         @endif
@@ -217,28 +215,29 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label>Email</label>
-                                    <input type="email" name="email" class="form-control bg-light" value="{{ auth('customer')->user()->email }}" readonly>
+                                    <input type="email" name="email" class="form-control bg-light" value="{{ auth('customer')->user()->email }}" readonly style="cursor: not-allowed;">
+                                    <small class="text-muted">Email cannot be changed.</small>
                                 </div>
                                 <div class="col-md-6">
                                     <label>Phone</label>
-                                    <input type="text" name="phone" class="form-control" value="{{ old('phone', auth('customer')->user()->phone) }}">
+                                    <input type="tel" name="phone" class="form-control" value="{{ old('phone', auth('customer')->user()->phone) }}" pattern="[0-9]{1,12}" maxlength="12" title="Please enter only numbers up to 12 digits">
                                 </div>
                                 <div class="col-md-6 mt-4">
                                     <label>New Password (Optional)</label>
-                                    <div class="position-relative">
-                                        <input type="password" name="password" id="password" class="form-control pe-5">
-                                        <span class="toggle-password position-absolute" data-target="password" style="right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #6c757d; z-index: 10;">
+                                    <div class="input-group">
+                                        <input type="password" name="password" id="password" class="form-control">
+                                        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password">
                                             <i class="bi bi-eye"></i>
-                                        </span>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mt-4">
                                     <label>Confirm Password</label>
-                                    <div class="position-relative">
-                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control pe-5">
-                                        <span class="toggle-password position-absolute" data-target="password_confirmation" style="right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #6c757d; z-index: 10;">
+                                    <div class="input-group">
+                                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
+                                        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password_confirmation">
                                             <i class="bi bi-eye"></i>
-                                        </span>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="col-12 mt-4">
@@ -371,9 +370,35 @@
                 <div id="wishlist-content" class="dashboard-page d-none">
                     <div class="content-card">
                         <h3 class="section-heading">Wishlist</h3>
-                        <div class="text-center py-5 text-muted">
-                            <i class="bi bi-heart" style="font-size: 3rem;"></i>
-                            <p class="mt-3">Your wishlist is empty.</p>
+                        <div class="row g-4 mt-2">
+                            @forelse($wishlistItems ?? collect() as $item)
+                                @php
+                                    $product = $item->product;
+                                    $price = $product->sale_price ?: $product->price;
+                                    $imageUrl = 'https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?auto=format&fit=crop&w=900&q=85';
+                                    if ($product->featuredImage) {
+                                        $imageUrl = asset('storage/' . $product->featuredImage->image_path);
+                                    } elseif ($product->images->isNotEmpty()) {
+                                        $imageUrl = asset('storage/' . $product->images->first()->image_path);
+                                    }
+                                @endphp
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="wishlist-card border rounded p-3 text-center position-relative">
+                                        <button class="btn btn-sm btn-link text-danger position-absolute" style="top:5px; right:5px;" onclick="removeFromWishlist({{ $item->product_id }})">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                        <img src="{{ $imageUrl }}" class="img-fluid rounded" style="height:150px; object-fit:cover;">
+                                        <h5 class="mt-3">{{ $product->name }}</h5>
+                                        <p class="fw-bold">₹{{ number_format($price, 2) }}</p>
+                                        <button class="btn btn-green w-100" data-add-cart="{{ $product->id }}">Add to Cart</button>
+                                    </div>
+                                </div>
+                            @empty
+                            <div class="text-center py-5 text-muted col-12">
+                                <i class="bi bi-heart" style="font-size: 3rem;"></i>
+                                <p class="mt-3">Your wishlist is empty.</p>
+                            </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
@@ -444,5 +469,24 @@
             });
         });
     });
+
+    function removeFromWishlist(productId) {
+        if(confirm('Are you sure you want to remove this from your wishlist?')) {
+            fetch('/api/wishlist/toggle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ product_id: productId })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.status === 'success') {
+                    window.location.reload();
+                }
+            });
+        }
+    }
 </script>
 @endpush

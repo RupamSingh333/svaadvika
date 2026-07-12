@@ -1,6 +1,90 @@
 (function () {
-    let cartCount = Number(localStorage.getItem("svaadvika-cart-count") || 2);
-  let wishlist = JSON.parse(localStorage.getItem("svaadvika-wishlist") || "[]");
+  window.updateCartCount = function(count) {
+    document.querySelectorAll(".cart-count-badge").forEach((node) => node.textContent = String(count));
+  };
+  window.updateWishlistCount = function(count) {
+    document.querySelectorAll(".wishlist-count-badge").forEach((node) => node.textContent = String(count));
+  };
+  window.showToast = function(text) {
+    const cartToast = document.querySelector("#cartToast");
+    if (cartToast) {
+      cartToast.querySelector("span").textContent = text;
+      window.bootstrap?.Toast.getOrCreateInstance(cartToast).show();
+    }
+  };
+
+  window.handleCommerceClick = function(event) {
+      const wish = event.target.closest("[data-wishlist]");
+      const add = event.target.closest("[data-add-cart]");
+      const plus = event.target.closest("[data-qty-plus]");
+      const minus = event.target.closest("[data-qty-minus]");
+      if (wish) {
+        const btn = wish;
+        fetch('/api/wishlist/toggle', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+            },
+            body: JSON.stringify({ product_id: wish.dataset.wishlist })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.status === 'success') {
+                window.updateWishlistCount(data.count);
+                document.querySelectorAll(`[data-wishlist="${wish.dataset.wishlist}"]`).forEach((item) => item.classList.toggle("wishlist-active", data.action === 'added'));
+            }
+        });
+      }
+      if (add) {
+        const btn = add;
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
+        btn.disabled = true;
+
+        let qty = 1;
+        const qtySpan = add.closest(".catalog-card, .quick-view-content, .product-details-page")?.querySelector(".qty-control span");
+        if (qtySpan) {
+            qty = Number(qtySpan.textContent) || 1;
+        } else {
+            const qtyInput = add.closest("tr, .product-item")?.querySelector("input.qty-input");
+            if (qtyInput) qty = Number(qtyInput.value) || 1;
+        }
+
+        fetch('/api/cart/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+            },
+            body: JSON.stringify({ product_id: add.dataset.addCart, quantity: qty })
+        })
+        .then(res => res.json())
+        .then(data => {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            if(data.status === 'success') {
+                window.updateCartCount(data.count);
+                window.showToast("Product added to cart.");
+            }
+        })
+        .catch(err => {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        });
+      }
+      if (plus || minus) {
+        const control = (plus || minus).closest(".qty-control");
+        if (control) {
+            const value = control.querySelector("span");
+            if (value) {
+                value.textContent = String(plus ? Number(value.textContent) + 1 : Math.max(1, Number(value.textContent) - 1));
+            }
+        }
+      }
+  };
+  document.addEventListener("click", window.handleCommerceClick);
+
   const header = document.querySelector("#siteHeader");
   const backTop = document.querySelector(".back-top");
   const loader = document.querySelector(".page-loader");
@@ -103,38 +187,7 @@
   });
 
   function svaadvikaCatalogProducts() {
-    return [
-      ["hyderabadi-biryani-kit", "biryani", "Hyderabadi Biryani Kit", "Authentic Hyderabadi dum biryani made easy at home.", 4.8, 128, 349, 399, "12%"],
-      ["lucknowi-biryani-kit", "biryani", "Lucknowi Biryani Kit", "Delicate and aromatic Lucknowi biryani experience.", 4.6, 96, 349, 399, "12%"],
-      ["mumbai-biryani-kit", "biryani", "Mumbai Biryani Kit", "Bold flavours of Mumbai in every bite.", 4.7, 78, 349, 399, "12%"],
-      ["kolkata-biryani-kit", "biryani", "Kolkata Biryani Kit", "Classic Kolkata biryani with rich and royal taste.", 4.4, 64, 349, 399, "12%"],
-      ["malabar-biryani-kit", "biryani", "Malabar Biryani Kit", "Coastal spice blend with fragrant rice and herbs.", 4.5, 74, 359, 429, "16%"],
-      ["chicken-biryani-kit", "biryani", "Chicken Biryani Kit", "Restaurant-style chicken biryani for family meals.", 4.8, 155, 379, 449, "16%"],
-      ["mutton-biryani-kit", "biryani", "Mutton Biryani Kit", "Deep, royal spices crafted for slow-cooked mutton.", 4.9, 142, 449, 529, "15%"],
-      ["veg-biryani-kit", "biryani", "Veg Biryani Kit", "Aromatic vegetarian biryani packed with flavour.", 4.3, 66, 299, 349, "14%"],
-      ["tandoori-marinade", "marinades", "Tandoori Marinade", "Perfect blend of spices for juicy tandoori chicken.", 4.6, 110, 199, 249, "20%"],
-      ["hariyali-marinade", "marinades", "Hariyali Marinade", "Fresh and herby marinade for a healthy delight.", 4.4, 88, 199, 249, "20%"],
-      ["achari-marinade", "marinades", "Achari Marinade", "Tangy pickle-style spices for bold grilling.", 4.3, 73, 209, 259, "19%"],
-      ["bbq-marinade", "marinades", "BBQ Marinade", "Smoky Indian BBQ marinade for rich charred taste.", 4.2, 58, 229, 279, "18%"],
-      ["peri-peri-marinade", "marinades", "Peri Peri Marinade", "Fiery peri peri kick with Indian spice balance.", 4.5, 69, 229, 279, "18%"],
-      ["butter-chicken-marinade", "marinades", "Butter Chicken Marinade", "Creamy, rich marinade for classic butter chicken.", 4.7, 101, 249, 299, "17%"],
-      ["pani-puri-kit", "chaat", "Pani Puri Kit", "Complete kit for crispy pani puri at home.", 5, 120, 149, 189, "21%"],
-      ["bhel-mix", "chaat", "Bhel Mix", "Crisp, tangy bhel mix for quick street-style snacking.", 4.2, 55, 119, 149, "20%"],
-      ["dahi-bhalla-mix", "chaat", "Dahi Bhalla Mix", "Soft bhalla mix with classic chaat seasoning.", 4.1, 48, 139, 179, "22%"],
-      ["sev-puri-mix", "chaat", "Sev Puri Mix", "Crunchy sev puri essentials with tangy masala.", 4.3, 61, 129, 159, "19%"],
-      ["papdi-chaat-mix", "chaat", "Papdi Chaat Mix", "Crisp papdi and spice mix for chaat cravings.", 4.4, 70, 139, 169, "18%"],
-      ["chaat-masala", "chaat", "Chaat Masala", "Tangy and spicy chaat masala for chatpata joy.", 4.7, 95, 129, 159, "19%"],
-      ["moong-dal-halwa-mix", "halwa", "Moong Dal Halwa Mix", "Traditional moong dal halwa ready in minutes.", 4.2, 90, 149, 189, "21%"],
-      ["gajar-halwa-mix", "halwa", "Gajar Halwa Mix", "Make delicious gajar halwa with ease.", 4.5, 85, 149, 189, "21%"],
-      ["badam-halwa-mix", "halwa", "Badam Halwa Mix", "Rich almond dessert mix with premium sweetness.", 4.6, 76, 179, 229, "22%"],
-      ["kesar-halwa-mix", "halwa", "Kesar Halwa Mix", "Rich kesar flavour for a royal dessert.", 4.4, 70, 149, 189, "21%"],
-      ["dry-fruit-halwa-mix", "halwa", "Dry Fruit Halwa Mix", "Nutty, festive halwa mix with premium dry fruits.", 4.8, 104, 199, 249, "20%"],
-      ["ready-biryani-rice-mix", "ready-mix", "Ready Biryani Rice Mix", "Perfectly spiced rice mix for quick biryani.", 4.7, 105, 199, 249, "20%"],
-      ["dosa-mix", "ready-mix", "Dosa Mix", "Crisp South Indian dosa mix for everyday breakfast.", 4.1, 49, 159, 199, "20%"],
-      ["idli-mix", "ready-mix", "Idli Mix", "Soft, fluffy idlis made simple and reliable.", 4.2, 53, 159, 199, "20%"],
-      ["upma-mix", "ready-mix", "Upma Mix", "Comforting semolina upma with balanced spices.", 4.0, 42, 139, 179, "22%"],
-      ["gulab-jamun-mix", "ready-mix", "Gulab Jamun Mix", "Soft festive gulab jamuns with a classic finish.", 4.6, 87, 169, 219, "23%"]
-    ].map((item, index) => ({ id: item[0], category: item[1], title: item[2], description: item[3], rating: item[4], reviews: item[5], price: item[6], oldPrice: item[7], discount: item[8], stock: true, newest: index }));
+    return [].map((item, index) => ({ id: item[0], category: item[1], title: item[2], description: item[3], rating: item[4], reviews: item[5], price: item[6], oldPrice: item[7], discount: item[8], stock: true, newest: index }));
   }
 
   function catalogStars(rating) {
@@ -153,34 +206,34 @@
     return aliases[slug] || slug;
   }
 
-    const quickBody = document.querySelector("#quickViewBody");
+  const quickBody = document.querySelector("#quickViewBody");
   const cartToast = document.querySelector("#cartToast");
   function rupee(value) { return `₹${value}`; }
   function labelFor(category) { return category.split("-").map((part) => part[0].toUpperCase() + part.slice(1)).join(" "); }
   function stars(rating) { return Array.from({ length: 5 }, (_, index) => `<i class="bi bi-star${rating >= index + 1 ? "-fill" : rating > index ? "-half" : ""}"></i>`).join(""); }
-    function quickView(product) {
-      if(!quickBody) return;
-      
-      let carouselHtml = '';
-      let indicatorsHtml = '';
-      if (product.images && product.images.length > 0) {
-        carouselHtml = product.images.map((img, idx) => `
+  function quickView(product) {
+    if (!quickBody) return;
+
+    let carouselHtml = '';
+    let indicatorsHtml = '';
+    if (product.images && product.images.length > 0) {
+      carouselHtml = product.images.map((img, idx) => `
           <div class="carousel-item ${idx === 0 ? 'active' : ''}">
             <div class="quick-view-image" style="background-image: url('${img.src}'); background-size: cover; background-position: center; border-radius: 1rem; height: 100%;"></div>
           </div>
         `).join('');
-        indicatorsHtml = product.images.length > 1 ? product.images.map((img, idx) => `
+      indicatorsHtml = product.images.length > 1 ? product.images.map((img, idx) => `
           <button type="button" data-bs-target="#quickViewCarousel-${product.id}" data-bs-slide-to="${idx}" class="${idx === 0 ? 'active' : ''}" aria-current="true" aria-label="Slide ${idx + 1}"></button>
         `).join('') : '';
-      } else {
-        carouselHtml = `
+    } else {
+      carouselHtml = `
           <div class="carousel-item active">
             <div class="quick-view-image" style="background-image: url('${product.image}'); background-size: cover; background-position: center; border-radius: 1rem; height: 100%;"></div>
           </div>
         `;
-      }
+    }
 
-      quickBody.innerHTML = `
+    quickBody.innerHTML = `
         <div class="quick-view-layout">
           <div id="quickViewCarousel-${product.id}" class="carousel slide h-100" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -208,17 +261,17 @@
             <p>${product.description}</p>
             <ul><li>Ingredients: ${product.ingredients}</li><li>Weight: ${product.weight}</li><li>Status: ${product.stock ? "In stock" : "Out of Stock"}</li></ul>
             <div class="quick-view-actions">
-              <button class="icon-btn ${wishlist.includes(product.id) ? "wishlist-active" : ""}" type="button" data-wishlist="${product.id}" aria-label="Toggle ${product.title} wishlist"><i class="bi bi-heart"></i></button>
+              <button class="icon-btn wishlist-active-state" type="button" data-wishlist="${product.id}" aria-label="Toggle ${product.title} wishlist"><i class="bi bi-heart"></i></button>
               <div class="catalog-actions"><div class="qty-control"><button type="button" data-qty-minus>-</button><span>1</span><button type="button" data-qty-plus>+</button></div><button class="add-cart" type="button" data-add-cart="${product.id}">Add To Cart</button></div>
             </div>
           </div>
         </div>`;
-      window.bootstrap?.Modal.getOrCreateInstance(document.querySelector("#quickViewModal")).show();
-      if(product.images && product.images.length > 1) {
-        new window.bootstrap.Carousel(document.getElementById(`quickViewCarousel-${product.id}`));
-      }
+    window.bootstrap?.Modal.getOrCreateInstance(document.querySelector("#quickViewModal")).show();
+    if (product.images && product.images.length > 1) {
+      new window.bootstrap.Carousel(document.getElementById(`quickViewCarousel-${product.id}`));
     }
-    window.openQuickViewModal = quickView;
+  }
+  window.openQuickViewModal = quickView;
 
   const newProductPage = document.querySelector("[data-new-product-page]");
   if (newProductPage) {
@@ -232,10 +285,10 @@
     const ratingFilter = document.querySelector("#productRatingFilter");
     const sortSelect = document.querySelector("#productSortSelect");
     const noProducts = document.querySelector("#noProductsFound");
-    
+
     const perPage = 12;
-    
-    
+
+
     let state = { category: "all", search: "", price: 600, rating: 0, sort: "best-selling", page: 1 };
 
     function rupee(value) { return `₹${value}`; }
@@ -296,13 +349,12 @@
       document.querySelectorAll("[data-filter-category]").forEach((button) => button.classList.toggle("active", button.dataset.filterCategory === state.category));
     }
     function productCard(product) {
-      const active = wishlist.includes(product.id) ? " wishlist-active" : "";
       return `
         <article class="catalog-card reveal-up is-visible" data-product-id="${product.id}">
           <div class="catalog-image" style="background-image: url('${product.image}'); background-size: cover; background-position: center;">
             <a href="/product/${product.id}" style="position: absolute; inset: 0; z-index: 1;" aria-label="View ${product.title} details"></a>
             ${product.oldPrice > product.price ? '<span>Sale</span>' : ''}
-            <button class="${active}" type="button" data-wishlist="${product.id}" aria-label="Toggle ${product.title} wishlist"><i class="bi bi-heart"></i></button>
+            <button class="" type="button" data-wishlist="${product.id}" aria-label="Toggle ${product.title} wishlist"><i class="bi bi-heart"></i></button>
             <button class="quick-view-icon" type="button" data-quick-view="${product.id}" aria-label="Quick View ${product.title}"><i class="bi bi-eye"></i></button>
           </div>
           <div class="catalog-body">
@@ -327,9 +379,9 @@
         const start = (state.page - 1) * perPage;
         const visible = list.slice(start, start + perPage);
         grid.innerHTML = visible.map(productCard).join("");
-        if(noProducts) noProducts.hidden = list.length !== 0;
-        if(countText) countText.textContent = `Showing ${visible.length} of ${list.length} Products`;
-        if(pagination) pagination.innerHTML = list.length ? paginationMarkup(totalPages) : "";
+        if (noProducts) noProducts.hidden = list.length !== 0;
+        if (countText) countText.textContent = `Showing ${visible.length} of ${list.length} Products`;
+        if (pagination) pagination.innerHTML = list.length ? paginationMarkup(totalPages) : "";
         grid.classList.remove("is-filtering");
       }, 120);
     }
@@ -337,39 +389,84 @@
       const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
       return `<button type="button" data-page="${Math.max(1, state.page - 1)}" aria-label="Previous page"><i class="bi bi-chevron-left"></i></button>${pages.map((page) => `<button type="button" class="${page === state.page ? "active" : ""}" data-page="${page}">${page}</button>`).join("")}<button type="button" data-page="${Math.min(totalPages, state.page + 1)}" aria-label="Next page"><i class="bi bi-chevron-right"></i></button>`;
     }
-    function updateCartCount() {
-      document.querySelectorAll("[data-cart-count]").forEach((node) => node.textContent = String(cartCount));
-    }
-    function showToast(title) {
-      updateCartCount();
-      if (cartToast) {
-        cartToast.querySelector("span").textContent = `${title} added to cart.`;
-        window.bootstrap?.Toast.getOrCreateInstance(cartToast).show();
-      }
-    }
 
-    
+
+
     function handleCommerceClick(event) {
       const wish = event.target.closest("[data-wishlist]");
       const add = event.target.closest("[data-add-cart]");
       const plus = event.target.closest("[data-qty-plus]");
       const minus = event.target.closest("[data-qty-minus]");
       if (wish) {
-        wishlist = wishlist.includes(wish.dataset.wishlist) ? wishlist.filter((id) => id !== wish.dataset.wishlist) : [...wishlist, wish.dataset.wishlist];
-        localStorage.setItem("svaadvika-wishlist", JSON.stringify(wishlist));
-        document.querySelectorAll(`[data-wishlist="${wish.dataset.wishlist}"]`).forEach((item) => item.classList.toggle("wishlist-active", wishlist.includes(wish.dataset.wishlist)));
+        const btn = wish;
+        fetch('/api/wishlist/toggle', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+          },
+          body: JSON.stringify({ product_id: wish.dataset.wishlist })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.status === 'success') {
+              updateWishlistCount(data.count);
+              document.querySelectorAll(`[data-wishlist="${wish.dataset.wishlist}"]`).forEach((item) => item.classList.toggle("wishlist-active", data.action === 'added'));
+            }
+          });
       }
       if (add) {
-        cartCount += Number(add.closest(".catalog-card, .quick-view-content")?.querySelector(".qty-control span")?.textContent || 1);
-        localStorage.setItem("svaadvika-cart-count", cartCount);
-        showToast(products.find((product) => product.id === add.dataset.addCart)?.title || "Product");
+        const btn = add;
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
+        btn.disabled = true;
+
+        let qty = 1;
+        const qtySpan = add.closest(".catalog-card, .quick-view-content, .product-details-page")?.querySelector(".qty-control span");
+        if (qtySpan) {
+          qty = Number(qtySpan.textContent) || 1;
+        } else {
+          const qtyInput = add.closest("tr, .product-item")?.querySelector("input.qty-input");
+          if (qtyInput) qty = Number(qtyInput.value) || 1;
+        }
+
+        fetch('/api/cart/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+          },
+          body: JSON.stringify({ product_id: add.dataset.addCart, quantity: qty })
+        })
+          .then(res => res.json())
+          .then(data => {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            if (data.status === 'success') {
+              updateCartCount(data.count);
+              showToast("Product added to cart.");
+            }
+          })
+          .catch(err => {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+          });
       }
       if (plus || minus) {
-        const value = (plus || minus).closest(".qty-control").querySelector("span");
-        value.textContent = String(plus ? Number(value.textContent) + 1 : Math.max(1, Number(value.textContent) - 1));
+        const control = (plus || minus).closest(".qty-control");
+        if (control) {
+          const value = control.querySelector("span");
+          if (value) {
+            value.textContent = String(plus ? Number(value.textContent) + 1 : Math.max(1, Number(value.textContent) - 1));
+          }
+        }
       }
       return Boolean(wish || add || plus || minus);
     }
+
+    document.addEventListener("click", (event) => {
+      handleCommerceClick(event);
+    });
     newProductPage.addEventListener("click", (event) => {
       const category = event.target.closest("[data-filter-category]");
       const page = event.target.closest("[data-page]");
@@ -377,9 +474,7 @@
       if (category) { state.category = category.dataset.filterCategory; state.page = 1; readControls(false); updateUrl(); render(); }
       if (page) { state.page = Number(page.dataset.page); updateUrl(); render(); }
       if (quick) quickView(products.find((product) => product.id === quick.dataset.quickView));
-      handleCommerceClick(event);
     });
-    quickBody?.addEventListener("click", handleCommerceClick);
     function readControls(resetPage = true) {
       state.search = searchField.value.trim();
       state.price = Number(priceRange.value);
@@ -397,23 +492,22 @@
     readUrl();
     updateUrl(true);
     render();
-    updateCartCount();
   }
 
   document.addEventListener("click", (event) => {
     const card = event.target.closest(".catalog-card");
     const quickBtn = event.target.closest("[data-quick-view]");
-    
+
     if (quickBtn) {
-        const id = quickBtn.dataset.quickView;
-        let p = window.SvaadvikaRelatedProducts?.find(x => String(x.id) === String(id));
-        if (!p) p = window.SvaadvikaProducts?.find(x => String(x.id) === String(id) || String(x.slug) === String(id));
-        if (!p) p = svaadvikaCatalogProducts().find(x => String(x.id) === String(id));
-        if (p) {
-            // Need to dispatch a custom event or call a global function
-            window.openQuickViewModal(p);
-        }
-        return;
+      const id = quickBtn.dataset.quickView;
+      let p = window.SvaadvikaRelatedProducts?.find(x => String(x.id) === String(id));
+      if (!p) p = window.SvaadvikaProducts?.find(x => String(x.id) === String(id) || String(x.slug) === String(id));
+      if (!p) p = svaadvikaCatalogProducts().find(x => String(x.id) === String(id));
+      if (p) {
+        // Need to dispatch a custom event or call a global function
+        window.openQuickViewModal(p);
+      }
+      return;
     }
 
     if (!card) return;
@@ -435,8 +529,8 @@
     const modalGallery = document.querySelector("#galleryModal");
     const thumbs = document.querySelector("#detailsThumbs");
     const modalThumbs = document.querySelector("#modalThumbs");
-    
-    
+
+
     let activeSlide = 0;
     let lastTap = 0;
 
@@ -478,21 +572,39 @@
       mainImage?.classList.remove("is-zoomed");
       modalCarouselElement?.classList.remove("is-zoomed");
     }
-    function updateCartCount() {
-      document.querySelectorAll("[data-cart-count]").forEach((node) => node.textContent = String(cartCount));
-    }
-    function showToast(text) {
-      updateCartCount();
-      if (cartToast) {
-        cartToast.querySelector("span").textContent = text;
-        window.bootstrap?.Toast.getOrCreateInstance(cartToast).show();
+
+    function addCurrentProduct(btn) {
+      if (btn) {
+        btn.dataset.originalText = btn.innerHTML;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
+        btn.disabled = true;
       }
-    }
-    function addCurrentProduct() {
       const qty = Number(detailsPage.querySelector(".details-actions .qty-control span")?.textContent || 1);
-      cartCount += qty;
-      localStorage.setItem("svaadvika-cart-count", cartCount);
-      showToast(`${product.title} added to cart.`);
+      fetch('/api/cart/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+        },
+        body: JSON.stringify({ product_id: product.id, quantity: qty })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (btn) {
+            btn.innerHTML = btn.dataset.originalText;
+            btn.disabled = false;
+          }
+          if (data.status === 'success') {
+            window.updateCartCount(data.count);
+            window.showToast(`${product.title} added to cart.`);
+          }
+        })
+        .catch(err => {
+          if (btn) {
+            btn.innerHTML = btn.dataset.originalText;
+            btn.disabled = false;
+          }
+        });
     }
 
     const images = galleryImages(product);
@@ -538,32 +650,15 @@
       if (now - lastTap < 320 || window.matchMedia("(min-width: 768px)").matches) mainImage.classList.toggle("is-zoomed");
       lastTap = now;
     });
+
     document.addEventListener("keydown", (event) => {
       if (!detailsPage) return;
       if (event.key === "ArrowLeft") carousel?.prev();
       if (event.key === "ArrowRight") carousel?.next();
     });
-    detailsPage.addEventListener("click", (event) => {
-      const plus = event.target.closest("[data-qty-plus]");
-      const minus = event.target.closest("[data-qty-minus]");
-      if (plus || minus) {
-        const value = (plus || minus).closest(".qty-control").querySelector("span");
-        value.textContent = String(plus ? Number(value.textContent) + 1 : Math.max(1, Number(value.textContent) - 1));
-      }
-      if (event.target.closest("[data-details-add-cart]")) addCurrentProduct();
-      if (event.target.closest("[data-details-buy]")) {
-        addCurrentProduct();
-        showToast("Ready for checkout.");
-      }
-      const wish = event.target.closest("[data-wishlist]");
-      if (wish) {
-        wishlist = wishlist.includes(wish.dataset.wishlist) ? wishlist.filter((id) => id !== wish.dataset.wishlist) : [...wishlist, wish.dataset.wishlist];
-        localStorage.setItem("svaadvika-wishlist", JSON.stringify(wishlist));
-        document.querySelectorAll(`[data-wishlist="${wish.dataset.wishlist}"]`).forEach((item) => item.classList.toggle("wishlist-active", wishlist.includes(wish.dataset.wishlist)));
-      }
-    });
     document.querySelector(".mobile-detail-bar")?.addEventListener("click", (event) => {
-      if (event.target.closest("[data-details-add-cart], [data-details-buy]")) addCurrentProduct();
+      const target = event.target.closest("[data-details-add-cart], [data-details-buy]");
+      if (target) addCurrentProduct(target);
     });
 
     const relatedGrid = document.querySelector("#detailsRelatedGrid");
@@ -571,13 +666,12 @@
       // If JS related products array is empty, keep existing HTML from blade
     } else if (relatedGrid) {
       relatedGrid.innerHTML = relatedProducts.slice(0, 4).map((item) => {
-        const active = wishlist.includes(item.id) ? " wishlist-active" : "";
         return `
         <article class="catalog-card reveal-up is-visible" data-product-id="${item.id}">
           <div class="catalog-image" style="background-image: url('${item.image}'); background-size: cover; background-position: center;">
             <a href="/product/${item.id}" style="position: absolute; inset: 0; z-index: 1;" aria-label="View ${item.title} details"></a>
             ${item.oldPrice > item.price ? '<span>Sale</span>' : ''}
-            <button class="${active}" type="button" data-wishlist="${item.id}" aria-label="Toggle ${item.title} wishlist"><i class="bi bi-heart"></i></button>
+            <button class="" type="button" data-wishlist="${item.id}" aria-label="Toggle ${item.title} wishlist"><i class="bi bi-heart"></i></button>
             <button class="quick-view-icon" type="button" data-quick-view="${item.id}" aria-label="Quick View ${item.title}"><i class="bi bi-eye"></i></button>
           </div>
           <div class="catalog-body">
@@ -594,7 +688,6 @@
         </article>`;
       }).join("");
     }
-    updateCartCount();
   }
 
   const recipesPage = document.querySelector("[data-recipes-page]");
@@ -617,91 +710,91 @@
 
 // Custom
 document.querySelectorAll('.faq-item h4').forEach(item => {
-    item.addEventListener('click', function () {
+  item.addEventListener('click', function () {
 
-        const faq = this.parentElement;
-        faq.classList.toggle('active');
+    const faq = this.parentElement;
+    faq.classList.toggle('active');
 
-        const icon = this.querySelector('i');
+    const icon = this.querySelector('i');
 
-        if (faq.classList.contains('active')) {
-            icon.classList.remove('bi-plus-lg');
-            icon.classList.add('bi-dash-lg');
-        } else {
-            icon.classList.remove('bi-dash-lg');
-            icon.classList.add('bi-plus-lg');
-        }
+    if (faq.classList.contains('active')) {
+      icon.classList.remove('bi-plus-lg');
+      icon.classList.add('bi-dash-lg');
+    } else {
+      icon.classList.remove('bi-dash-lg');
+      icon.classList.add('bi-plus-lg');
+    }
 
-    });
+  });
 });
- 
-    /*=========================================
-    Shopping Cart Script
+
+/*=========================================
+Shopping Cart Script
 =========================================*/
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Quantity Buttons
-    const qtyBoxes = document.querySelectorAll(".qty-box");
+  // Quantity Buttons
+  const qtyBoxes = document.querySelectorAll(".qty-box");
 
-    qtyBoxes.forEach((box) => {
+  qtyBoxes.forEach((box) => {
 
-        const minus = box.querySelector(".minus");
-        const plus = box.querySelector(".plus");
-        const input = box.querySelector("input");
+    const minus = box.querySelector(".minus");
+    const plus = box.querySelector(".plus");
+    const input = box.querySelector("input");
 
-        plus.addEventListener("click", function () {
+    plus.addEventListener("click", function () {
 
-            let value = parseInt(input.value);
-            value++;
-            input.value = value;
+      let value = parseInt(input.value);
+      value++;
+      input.value = value;
 
-            updateCart();
-
-        });
-
-        minus.addEventListener("click", function () {
-
-            let value = parseInt(input.value);
-
-            if (value > 1) {
-                value--;
-                input.value = value;
-
-                updateCart();
-            }
-
-        });
+      updateCart();
 
     });
 
-    // Remove Product
-    const removeBtns = document.querySelectorAll(".remove-btn");
+    minus.addEventListener("click", function () {
 
-    removeBtns.forEach((btn) => {
+      let value = parseInt(input.value);
 
-        btn.addEventListener("click", function () {
+      if (value > 1) {
+        value--;
+        input.value = value;
 
-            if (confirm("Remove this product from cart?")) {
-
-                this.closest("tr").remove();
-
-                updateCart();
-
-            }
-
-        });
+        updateCart();
+      }
 
     });
 
-    // Checkout Button
-    const checkoutBtn = document.querySelector(".checkout-btn");
+  });
 
-    checkoutBtn?.addEventListener("click", function () {
+  // Remove Product
+  const removeBtns = document.querySelectorAll(".remove-btn");
 
-        alert("Proceeding to Checkout...");
+  removeBtns.forEach((btn) => {
+
+    btn.addEventListener("click", function () {
+
+      if (confirm("Remove this product from cart?")) {
+
+        this.closest("tr").remove();
+
+        updateCart();
+
+      }
 
     });
+
+  });
+
+  // Checkout Button
+  const checkoutBtn = document.querySelector(".checkout-btn");
+
+  checkoutBtn?.addEventListener("click", function () {
+
+    alert("Proceeding to Checkout...");
+
+  });
 
 });
 
@@ -711,55 +804,55 @@ document.addEventListener("DOMContentLoaded", function () {
 =========================================*/
 
 function updateCart() {
-    let subtotal = 0;
-    let tax = 0;
-    const rows = document.querySelectorAll(".order-page-cart tbody tr");
-    if (rows.length === 0) return;
+  let subtotal = 0;
+  let tax = 0;
+  const rows = document.querySelectorAll(".order-page-cart tbody tr");
+  if (rows.length === 0) return;
 
-    rows.forEach((row) => {
+  rows.forEach((row) => {
 
-        const qty = parseInt(row.querySelector("input").value);
+    const qty = parseInt(row.querySelector("input").value);
 
-        const priceText = row.children[2].innerText
-            .replace(/₹/g, "")
-            .replace(/,/g, "")
-            .trim();
+    const priceText = row.children[2].innerText
+      .replace(/₹/g, "")
+      .replace(/,/g, "")
+      .trim();
 
-        const taxText = row.children[3].innerText
-            .split(" ")[0]
-            .replace(/₹/g, "")
-            .replace(/,/g, "")
-            .trim();
+    const taxText = row.children[3].innerText
+      .split(" ")[0]
+      .replace(/₹/g, "")
+      .replace(/,/g, "")
+      .trim();
 
-        const price = parseFloat(priceText) || 0;
-        const taxAmount = parseFloat(taxText) || 0;
+    const price = parseFloat(priceText) || 0;
+    const taxAmount = parseFloat(taxText) || 0;
 
-        const total = price * qty;
+    const total = price * qty;
 
-        row.children[5].innerHTML =
-            "<strong>₹" + formatNumber(total) + "</strong>";
+    row.children[5].innerHTML =
+      "<strong>₹" + formatNumber(total) + "</strong>";
 
-        subtotal += total;
-        tax += taxAmount * qty;
+    subtotal += total;
+    tax += taxAmount * qty;
 
-    });
+  });
 
-    const grandTotal = subtotal + tax;
+  const grandTotal = subtotal + tax;
 
-    const summary = document.querySelectorAll(".summary-item");
+  const summary = document.querySelectorAll(".summary-item");
 
-    if (summary.length >= 3) {
+  if (summary.length >= 3) {
 
-        summary[0].children[1].innerHTML =
-            "₹" + formatNumber(subtotal);
+    summary[0].children[1].innerHTML =
+      "₹" + formatNumber(subtotal);
 
-        summary[1].children[1].innerHTML =
-            "₹" + formatNumber(tax);
+    summary[1].children[1].innerHTML =
+      "₹" + formatNumber(tax);
 
-        summary[2].children[1].innerHTML =
-            "₹" + formatNumber(grandTotal);
+    summary[2].children[1].innerHTML =
+      "₹" + formatNumber(grandTotal);
 
-    }
+  }
 
 }
 
@@ -770,7 +863,7 @@ function updateCart() {
 
 function formatNumber(number) {
 
-    return number.toLocaleString("en-IN");
+  return number.toLocaleString("en-IN");
 
 }
 
@@ -783,13 +876,13 @@ const continueBtn = document.querySelector(".continue-btn");
 
 if (continueBtn) {
 
-    continueBtn.addEventListener("click", function (e) {
+  continueBtn.addEventListener("click", function (e) {
 
-        e.preventDefault();
+    e.preventDefault();
 
-        window.history.back();
+    window.history.back();
 
-    });
+  });
 
 }
 
@@ -802,11 +895,11 @@ const rows = document.querySelectorAll("tbody tr");
 
 rows.forEach((row) => {
 
-    row.addEventListener("mouseenter", function () {
+  row.addEventListener("mouseenter", function () {
 
-        this.style.transition = "0.3s";
+    this.style.transition = "0.3s";
 
-    });
+  });
 
 });
 
@@ -816,7 +909,7 @@ rows.forEach((row) => {
 =========================================*/
 
 updateCart();
-   
+
 
 
 

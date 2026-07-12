@@ -88,6 +88,24 @@
             </li>
             @endhasPermission
 
+            @hasPermission('taxes', 'view')
+            <li class="nav-item">
+                <a href="{{ route('admin.taxes.index') }}" class="nav-link {{ request()->routeIs('admin.taxes.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-percent"></i>
+                    <span>Tax Manager</span>
+                </a>
+            </li>
+            @endhasPermission
+
+            @hasPermission('delivery-settings', 'view')
+            <li class="nav-item">
+                <a href="{{ route('admin.delivery-settings.index') }}" class="nav-link {{ request()->routeIs('admin.delivery-settings.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-truck"></i>
+                    <span>Delivery Settings</span>
+                </a>
+            </li>
+            @endhasPermission
+
             @hasPermission('users', 'view')
             <li class="nav-item">
                 <a href="{{ route('admin.users.index') }}" class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">

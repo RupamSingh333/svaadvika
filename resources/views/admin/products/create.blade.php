@@ -137,6 +137,17 @@
                                 </select>
                                 @error('category_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Tax Settings</label>
+                                <select name="tax_id" class="form-select @error('tax_id') is-invalid @enderror">
+                                    <option value="">No Tax (0%)</option>
+                                    @foreach($taxes as $tax)
+                                        <option value="{{ $tax->id }}" {{ old('tax_id') == $tax->id ? 'selected' : '' }}>{{ $tax->name }} ({{ $tax->percentage }}%)</option>
+                                    @endforeach
+                                </select>
+                                @error('tax_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
                             
                             <div class="mb-4">
                                 <div class="form-check form-switch">
