@@ -93,8 +93,7 @@
     <script src="{{ asset('frontend/assets/js/mobile.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/animation.js') }}"></script>
     @stack('before_scripts')
-    <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
-    
     @stack('scripts')
+    <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
   </body>
 </html>

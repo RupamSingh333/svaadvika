@@ -36,11 +36,11 @@ class WishlistController extends Controller
     public function toggle(Request $request)
     {
         $request->validate([
-            'product_id' => 'required|exists:products,id'
+            'product_id' => 'required'
         ]);
 
         $wishlist = $this->getWishlist();
-        $product = Product::findOrFail($request->product_id);
+        $product = Product::where('id', $request->product_id)->orWhere('slug', $request->product_id)->firstOrFail();
 
         $wishlistItem = $wishlist->items()->where('product_id', $product->id)->first();
 

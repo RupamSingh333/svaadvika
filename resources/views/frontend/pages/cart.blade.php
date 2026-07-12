@@ -65,13 +65,13 @@
                                                 <img src="{{ $imageUrl }}" class="img-fluid product-img" alt="{{ $product->name }}">
                                             </td>
                                             <td>
-                                                <h6 class="product-title">{{ $product->name }}</h6>
+                                                <h6 class="product-title"><a href="{{ url('product/' . $product->slug) }}" class="text-decoration-none text-dark">{{ $product->name }}</a></h6>
                                             </td>
                                             <td>
-                                                <span class="price">₹{{ number_format($price, 2) }}</span>
+                                                <span class="price">₹{{ number_format(round($price), 0) }}</span>
                                             </td>
                                             <td>
-                                                ₹{{ number_format($taxAmount, 2) }} ({{ $tax }}%)
+                                                ₹{{ number_format(round($taxAmount), 0) }} ({{ $tax }}%)
                                             </td>
                                             <td>
                                                 <div class="qty-box" data-item-id="{{ $item->id }}">
@@ -81,7 +81,7 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <strong>₹{{ number_format($total, 2) }}</strong>
+                                                <strong>₹{{ number_format(round($total), 0) }}</strong>
                                             </td>
                                             <td>
                                                 <button class="remove-btn" data-item-id="{{ $item->id }}">
@@ -128,16 +128,16 @@
 
                             <div class="summary-item">
                                 <span>Sub-Total</span>
-                                <span id="cartSubtotal">₹{{ number_format($subtotal, 2) }}</span>
+                                <span id="cartSubtotal">₹{{ number_format(round($subtotal), 0) }}</span>
                             </div>
                             <div class="summary-item">
                                 <span>Tax</span>
-                                <span id="cartTax">₹{{ number_format($totalTax, 2) }}</span>
+                                <span id="cartTax">₹{{ number_format(round($totalTax), 0) }}</span>
                             </div>
                             <hr>
                             <div class="summary-item total">
                                 <span>Total Amount</span>
-                                <span id="cartGrandTotal">₹{{ number_format($grandTotal, 2) }}</span>
+                                <span id="cartGrandTotal">₹{{ number_format(round($grandTotal), 0) }}</span>
                             </div>
                             <a href="{{ route('checkout') }}" class="btn btn-green w-100 {{ $cartItems->isEmpty() ? 'disabled' : '' }}">Check Out</a>
                         </div>

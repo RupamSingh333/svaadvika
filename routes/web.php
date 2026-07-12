@@ -14,13 +14,21 @@ Route::get('/product/{slug}', [FrontendController::class, 'productDetails'])->na
 Route::get('/recipes', [FrontendController::class, 'recipes'])->name('recipes');
 Route::get('/recipe/{slug}', [FrontendController::class, 'recipeDetails'])->name('recipe_details');
 Route::get('/cart', [FrontendController::class, 'cart'])->name('cart');
-Route::get('/checkout', [FrontendController::class, 'checkout'])->name('checkout');
+
 
 Route::middleware('auth:customer')->prefix('customer')->name('customer.')->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\Frontend\CustomerDashboardController::class, 'dashboard'])->name('dashboard');
     Route::post('/profile/update', [\App\Http\Controllers\Frontend\CustomerDashboardController::class, 'updateProfile'])->name('profile.update');
     Route::post('/address/store', [\App\Http\Controllers\Frontend\CustomerDashboardController::class, 'storeAddress'])->name('address.store');
     Route::delete('/address/{address}', [\App\Http\Controllers\Frontend\CustomerDashboardController::class, 'destroyAddress'])->name('address.destroy');
+});
+
+Route::middleware('auth:customer')->group(function () {
+    Route::get('/checkout', [\App\Http\Controllers\Frontend\CheckoutController::class, 'index'])->name('checkout');
+    Route::post('/checkout/process', [\App\Http\Controllers\Frontend\CheckoutController::class, 'process'])->name('checkout.process');
+    Route::post('/checkout/apply-coupon', [\App\Http\Controllers\Frontend\CheckoutController::class, 'applyCoupon'])->name('checkout.apply_coupon');
+    Route::post('/checkout/remove-coupon', [\App\Http\Controllers\Frontend\CheckoutController::class, 'removeCoupon'])->name('checkout.remove_coupon');
+    Route::get('/thankyou/{order}', [\App\Http\Controllers\Frontend\CheckoutController::class, 'thankyou'])->name('checkout.thankyou');
 });
 
 // Cart and Wishlist API Routes (Public/Session based)

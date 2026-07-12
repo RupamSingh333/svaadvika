@@ -24,6 +24,7 @@
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
             },
             body: JSON.stringify({ product_id: wish.dataset.wishlist })
@@ -55,6 +56,7 @@
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
             },
             body: JSON.stringify({ product_id: add.dataset.addCart, quantity: qty })
@@ -168,16 +170,7 @@
   // });
 
 
-  document.querySelectorAll("[data-qty-minus], [data-qty-plus]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const control = button.closest(".qty-control");
-      const valueNode = control?.querySelector("span");
-      if (!valueNode) return;
-      const current = Number(valueNode.textContent || 1);
-      const next = button.hasAttribute("data-qty-plus") ? current + 1 : Math.max(1, current - 1);
-      valueNode.textContent = String(next);
-    });
-  });
+
 
   document.querySelectorAll("[data-product-category]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -354,7 +347,7 @@
           <div class="catalog-image" style="background-image: url('${product.image}'); background-size: cover; background-position: center;">
             <a href="/product/${product.id}" style="position: absolute; inset: 0; z-index: 1;" aria-label="View ${product.title} details"></a>
             ${product.oldPrice > product.price ? '<span>Sale</span>' : ''}
-            <button class="" type="button" data-wishlist="${product.id}" aria-label="Toggle ${product.title} wishlist"><i class="bi bi-heart"></i></button>
+            <button class="wishlist-icon wishlist-active-state" type="button" data-wishlist="${product.id}" aria-label="Toggle ${product.title} wishlist"><i class="bi bi-heart"></i></button>
             <button class="quick-view-icon" type="button" data-quick-view="${product.id}" aria-label="Quick View ${product.title}"><i class="bi bi-eye"></i></button>
           </div>
           <div class="catalog-body">
@@ -392,81 +385,7 @@
 
 
 
-    function handleCommerceClick(event) {
-      const wish = event.target.closest("[data-wishlist]");
-      const add = event.target.closest("[data-add-cart]");
-      const plus = event.target.closest("[data-qty-plus]");
-      const minus = event.target.closest("[data-qty-minus]");
-      if (wish) {
-        const btn = wish;
-        fetch('/api/wishlist/toggle', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
-          },
-          body: JSON.stringify({ product_id: wish.dataset.wishlist })
-        })
-          .then(res => res.json())
-          .then(data => {
-            if (data.status === 'success') {
-              updateWishlistCount(data.count);
-              document.querySelectorAll(`[data-wishlist="${wish.dataset.wishlist}"]`).forEach((item) => item.classList.toggle("wishlist-active", data.action === 'added'));
-            }
-          });
-      }
-      if (add) {
-        const btn = add;
-        const originalText = btn.innerHTML;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
-        btn.disabled = true;
 
-        let qty = 1;
-        const qtySpan = add.closest(".catalog-card, .quick-view-content, .product-details-page")?.querySelector(".qty-control span");
-        if (qtySpan) {
-          qty = Number(qtySpan.textContent) || 1;
-        } else {
-          const qtyInput = add.closest("tr, .product-item")?.querySelector("input.qty-input");
-          if (qtyInput) qty = Number(qtyInput.value) || 1;
-        }
-
-        fetch('/api/cart/add', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
-          },
-          body: JSON.stringify({ product_id: add.dataset.addCart, quantity: qty })
-        })
-          .then(res => res.json())
-          .then(data => {
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-            if (data.status === 'success') {
-              updateCartCount(data.count);
-              showToast("Product added to cart.");
-            }
-          })
-          .catch(err => {
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-          });
-      }
-      if (plus || minus) {
-        const control = (plus || minus).closest(".qty-control");
-        if (control) {
-          const value = control.querySelector("span");
-          if (value) {
-            value.textContent = String(plus ? Number(value.textContent) + 1 : Math.max(1, Number(value.textContent) - 1));
-          }
-        }
-      }
-      return Boolean(wish || add || plus || minus);
-    }
-
-    document.addEventListener("click", (event) => {
-      handleCommerceClick(event);
-    });
     newProductPage.addEventListener("click", (event) => {
       const category = event.target.closest("[data-filter-category]");
       const page = event.target.closest("[data-page]");
@@ -520,7 +439,7 @@
 
   const detailsPage = document.querySelector("[data-product-details-page]");
   if (detailsPage) {
-    const product = window.SvaadvikaProduct || svaadvikaCatalogProducts()[0];
+    const product = window.SvaadvikaProduct || {};
     const relatedProducts = window.SvaadvikaRelatedProducts || [];
     const cartToast = document.querySelector("#cartToast");
     const carouselElement = document.querySelector("#productGalleryCarousel");
@@ -584,6 +503,7 @@
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
           'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
         },
         body: JSON.stringify({ product_id: product.id, quantity: qty })
@@ -661,6 +581,16 @@
       if (target) addCurrentProduct(target);
     });
 
+    detailsPage.addEventListener("click", (event) => {
+      const target = event.target.closest("[data-details-add-cart], [data-details-buy]");
+      if (target) {
+          addCurrentProduct(target);
+          if (target.hasAttribute("data-details-buy")) {
+              window.showToast("Ready for checkout.");
+          }
+      }
+    });
+
     const relatedGrid = document.querySelector("#detailsRelatedGrid");
     if (relatedGrid && relatedProducts.length === 0) {
       // If JS related products array is empty, keep existing HTML from blade
@@ -671,7 +601,7 @@
           <div class="catalog-image" style="background-image: url('${item.image}'); background-size: cover; background-position: center;">
             <a href="/product/${item.id}" style="position: absolute; inset: 0; z-index: 1;" aria-label="View ${item.title} details"></a>
             ${item.oldPrice > item.price ? '<span>Sale</span>' : ''}
-            <button class="" type="button" data-wishlist="${item.id}" aria-label="Toggle ${item.title} wishlist"><i class="bi bi-heart"></i></button>
+            <button class="wishlist-icon wishlist-active-state" type="button" data-wishlist="${item.id}" aria-label="Toggle ${item.title} wishlist"><i class="bi bi-heart"></i></button>
             <button class="quick-view-icon" type="button" data-quick-view="${item.id}" aria-label="Quick View ${item.title}"><i class="bi bi-eye"></i></button>
           </div>
           <div class="catalog-body">

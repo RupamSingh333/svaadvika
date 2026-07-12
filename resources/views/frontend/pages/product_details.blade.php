@@ -78,6 +78,7 @@
             <div class="details-actions">
               <div class="qty-control"><button type="button" data-qty-minus>-</button><span>1</span><button type="button" data-qty-plus>+</button></div>
               <button class="add-cart" type="button" data-details-add-cart>Add To Cart</button>
+              <button class="icon-btn wishlist-active-state ms-2" type="button" data-wishlist="{{$product->id}}" aria-label="Toggle {{$product->title}} wishlist" style="width:48px;height:48px;border-radius:50%;border:1px solid #ddd;background:#fff;"><i class="bi bi-heart"></i></button>
             </div>
             <button class="details-buy" type="button" data-details-buy>Buy Now</button>
             <div class="details-meta"><span>SKU: <strong id="detailsSku">{{ $product->sku ?? 'N/A' }}</strong></span><span>Availability: <strong>{{ $product->stock_quantity > 0 ? 'In Stock' : 'Out of Stock' }}</strong></span></div>

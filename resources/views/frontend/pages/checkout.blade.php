@@ -32,7 +32,32 @@
 
                     </div>
 
-                    <form id="checkoutForm">
+                    <form method="POST" action="{{ route('checkout.process') }}" id="checkoutForm">
+                        @csrf
+                        
+                        @if(isset($addresses) && $addresses->isNotEmpty())
+                        <div class="mb-4">
+                            <h5>Saved Addresses</h5>
+                            <div class="row g-3 mt-2">
+                                @foreach($addresses as $address)
+                                <div class="col-md-6">
+                                    <label class="border p-3 rounded w-100 h-100" style="cursor: pointer;">
+                                        <input type="radio" name="address_id" value="{{ $address->id }}" class="form-check-input me-2 address-selector">
+                                        <strong>{{ ucfirst($address->type) }}</strong><br>
+                                        <small>{{ $address->address }}, {{ $address->city }}, {{ $address->state }}, {{ $address->postal_code }}, {{ $address->country }}</small>
+                                    </label>
+                                </div>
+                                @endforeach
+                                <div class="col-md-6">
+                                    <label class="border p-3 rounded w-100 h-100" style="cursor: pointer;">
+                                        <input type="radio" name="address_id" value="" class="form-check-input me-2 address-selector" checked>
+                                        <strong>New Address</strong><br>
+                                        <small>Enter a new address below</small>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
 
                         <div class="row g-4">
 
@@ -46,6 +71,7 @@
 
                                 <input
                                     type="text"
+                                    name="first_name"
                                     class="form-control"
                                     placeholder="Enter First Name"
                                     required>
@@ -62,6 +88,7 @@
 
                                 <input
                                     type="text"
+                                    name="last_name"
                                     class="form-control"
                                     placeholder="Enter Last Name"
                                     required>
@@ -78,6 +105,7 @@
 
                                 <input
                                     type="email"
+                                    name="email"
                                     class="form-control"
                                     placeholder="Enter Email Address"
                                     required>
@@ -94,6 +122,8 @@
 
                                 <input
                                     type="tel"
+                                    name="phone"
+                                    pattern="[0-9]*"
                                     class="form-control"
                                     placeholder="Enter Phone Number"
                                     required>
@@ -108,7 +138,7 @@
                                     Country <span>*</span>
                                 </label>
 
-                                <select class="form-select" required>
+                                <select name="country" class="form-select" required>
 
                                     <option value="">
                                         Select Country
@@ -138,7 +168,7 @@
                                     State <span>*</span>
                                 </label>
 
-                                <select class="form-select" required>
+                                <select name="state" class="form-select" required>
 
                                     <option value="">
                                         Select State
@@ -170,6 +200,7 @@
 
                                 <input
                                     type="text"
+                                    name="address"
                                     class="form-control mb-3"
                                     placeholder="House No., Building Name"
                                     required>
@@ -191,6 +222,7 @@
 
                                 <input
                                     type="text"
+                                    name="city"
                                     class="form-control"
                                     placeholder="Enter City"
                                     required>
@@ -207,42 +239,14 @@
 
                                 <input
                                     type="text"
+                                    name="postal_code"
+                                    pattern="[0-9]*"
                                     class="form-control"
                                     placeholder="Enter ZIP Code"
                                     required>
 
                             </div>
-
-                            <!-- Company -->
-
-                            <div class="col-md-6">
-
-                                <label class="form-label">
-                                    Company Name
-                                </label>
-
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="Company Name (Optional)">
-
-                            </div>
-
-                            <!-- GST -->
-
-                            <div class="col-md-6">
-
-                                <label class="form-label">
-                                    GST Number
-                                </label>
-
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    placeholder="GST Number (Optional)">
-
-                            </div>
-
+                           
                             <!-- Notes -->
 
                             <div class="col-12">
@@ -252,6 +256,7 @@
                                 </label>
 
                                 <textarea
+                                    name="notes"
                                     class="form-control"
                                     rows="5"
                                     placeholder="Write your order notes here..."></textarea>
@@ -281,10 +286,10 @@
                     <!-- Products -->
                     <div class="order-products">
                         @php
-                            $subtotal = 0;
-                            $tax = 0;
+                            $checkout_subtotal = 0;
+                            $checkout_tax = 0;
                         @endphp
-                        @forelse($cartItems as $item)
+                        @forelse($cart->items as $item)
                         @php
                             $product = $item->product;
                             $price = $product->sale_price ?: $product->price;
@@ -292,21 +297,36 @@
                             $taxAmount = ($price * $productTax) / 100;
                             $itemTotal = ($price + $taxAmount) * $item->quantity;
                             
-                            $subtotal += $price * $item->quantity;
-                            $tax += $taxAmount * $item->quantity;
+                            $checkout_subtotal += $price * $item->quantity;
+                            $checkout_tax += $taxAmount * $item->quantity;
                         @endphp
                         <div class="product-item">
                             <div>
                                 <h6>{{ $product->name }}</h6>
                                 <span>Qty : {{ $item->quantity }}</span>
                             </div>
-                            <strong>₹{{ number_format($itemTotal, 2) }}</strong>
+                            <strong>₹{{ number_format(round($itemTotal), 0) }}</strong>
                         </div>
                         @empty
                         <div class="product-item">
                             <div><h6>Your cart is empty</h6></div>
                         </div>
                         @endforelse
+                    </div>
+
+                    <!-- Coupon Code -->
+                    <div class="coupon-box mb-4">
+                        <div class="input-group">
+                            <input type="text" id="coupon_code" class="form-control" placeholder="Enter Coupon Code" 
+                                   {{ session('applied_coupon_id') ? 'readonly' : '' }}>
+                            <button class="btn btn-dark" type="button" id="apply_coupon_btn" 
+                                    style="{{ session('applied_coupon_id') ? 'display: none;' : '' }}">Apply</button>
+                            <button class="btn btn-danger" type="button" id="remove_coupon_btn" 
+                                    style="{{ session('applied_coupon_id') ? '' : 'display: none;' }}">Remove</button>
+                        </div>
+                        <small id="coupon_message" class="text-success mt-1 d-block" style="{{ session('applied_coupon_id') ? '' : 'display: none;' }}">
+                            Coupon applied successfully!
+                        </small>
                     </div>
 
                     <!-- Price Summary -->
@@ -320,7 +340,7 @@
 
                             <span>Subtotal</span>
 
-                            <strong id="summarySubtotal">₹27,400</strong>
+                            <strong id="summarySubtotal">₹{{ number_format(round($subtotal), 0) }}</strong>
 
                         </div>
 
@@ -328,7 +348,7 @@
 
                             <span>Shipping</span>
 
-                            <strong id="summaryShipping">Free</strong>
+                            <strong id="summaryShipping">{{ $deliveryCharge > 0 ? '₹' . number_format(round($deliveryCharge), 0) : 'Free' }}</strong>
 
                         </div>
 
@@ -336,7 +356,7 @@
 
                             <span>Tax</span>
 
-                            <strong id="summaryTax">₹4,572</strong>
+                            <strong id="summaryTax">₹{{ number_format(round($taxAmount), 0) }}</strong>
 
                         </div>
 
@@ -349,7 +369,7 @@
 
                             <span>Grand Total</span>
 
-                            <strong id="summaryGrandTotal">₹31,972</strong>
+                            <strong id="summaryGrandTotal">₹{{ number_format(round($total), 0) }}</strong>
 
                         </div>
 
@@ -479,7 +499,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         function formatNumber(number) {
-            return number.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            return Math.round(number).toLocaleString("en-IN");
         }
 
         function calculateCheckout() {
@@ -488,8 +508,8 @@
 
             // Use server calculated values
             const subtotal = {{ $subtotal }};
-            const tax = {{ $tax }};
-            const discount = 0; // Coupon discount placeholder
+            const tax = {{ $taxAmount }};
+            const discount = {{ $discountAmount ?? 0 }}; // Coupon discount from backend
 
             const minOrder = parseFloat(summaryList.getAttribute('data-min-order')) || 0;
             const standardDelivery = parseFloat(summaryList.getAttribute('data-delivery-charge')) || 0;
@@ -534,6 +554,97 @@
 
         // Run calculation on load
         calculateCheckout();
+
+        // Coupon AJAX logic
+        const applyCouponBtn = document.getElementById('apply_coupon_btn');
+        const removeCouponBtn = document.getElementById('remove_coupon_btn');
+        const couponCodeInput = document.getElementById('coupon_code');
+        const couponMessage = document.getElementById('coupon_message');
+
+        if (applyCouponBtn) {
+            applyCouponBtn.addEventListener('click', function() {
+                const code = couponCodeInput.value.trim();
+                if (!code) {
+                    alert("Please enter a coupon code");
+                    return;
+                }
+
+                applyCouponBtn.disabled = true;
+                applyCouponBtn.innerText = "Applying...";
+
+                fetch("{{ route('checkout.apply_coupon') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ coupon_code: code })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    applyCouponBtn.disabled = false;
+                    applyCouponBtn.innerText = "Apply";
+                    
+                    if (data.success) {
+                        couponCodeInput.readOnly = true;
+                        applyCouponBtn.style.display = 'none';
+                        removeCouponBtn.style.display = 'block';
+                        couponMessage.innerText = data.message;
+                        couponMessage.className = "text-success mt-1 d-block";
+                        
+                        document.getElementById('summaryDiscount').innerHTML = "- ₹" + formatNumber(data.discount);
+                        document.getElementById('summaryGrandTotal').innerHTML = "₹" + formatNumber(data.total);
+                    } else {
+                        couponMessage.innerText = data.message;
+                        couponMessage.className = "text-danger mt-1 d-block";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    applyCouponBtn.disabled = false;
+                    applyCouponBtn.innerText = "Apply";
+                });
+            });
+        }
+
+        if (removeCouponBtn) {
+            removeCouponBtn.addEventListener('click', function() {
+                removeCouponBtn.disabled = true;
+                removeCouponBtn.innerText = "Removing...";
+
+                fetch("{{ route('checkout.remove_coupon') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    removeCouponBtn.disabled = false;
+                    removeCouponBtn.innerText = "Remove";
+                    
+                    if (data.success) {
+                        couponCodeInput.readOnly = false;
+                        couponCodeInput.value = "";
+                        applyCouponBtn.style.display = 'block';
+                        removeCouponBtn.style.display = 'none';
+                        couponMessage.innerText = "";
+                        couponMessage.className = "d-none";
+                        
+                        document.getElementById('summaryDiscount').innerHTML = "- ₹" + formatNumber(data.discount);
+                        document.getElementById('summaryGrandTotal').innerHTML = "₹" + formatNumber(data.total);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    removeCouponBtn.disabled = false;
+                    removeCouponBtn.innerText = "Remove";
+                });
+            });
+        }
     });
 </script>
 @endpush

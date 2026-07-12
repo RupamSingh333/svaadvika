@@ -1,14 +1,16 @@
 @extends('frontend.layouts.master')
 
 @section('content')
-<section class="contactmain-contact-hero">
+<section class="products-hero">
         <div class="container-xl">
-          <div class="contact-hero-copy reveal-up">
+          <div class="products-hero-copy reveal-up">
             <nav class="breadcrumb-nav" aria-label="Breadcrumb">
               <a href="{{ route('home') }}">Home</a>
               <i class="bi bi-chevron-right"></i>
-              <span>Login</span>
+              <span>Dashboard</span>
             </nav> 
+            <h1>My <span>Dashboard</span></h1>
+            <p>Manage your account, orders, and saved items.</p>
           </div>
         </div>
       </section>
@@ -339,57 +341,46 @@
 
                 <tbody>
 
+                    @forelse($orders as $order)
                     <tr>
 
-                        <td>#1001</td>
-                        <td>07 July 2026</td>
+                        <td>#{{ $order->order_number }}</td>
+                        <td>{{ $order->created_at->format('d M Y') }}</td>
                         <td>
-                            <span class="badge bg-success">
-                                Delivered
+                            @php
+                                $badgeClass = match($order->status) {
+                                    'pending' => 'bg-warning',
+                                    'processing' => 'bg-info',
+                                    'shipped' => 'bg-primary',
+                                    'delivered' => 'bg-success',
+                                    'cancelled' => 'bg-danger',
+                                    default => 'bg-secondary'
+                                };
+                            @endphp
+                            <span class="badge {{ $badgeClass }}">
+                                {{ ucfirst($order->status) }}
                             </span>
                         </td>
-                        <td>₹2,450</td>
+                        <td>₹{{ number_format(round($order->total_amount), 0) }}</td>
 
                         <td>
 
-                            <button class="btn btn-sm btn-primary">
+                            <a href="#" class="btn btn-sm btn-primary">
 
                                 View
 
-                            </button>
+                            </a>
 
                         </td>
 
                     </tr>
-
+                    @empty
                     <tr>
-
-                        <td>#1002</td>
-                        <td>03 July 2026</td>
-
-                        <td>
-
-                            <span class="badge bg-warning text-dark">
-
-                                Processing
-
-                            </span>
-
+                        <td colspan="5" class="text-center py-4">
+                            You have not placed any orders yet.
                         </td>
-
-                        <td>₹4,980</td>
-
-                        <td>
-
-                            <button class="btn btn-sm btn-primary">
-
-                                View
-
-                            </button>
-
-                        </td>
-
                     </tr>
+                    @endforelse
 
                 </tbody>
 
@@ -670,4 +661,51 @@
     </div>
 
 </section>
+
+@push('scripts')
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    let hash = window.location.hash;
+    if (hash) {
+        let targetLink = document.querySelector(`.dashboard-menu a[data-target="${hash.substring(1)}-content"]`);
+        if (targetLink) {
+            document.querySelectorAll('.dashboard-menu a').forEach(link => link.classList.remove('active'));
+            document.querySelectorAll('.dashboard-page').forEach(page => page.classList.add('d-none'));
+            
+            targetLink.classList.add('active');
+            let targetContent = document.getElementById(hash.substring(1) + '-content');
+            if (targetContent) {
+                targetContent.classList.remove('d-none');
+                targetContent.classList.add('active-page');
+            }
+        }
+    }
+
+    // Tab switching for all dashboard links
+    document.querySelectorAll('.dashboard-menu a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            let targetId = this.getAttribute('data-target');
+            if (targetId) {
+                // Update active state
+                document.querySelectorAll('.dashboard-menu a').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show content
+                document.querySelectorAll('.dashboard-page').forEach(page => page.classList.add('d-none'));
+                let targetContent = document.getElementById(targetId);
+                if (targetContent) {
+                    targetContent.classList.remove('d-none');
+                    targetContent.classList.add('active-page');
+                }
+
+                // Update URL hash
+                let hashName = targetId.replace('-content', '');
+                window.history.pushState(null, null, '#' + hashName);
+            }
+        });
+    });
+});
+</script>
+@endpush
 @endsection

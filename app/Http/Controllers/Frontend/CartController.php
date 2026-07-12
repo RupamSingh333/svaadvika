@@ -36,12 +36,12 @@ class CartController extends Controller
     public function add(Request $request)
     {
         $request->validate([
-            'product_id' => 'required|exists:products,id',
+            'product_id' => 'required',
             'quantity' => 'nullable|integer|min:1'
         ]);
 
         $cart = $this->getCart();
-        $product = Product::findOrFail($request->product_id);
+        $product = Product::where('id', $request->product_id)->orWhere('slug', $request->product_id)->firstOrFail();
         $quantity = $request->quantity ?? 1;
 
         $cartItem = $cart->items()->where('product_id', $product->id)->first();

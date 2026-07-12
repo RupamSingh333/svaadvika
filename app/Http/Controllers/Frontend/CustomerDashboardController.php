@@ -14,13 +14,19 @@ class CustomerDashboardController extends Controller
     public function dashboard()
     {
         $wishlistItems = collect();
+        $orders = collect();
+
         if (\Illuminate\Support\Facades\Auth::guard('customer')->check()) {
-            $wishlist = \App\Models\Wishlist::with(['items.product'])->where('customer_id', \Illuminate\Support\Facades\Auth::guard('customer')->id())->first();
+            $customer = \Illuminate\Support\Facades\Auth::guard('customer')->user();
+            
+            $wishlist = \App\Models\Wishlist::with(['items.product'])->where('customer_id', $customer->id)->first();
             if ($wishlist) {
                 $wishlistItems = $wishlist->items;
             }
+
+            $orders = \App\Models\Order::where('user_id', $customer->id)->latest()->get();
         }
-        return view('frontend.customer.dashboard', compact('wishlistItems'));
+        return view('frontend.customer.dashboard', compact('wishlistItems', 'orders'));
     }
 
     public function updateProfile(Request $request)

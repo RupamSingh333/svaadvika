@@ -22,5 +22,21 @@ class Order extends Model
         'payment_status',
         'shipping_address',
         'billing_address',
+        'coupon_code',
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'user_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(Customer::class, 'user_id');
+    }
+
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }
