@@ -6,7 +6,7 @@
         <div class="container-xl">
           <div class="row align-items-center min-vh-100 gy-5">
             <div class="col-lg-6 hero-copy reveal-up">
-              <p class="eyebrow">Authentic Indian Taste</p>
+              <p class="eyebrow">Test Authentic Indian Taste</p>
               <h1>Crafted For <span>Modern</span> Families</h1>
               <p class="hero-text">Experience restaurant-quality Indian food at home in just minutes with premium ingredients, chef-led recipes and authentic regional flavour.</p>
               <div class="hero-actions">
