@@ -254,7 +254,7 @@
             <p>${product.description}</p>
             <ul><li>Ingredients: ${product.ingredients}</li><li>Weight: ${product.weight}</li><li>Status: ${product.stock ? "In stock" : "Out of Stock"}</li></ul>
             <div class="quick-view-actions">
-              <button class="icon-btn wishlist-active-state" type="button" data-wishlist="${product.id}" aria-label="Toggle ${product.title} wishlist"><i class="bi bi-heart"></i></button>
+               <button class="icon-btn wishlist-active-state d-none" type="button" data-wishlist="${product.id}" aria-label="Toggle ${product.title} wishlist"><i class="bi bi-heart"></i></button>
               <div class="catalog-actions"><div class="qty-control"><button type="button" data-qty-minus>-</button><span>1</span><button type="button" data-qty-plus>+</button></div><button class="add-cart" type="button" data-add-cart="${product.id}">Add To Cart</button></div>
             </div>
           </div>
@@ -347,7 +347,7 @@
           <div class="catalog-image" style="background-image: url('${product.image}'); background-size: cover; background-position: center;">
             <a href="/product/${product.id}" style="position: absolute; inset: 0; z-index: 1;" aria-label="View ${product.title} details"></a>
             ${product.oldPrice > product.price ? '<span>Sale</span>' : ''}
-            <button class="wishlist-icon wishlist-active-state" type="button" data-wishlist="${product.id}" aria-label="Toggle ${product.title} wishlist"><i class="bi bi-heart"></i></button>
+            <button class="wishlist-icon wishlist-active-state d-none" type="button" data-wishlist="${product.id}" aria-label="Toggle ${product.title} wishlist"><i class="bi bi-heart"></i></button>
             <button class="quick-view-icon" type="button" data-quick-view="${product.id}" aria-label="Quick View ${product.title}"><i class="bi bi-eye"></i></button>
           </div>
           <div class="catalog-body">
@@ -601,7 +601,7 @@
           <div class="catalog-image" style="background-image: url('${item.image}'); background-size: cover; background-position: center;">
             <a href="/product/${item.id}" style="position: absolute; inset: 0; z-index: 1;" aria-label="View ${item.title} details"></a>
             ${item.oldPrice > item.price ? '<span>Sale</span>' : ''}
-            <button class="wishlist-icon wishlist-active-state" type="button" data-wishlist="${item.id}" aria-label="Toggle ${item.title} wishlist"><i class="bi bi-heart"></i></button>
+            <button class="wishlist-icon wishlist-active-state  d-none" type="button" data-wishlist="${item.id}" aria-label="Toggle ${item.title} wishlist"><i class="bi bi-heart"></i></button>
             <button class="quick-view-icon" type="button" data-quick-view="${item.id}" aria-label="Quick View ${item.title}"><i class="bi bi-eye"></i></button>
           </div>
           <div class="catalog-body">

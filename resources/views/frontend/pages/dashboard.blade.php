@@ -105,7 +105,7 @@
 
                         </li>
 
-                        <li>
+                        <!-- <li>
 
                             <a href="#"
                                class="menu-link"
@@ -117,7 +117,7 @@
 
                             </a>
 
-                        </li>
+                        </li> -->
 
                         <li>
 
@@ -568,7 +568,7 @@
         Wishlist
 =====================================-->
 
-<div id="wishlist-content" class="dashboard-page d-none">
+<!-- <div id="wishlist-content" class="dashboard-page d-none">
 
     <div class="content-card">
 
@@ -644,7 +644,7 @@
 
     </div>
 
-</div>
+</div> -->
             </div>
 
         </div>

@@ -53,7 +53,7 @@
                     </div>
 
                     <!-- Difficulty -->
-                    <div class="recipe-filter-group">
+                    <!-- <div class="recipe-filter-group">
                         <h3>Difficulty<i class="bi bi-chevron-up"></i></h3>
                         @foreach($difficulties as $difficulty)
                             <label class="recipe-check">
@@ -61,10 +61,10 @@
                                 <span>{{ $difficulty }}</span>
                             </label>
                         @endforeach
-                    </div>
+                    </div> -->
 
                     <!-- Diet Type -->
-                    <div class="recipe-filter-group">
+                    <!-- <div class="recipe-filter-group">
                         <h3>Diet Type<i class="bi bi-chevron-up"></i></h3>
                         @foreach($dietTypes as $diet)
                             <label class="recipe-check">
@@ -72,7 +72,7 @@
                                 <span>{{ $diet }}</span>
                             </label>
                         @endforeach
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="recipe-filter-actions">

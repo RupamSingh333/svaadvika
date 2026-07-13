@@ -14,7 +14,7 @@
       @endif
       
       {{-- Removed style="position: relative" so CSS absolute positioning works --}}
-      <button aria-label="Add {{ $product->name }} to wishlist" data-wishlist="{{ $product->id }}"><i class="bi bi-heart"></i></button>
+      <!-- <button aria-label="Add {{ $product->name }} to wishlist" data-wishlist="{{ $product->id }}"><i class="bi bi-heart"></i></button> -->
       <button class="quick-view-icon" type="button" data-quick-view="{{ $product->slug }}" aria-label="Quick View {{ $product->name }}"><i class="bi bi-eye"></i></button>
     </div>
     <div class="catalog-body">

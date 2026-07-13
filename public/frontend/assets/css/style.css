@@ -5586,9 +5586,11 @@ blockquote {
 .catalog-image button.wishlist-icon {
   top: 60px;
   right: 12px;
-  display: block !important;
+  /* display: block !important; */
 }
-
+.wishlist-active-state{
+  display:none
+}
 .catalog-image button {
   display: none;
 }
