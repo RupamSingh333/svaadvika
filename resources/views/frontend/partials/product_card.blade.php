@@ -20,7 +20,7 @@
     <div class="catalog-body">
       <div class="catalog-meta">
         <span class="catalog-category">{{ $product->category ? $product->category->name : 'Other' }}</span>
-        <span class="stock-pill">{{ (!$product->is_out_of_stock && $product->stock_quantity > 0) ? "In Stock" : "Out of Stock" }}</span>
+        <span class="stock-pill {{ $product->is_out_of_stock ? 'bg-danger text-white border-danger' : '' }}">{{ $product->is_out_of_stock ? "Out of Stock" : "In Stock" }}</span>
       </div>
       <h3><a href="{{ route('frontend.product_details', $product->slug) }}">{{ $product->name }}</a></h3>
       <div class="catalog-rating">
@@ -41,7 +41,11 @@
             <span>1</span>
             <button type="button" data-qty-plus>+</button>
           </div>
+          @if($product->is_out_of_stock)
+          <button class="add-cart" type="button" disabled style="background-color: #ccc; cursor: not-allowed; border: none; color: #666;">Out of Stock</button>
+          @else
           <button class="add-cart" type="button" data-add-cart="{{ $product->id }}">Add To Cart</button>
+          @endif
       </div>
     </div>
 </article>

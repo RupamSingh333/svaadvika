@@ -23,6 +23,7 @@ class Order extends Model
         'shipping_address',
         'billing_address',
         'coupon_code',
+        'notes',
     ];
 
     public function customer()

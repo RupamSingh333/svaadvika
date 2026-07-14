@@ -58,13 +58,20 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if($product->stock_quantity > 10)
-                                            <span class="badge bg-success-subtle text-success">{{ $product->stock_quantity }}</span>
-                                        @elseif($product->stock_quantity > 0)
-                                            <span class="badge bg-warning-subtle text-warning">{{ $product->stock_quantity }}</span>
-                                        @else
-                                            <span class="badge bg-danger-subtle text-danger">Out of Stock</span>
-                                        @endif
+                                        <form action="{{ route('admin.products.update-stock', $product->id) }}" method="POST" class="d-flex align-items-center m-0">
+                                            @csrf
+                                            <input type="number" name="stock_quantity" value="{{ $product->stock_quantity }}" class="form-control form-control-sm me-1" style="width: 70px;" min="0">
+                                            <button type="submit" class="btn btn-sm btn-light border text-primary" title="Update Stock"><i class="fa-solid fa-save"></i></button>
+                                        </form>
+                                        <form action="{{ route('admin.products.toggle-out-of-stock', $product->id) }}" method="POST" class="mt-2">
+                                            @csrf
+                                            <div class="form-check form-switch form-check-sm mb-0">
+                                                <input class="form-check-input" type="checkbox" onchange="this.form.submit()" {{ $product->is_out_of_stock ? 'checked' : '' }} style="cursor: pointer;" id="oos-{{ $product->id }}">
+                                                <label class="form-check-label small {{ $product->is_out_of_stock ? 'text-danger fw-bold' : 'text-muted' }}" for="oos-{{ $product->id }}" style="cursor: pointer;">
+                                                    {{ $product->is_out_of_stock ? 'Out of Stock' : 'In Stock' }}
+                                                </label>
+                                            </div>
+                                        </form>
                                     </td>
                                     <td>
                                         @if($product->status == 'active')

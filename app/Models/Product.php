@@ -16,6 +16,15 @@ class Product extends Model
         'rating', 'reviews_count', 'ingredients', 'weight'
     ];
 
+    protected static function booted()
+    {
+        static::saving(function ($product) {
+            if ($product->stock_quantity <= 0) {
+                $product->is_out_of_stock = true;
+            }
+        });
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

@@ -86,4 +86,10 @@ class CustomerDashboardController extends Controller
 
         return back()->with('success', 'Address removed successfully.');
     }
+
+    public function orderDetails($id)
+    {
+        $order = \App\Models\Order::with('items.product')->where('user_id', Auth::guard('customer')->id())->findOrFail($id);
+        return view('frontend.customer.order-details', compact('order'));
+    }
 }

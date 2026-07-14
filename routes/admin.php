@@ -42,6 +42,8 @@ Route::middleware(['auth', \App\Http\Middleware\CheckUserPermission::class])->gr
     Route::resource('recipes', \App\Http\Controllers\Admin\RecipeController::class)->except(['show']);
 
     // Products
+    Route::post('products/{product}/update-stock', [\App\Http\Controllers\Admin\ProductController::class, 'updateStock'])->name('products.update-stock');
+    Route::post('products/{product}/toggle-out-of-stock', [\App\Http\Controllers\Admin\ProductController::class, 'toggleOutOfStock'])->name('products.toggle-out-of-stock');
     Route::resource('products', \App\Http\Controllers\Admin\ProductController::class)->except(['show']);
     Route::delete('product-images/{productImage}', [\App\Http\Controllers\Admin\ProductController::class, 'destroyImage'])->name('product-images.destroy');
 

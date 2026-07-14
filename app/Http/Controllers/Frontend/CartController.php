@@ -45,6 +45,23 @@ class CartController extends Controller
         $quantity = $request->quantity ?? 1;
 
         $cartItem = $cart->items()->where('product_id', $product->id)->first();
+        $currentCartQty = $cartItem ? $cartItem->quantity : 0;
+
+        if ($product->is_out_of_stock || $product->stock_quantity <= 0) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'This product is currently out of stock.'
+            ], 400);
+        }
+
+        if ($product->stock_quantity < ($currentCartQty + $quantity)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Insufficient stock. Only ' . $product->stock_quantity . ' available.'
+            ], 400);
+        }
+
+        $cartItem = $cart->items()->where('product_id', $product->id)->first();
 
         if ($cartItem) {
             $cartItem->quantity += $quantity;
@@ -72,6 +89,20 @@ class CartController extends Controller
 
         $cart = $this->getCart();
         $cartItem = $cart->items()->where('id', $request->item_id)->firstOrFail();
+        
+        if ($cartItem->product->is_out_of_stock || $cartItem->product->stock_quantity <= 0) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'This product is currently out of stock.'
+            ], 400);
+        }
+
+        if ($cartItem->product->stock_quantity < $request->quantity) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Insufficient stock. Only ' . $cartItem->product->stock_quantity . ' available.'
+            ], 400);
+        }
         
         $cartItem->quantity = $request->quantity;
         $cartItem->save();

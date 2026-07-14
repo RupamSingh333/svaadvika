@@ -5,11 +5,12 @@
 
 @section('content')
 <style>
-    body.dark-mode .dashboard-sidebar, body.dark-mode .info-card, body.dark-mode .content-card {
-        background-color: var(--cream-2, #12241a);
+    body.dark-mode .dashboard-sidebar, body.dark-mode .info-card, body.dark-mode .content-card, body.dark-mode .wishlist-card {
+        background-color: var(--cream-2, #12241a) !important;
         border-color: var(--border, rgba(200, 155, 35, 0.28)) !important;
-        color: var(--text, #ffffff);
+        color: var(--text, #ffffff) !important;
     }
+    body.dark-mode .dashboard-section,
     body.dark-mode .dashboard-section h2,
     body.dark-mode .dashboard-section h3,
     body.dark-mode .dashboard-section h5,
@@ -18,27 +19,40 @@
     body.dark-mode .dashboard-section th,
     body.dark-mode .dashboard-section td,
     body.dark-mode .dashboard-section strong,
-    body.dark-mode .dashboard-section span,
-    body.dark-mode .dashboard-section div {
-        color: #ffffff !important;
+    body.dark-mode .dashboard-section span {
+        color: #ffffff;
     }
     body.dark-mode .dashboard-menu a { color: var(--text, #ffffff) !important; }
     body.dark-mode .dashboard-menu a:hover, body.dark-mode .dashboard-menu a.active { background: rgba(255,255,255,0.1); color: #c89b23 !important; }
-    body.dark-mode .bg-light { background-color: var(--cream, #08140e) !important; color: var(--text, #ffffff) !important; }
+    
+    body.dark-mode .bg-light, body.dark-mode .table-light { background-color: var(--cream, #08140e) !important; color: var(--text, #ffffff) !important; border-color: var(--border, rgba(200, 155, 35, 0.28)) !important; }
     body.dark-mode .bg-white { background-color: var(--cream-2, #12241a) !important; }
+    
     body.dark-mode .address-item { background-color: var(--cream-2, #12241a) !important; border-color: var(--border, rgba(200, 155, 35, 0.28)) !important; }
+    
     body.dark-mode .form-control, body.dark-mode .form-select { background-color: var(--cream, #08140e) !important; border-color: var(--border, rgba(200, 155, 35, 0.28)) !important; color: var(--text, #ffffff) !important; }
     body.dark-mode .form-control:focus, body.dark-mode .form-select:focus { background-color: var(--cream-2, #12241a) !important; border-color: #c89b23 !important; color: var(--text, #ffffff) !important; }
+    body.dark-mode .form-control[readonly] { opacity: 0.7; }
+    
     body.dark-mode .text-dark { color: #ffffff !important; }
     body.dark-mode .text-muted { color: var(--muted, #d9d9d9) !important; }
+    
+    /* Table styles */
+    body.dark-mode .table { border-color: var(--border, rgba(200, 155, 35, 0.28)) !important; }
+    body.dark-mode .table td { border-color: var(--border, rgba(200, 155, 35, 0.28)) !important; }
+    
+    body.dark-mode .btn-close { filter: invert(1) grayscale(100%) brightness(200%); }
+    body.dark-mode .offcanvas { background-color: var(--cream-2, #12241a) !important; color: #fff !important; }
 </style>
-<section class="page-title-section pt-5 pb-3 mt-5">
+<section class="contactmain-contact-hero">
     <div class="container-xl">
-        <nav class="breadcrumb-nav" aria-label="Breadcrumb">
-            <a href="{{ route('home') }}">Home</a>
-            <i class="bi bi-chevron-right"></i>
-            <span>Dashboard</span>
-        </nav>
+        <div class="contact-hero-copy reveal-up">
+            <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+                <a href="{{ route('home') }}">Home</a>
+                <i class="bi bi-chevron-right"></i>
+                <span>Dashboard</span>
+            </nav> 
+        </div>
     </div>
 </section>
 
@@ -78,7 +92,7 @@
                         <li><a href="#" class="menu-link" data-target="orders-content"><i class="bi bi-bag"></i> Orders</a></li>
                         <li><a href="#" class="menu-link" data-target="account-content"><i class="bi bi-person"></i> Account Details</a></li>
                         <li><a href="#" class="menu-link" data-target="address-content"><i class="bi bi-geo-alt"></i> Addresses</a></li>
-                        <li><a href="#" class="menu-link" data-target="wishlist-content"><i class="bi bi-heart"></i> Wishlist</a></li>
+                        <!-- <li><a href="#" class="menu-link" data-target="wishlist-content"><i class="bi bi-heart"></i> Wishlist</a></li> -->
                         <li>
                             <a href="#" onclick="event.preventDefault(); if(confirm('Are you sure you want to logout?')) { document.getElementById('logout-form').submit(); }">
                                 <i class="bi bi-box-arrow-right"></i> Logout
@@ -165,20 +179,50 @@
                             <a href="{{ route('frontend.products') }}" class="btn btn-gold"><i class="bi bi-cart"></i> Shop Now</a>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-bordered align-middle">
-                                <thead>
+                             <table class="table table-hover align-middle">
+                        <thead class="table-light text-muted">
                                     <tr>
                                         <th>Order ID</th>
                                         <th>Date</th>
                                         <th>Status</th>
                                         <th>Total</th>
+                                        <th>Payment</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @forelse($orders as $order)
+                                    <tr>
+                                        <td><strong>{{ $order->order_number }}</strong></td>
+                                        <td>{{ $order->created_at->format('d M, Y') }}</td>
+                                        <td>
+                                            @php
+                                                $statusColors = [
+                                                    'pending' => 'warning',
+                                                    'processing' => 'info',
+                                                    'shipped' => 'primary',
+                                                    'delivered' => 'success',
+                                                    'cancelled' => 'danger',
+                                                ];
+                                                $color = $statusColors[$order->status] ?? 'secondary';
+                                            @endphp
+                                            <span class="badge bg-{{ $color }}">{{ ucfirst($order->status) }}</span>
+                                        </td>
+                                        <td><strong>₹{{ number_format($order->total_amount, 0) }}</strong></td>
+                                        <td>
+                                            <span class="badge bg-{{ $order->payment_status === 'paid' ? 'success' : 'warning' }}">
+                                                {{ ucfirst($order->payment_method) }} - {{ ucfirst($order->payment_status) }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('customer.order.details', $order->id) }}" class="btn btn-sm btn-outline-dark">View Details</a>
+                                        </td>
+                                    </tr>
+                                    @empty
                                     <tr>
                                         <td colspan="5" class="text-center py-4 text-muted">You haven't placed any orders yet.</td>
                                     </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>

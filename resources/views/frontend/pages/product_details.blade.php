@@ -77,11 +77,19 @@
             </div>
             <div class="details-actions">
               <div class="qty-control"><button type="button" data-qty-minus>-</button><span>1</span><button type="button" data-qty-plus>+</button></div>
+              @if($product->is_out_of_stock)
+              <button class="add-cart" type="button" disabled style="background-color: #ccc; cursor: not-allowed; border: none; color: #666;">Out of Stock</button>
+              @else
               <button class="add-cart" type="button" data-details-add-cart>Add To Cart</button>
+              @endif
               <button class="icon-btn wishlist-active-state ms-2" type="button" data-wishlist="{{$product->id}}" aria-label="Toggle {{$product->title}} wishlist" style="width:48px;height:48px;border-radius:50%;border:1px solid #ddd;background:#fff;"><i class="bi bi-heart"></i></button>
             </div>
+            @if($product->is_out_of_stock)
+            <button class="details-buy" type="button" disabled style="background-color: #ccc; cursor: not-allowed; border: none; color: #666;">Out of Stock</button>
+            @else
             <button class="details-buy" type="button" data-details-buy>Buy Now</button>
-            <div class="details-meta"><span>SKU: <strong id="detailsSku">{{ $product->sku ?? 'N/A' }}</strong></span><span>Availability: <strong>{{ $product->stock_quantity > 0 ? 'In Stock' : 'Out of Stock' }}</strong></span></div>
+            @endif
+            <div class="details-meta"><span>SKU: <strong id="detailsSku">{{ $product->sku ?? 'N/A' }}</strong></span><span>Availability: <strong class="{{ $product->is_out_of_stock ? 'text-danger' : 'text-success' }}">{{ $product->is_out_of_stock ? 'Out of Stock' : 'In Stock' }}</strong></span></div>
             <div class="details-trust">
               <article><i class="bi bi-truck"></i><strong>Free Shipping</strong><small>On orders above &#8377;699</small></article>
               <article><i class="bi bi-shield-lock"></i><strong>Secure Payment</strong><small>100% secure checkout</small></article>

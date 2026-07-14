@@ -45,6 +45,9 @@
                                     </thead>
 
                                     <tbody>
+                                        @php
+                                            $hasStockError = false;
+                                        @endphp
                                         @forelse($cartItems as $item)
                                         @php
                                             $product = $item->product;
@@ -53,6 +56,12 @@
                                             $taxAmount = ($price * $tax) / 100;
                                             $total = ($price + $taxAmount) * $item->quantity;
                                             
+                                            $isOutOfStock = $product->is_out_of_stock || $product->stock_quantity <= 0;
+                                            $insufficientStock = $product->stock_quantity < $item->quantity;
+                                            if ($isOutOfStock || $insufficientStock) {
+                                                $hasStockError = true;
+                                            }
+                                            
                                             $imageUrl = 'https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?auto=format&fit=crop&w=900&q=85';
                                             if ($product->featuredImage) {
                                                 $imageUrl = asset('storage/' . $product->featuredImage->image_path);
@@ -60,12 +69,17 @@
                                                 $imageUrl = asset('storage/' . $product->images->first()->image_path);
                                             }
                                         @endphp
-                                        <tr data-item-id="{{ $item->id }}">
+                                        <tr data-item-id="{{ $item->id }}" class="{{ $isOutOfStock || $insufficientStock ? 'bg-danger-subtle' : '' }}">
                                             <td>
-                                                <img src="{{ $imageUrl }}" class="img-fluid product-img" alt="{{ $product->name }}">
+                                                <img src="{{ $imageUrl }}" class="img-fluid product-img" alt="{{ $product->name }}" style="{{ $isOutOfStock ? 'opacity: 0.5; filter: grayscale(100%);' : '' }}">
                                             </td>
                                             <td>
                                                 <h6 class="product-title"><a href="{{ url('product/' . $product->slug) }}" class="text-decoration-none text-dark">{{ $product->name }}</a></h6>
+                                                @if($isOutOfStock)
+                                                    <span class="text-danger small fw-bold mt-1 d-block"><i class="fa-solid fa-circle-exclamation me-1"></i> Out of Stock</span>
+                                                @elseif($insufficientStock)
+                                                    <span class="text-danger small fw-bold mt-1 d-block"><i class="fa-solid fa-circle-exclamation me-1"></i> Only {{ $product->stock_quantity }} available</span>
+                                                @endif
                                             </td>
                                             <td>
                                                 <span class="price">₹{{ number_format(round($price), 0) }}</span>
@@ -139,7 +153,7 @@
                                 <span>Total Amount</span>
                                 <span id="cartGrandTotal">₹{{ number_format(round($grandTotal), 0) }}</span>
                             </div>
-                            <a href="{{ route('checkout') }}" class="btn btn-green w-100 {{ $cartItems->isEmpty() ? 'disabled' : '' }}">Check Out</a>
+                            <a href="{{ route('checkout') }}" class="btn btn-green w-100 {{ $cartItems->isEmpty() || (isset($hasStockError) && $hasStockError) ? 'disabled' : '' }}" {{ (isset($hasStockError) && $hasStockError) ? 'onclick="event.preventDefault(); alert(\'Please remove out of stock items from your cart to proceed.\');"' : '' }}>Check Out</a>
                         </div>
                     </div>
                 </div>

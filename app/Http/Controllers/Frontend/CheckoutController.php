@@ -35,6 +35,12 @@ class CheckoutController extends Controller
 
         $subtotal = 0;
         foreach ($cart->items as $item) {
+            if ($item->product->is_out_of_stock || $item->product->stock_quantity <= 0) {
+                return redirect()->route('cart')->with('error', 'Some items in your cart are currently out of stock. Please remove them to proceed.');
+            }
+            if ($item->product->stock_quantity < $item->quantity) {
+                return redirect()->route('cart')->with('error', 'Insufficient stock for ' . $item->product->name . '. Please reduce the quantity.');
+            }
             $subtotal += $item->product->price * $item->quantity;
         }
 
@@ -48,7 +54,7 @@ class CheckoutController extends Controller
         
         if ($couponId) {
             $coupon = Coupon::find($couponId);
-            if ($coupon && $coupon->is_active && $coupon->expires_at > now() && $subtotal >= $coupon->min_cart_value) {
+            if ($coupon && $coupon->is_active && (!$coupon->expires_at || $coupon->expires_at > now()) && $subtotal >= $coupon->min_cart_value) {
                 if ($coupon->type === 'percentage') {
                     $calculatedDiscount = ($subtotal * $coupon->value) / 100;
                     $discountAmount = $coupon->max_discount ? min($calculatedDiscount, $coupon->max_discount) : $calculatedDiscount;
@@ -101,6 +107,7 @@ class CheckoutController extends Controller
 
         // Apply coupon to session
         session()->put('applied_coupon_id', $coupon->id);
+        session()->put('applied_coupon_code', $coupon->code);
 
         $discountAmount = 0;
         if ($coupon->type === 'percentage') {
@@ -126,6 +133,7 @@ class CheckoutController extends Controller
     public function removeCoupon(Request $request)
     {
         session()->forget('applied_coupon_id');
+        session()->forget('applied_coupon_code');
 
         $cart = $this->getCart();
         $subtotal = 0;
@@ -152,16 +160,17 @@ class CheckoutController extends Controller
     {
         $request->validate([
             'address_id' => 'nullable|exists:customer_addresses,id',
-            'first_name' => 'required_without:address_id|string|max:255',
-            'last_name' => 'required_without:address_id|string|max:255',
-            'country' => 'required_without:address_id|string|max:255',
-            'address' => 'required_without:address_id|string|max:255',
-            'city' => 'required_without:address_id|string|max:255',
-            'state' => 'required_without:address_id|string|max:255',
-            'postal_code' => 'required_without:address_id|numeric',
-            'phone' => 'required_without:address_id|numeric',
-            'email' => 'required_without:address_id|email',
-            'notes' => 'nullable|string'
+            'first_name' => 'required_without:address_id|nullable|string|max:255',
+            'last_name' => 'required_without:address_id|nullable|string|max:255',
+            'country' => 'required_without:address_id|nullable|string|max:255',
+            'address' => 'required_without:address_id|nullable|string|max:255',
+            'city' => 'required_without:address_id|nullable|string|max:255',
+            'state' => 'required_without:address_id|nullable|string|max:255',
+            'postal_code' => 'required_without:address_id|nullable|string|max:255',
+            'phone' => 'required_without:address_id|nullable|string|max:20',
+            'email' => 'required_without:address_id|nullable|email',
+            'notes' => 'nullable|string',
+            'payment' => 'nullable|string'
         ]);
 
         $cart = $this->getCart();
@@ -191,8 +200,14 @@ class CheckoutController extends Controller
             }
 
             $subtotal = 0;
+            $lockedProducts = [];
             foreach ($cart->items as $item) {
-                $subtotal += $item->product->price * $item->quantity;
+                $product = \App\Models\Product::where('id', $item->product_id)->lockForUpdate()->first();
+                if (!$product || $product->is_out_of_stock || $product->stock_quantity < $item->quantity) {
+                    throw new \Exception('Product "' . ($product ? $product->name : 'Unknown') . '" is out of stock or requested quantity is unavailable.');
+                }
+                $lockedProducts[$item->id] = $product;
+                $subtotal += $product->price * $item->quantity;
             }
 
             $deliveryCharge = DeliverySetting::first()?->charge ?? 0;
@@ -204,7 +219,7 @@ class CheckoutController extends Controller
             
             if ($couponId) {
                 $coupon = Coupon::find($couponId);
-                if ($coupon && $coupon->is_active && $coupon->expires_at > now() && $subtotal >= $coupon->min_cart_value) {
+                if ($coupon && $coupon->is_active && (!$coupon->expires_at || $coupon->expires_at > now()) && $subtotal >= $coupon->min_cart_value) {
                     if ($coupon->type === 'percentage') {
                         $calculatedDiscount = ($subtotal * $coupon->value) / 100;
                         $discountAmount = $coupon->max_discount ? min($calculatedDiscount, $coupon->max_discount) : $calculatedDiscount;
@@ -227,39 +242,47 @@ class CheckoutController extends Controller
                 'delivery_charge' => $deliveryCharge,
                 'discount_amount' => $discountAmount,
                 'coupon_code' => $coupon ? $coupon->code : null,
+                'notes' => $request->notes,
                 'total_amount' => $total,
                 'status' => 'pending',
-                'payment_method' => 'cod',
+                'payment_method' => $request->payment ?? 'cod',
                 'payment_status' => 'pending',
                 'shipping_address' => $shippingAddress,
                 'billing_address' => $shippingAddress,
             ]);
 
             foreach ($cart->items as $item) {
+                $product = $lockedProducts[$item->id];
+                
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => $item->product_id,
                     'quantity' => $item->quantity,
-                    'price' => $item->product->price,
-                    'total' => $item->product->price * $item->quantity,
+                    'price' => $product->price,
+                    'total' => $product->price * $item->quantity,
                 ]);
+                
+                $product->stock_quantity -= $item->quantity;
+                $product->save();
             }
 
             $cart->items()->delete();
             $cart->delete();
             session()->forget('applied_coupon_id');
+            session()->forget('applied_coupon_code');
 
             DB::commit();
 
-            return redirect()->route('checkout.thankyou', $order->id)->with('success', 'Order placed successfully!');
+            return redirect()->route('checkout.thankyou', $order->order_number)->with('success', 'Order placed successfully!');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Error placing order: ' . $e->getMessage())->withInput();
         }
     }
 
-    public function thankyou(Order $order)
+    public function thankyou($order_number)
     {
+        $order = Order::where('order_number', $order_number)->firstOrFail();
         if ($order->user_id !== Auth::guard('customer')->id()) {
             abort(403);
         }

@@ -35,6 +35,16 @@
                     <form method="POST" action="{{ route('checkout.process') }}" id="checkoutForm">
                         @csrf
                         
+                        @if ($errors->any())
+                            <div class="alert alert-danger mb-4">
+                                <ul class="mb-0">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        
                         @if(isset($addresses) && $addresses->isNotEmpty())
                         <div class="mb-4">
                             <h5>Saved Addresses</h5>
@@ -59,6 +69,8 @@
                         </div>
                         @endif
 
+                        <!-- New Address Fields (hidden when existing address selected) -->
+                        <div id="new-address-fields">
                         <div class="row g-4">
 
                             <!-- First Name -->
@@ -72,7 +84,7 @@
                                 <input
                                     type="text"
                                     name="first_name"
-                                    class="form-control"
+                                    class="form-control new-addr-field"
                                     placeholder="Enter First Name"
                                     required>
 
@@ -89,7 +101,7 @@
                                 <input
                                     type="text"
                                     name="last_name"
-                                    class="form-control"
+                                    class="form-control new-addr-field"
                                     placeholder="Enter Last Name"
                                     required>
 
@@ -106,7 +118,7 @@
                                 <input
                                     type="email"
                                     name="email"
-                                    class="form-control"
+                                    class="form-control new-addr-field"
                                     placeholder="Enter Email Address"
                                     required>
 
@@ -124,7 +136,7 @@
                                     type="tel"
                                     name="phone"
                                     pattern="[0-9]*"
-                                    class="form-control"
+                                    class="form-control new-addr-field"
                                     placeholder="Enter Phone Number"
                                     required>
 
@@ -138,7 +150,7 @@
                                     Country <span>*</span>
                                 </label>
 
-                                <select name="country" class="form-select" required>
+                                <select name="country" class="form-select new-addr-field" required>
 
                                     <option value="">
                                         Select Country
@@ -168,7 +180,7 @@
                                     State <span>*</span>
                                 </label>
 
-                                <select name="state" class="form-select" required>
+                                <select name="state" class="form-select new-addr-field" required>
 
                                     <option value="">
                                         Select State
@@ -201,7 +213,7 @@
                                 <input
                                     type="text"
                                     name="address"
-                                    class="form-control mb-3"
+                                    class="form-control mb-3 new-addr-field"
                                     placeholder="House No., Building Name"
                                     required>
 
@@ -223,7 +235,7 @@
                                 <input
                                     type="text"
                                     name="city"
-                                    class="form-control"
+                                    class="form-control new-addr-field"
                                     placeholder="Enter City"
                                     required>
 
@@ -241,15 +253,18 @@
                                     type="text"
                                     name="postal_code"
                                     pattern="[0-9]*"
-                                    class="form-control"
+                                    class="form-control new-addr-field"
                                     placeholder="Enter ZIP Code"
                                     required>
 
                             </div>
-                           
-                            <!-- Notes -->
 
-                            <div class="col-12">
+                        </div>
+                        </div>
+                           
+                            <!-- Notes (always visible) -->
+
+                            <div class="mt-4">
 
                                 <label class="form-label">
                                     Order Notes
@@ -262,8 +277,6 @@
                                     placeholder="Write your order notes here..."></textarea>
 
                             </div>
-
-                        </div>
 
                     </form>
 
@@ -318,15 +331,20 @@
                     <div class="coupon-box mb-4">
                         <div class="input-group">
                             <input type="text" id="coupon_code" class="form-control" placeholder="Enter Coupon Code" 
+                                   value="{{ session('applied_coupon_code', '') }}"
                                    {{ session('applied_coupon_id') ? 'readonly' : '' }}>
                             <button class="btn btn-dark" type="button" id="apply_coupon_btn" 
                                     style="{{ session('applied_coupon_id') ? 'display: none;' : '' }}">Apply</button>
                             <button class="btn btn-danger" type="button" id="remove_coupon_btn" 
                                     style="{{ session('applied_coupon_id') ? '' : 'display: none;' }}">Remove</button>
                         </div>
-                        <small id="coupon_message" class="text-success mt-1 d-block" style="{{ session('applied_coupon_id') ? '' : 'display: none;' }}">
+                        @if(session('applied_coupon_id'))
+                        <small id="coupon_message" class="text-success mt-1 d-block">
                             Coupon applied successfully!
                         </small>
+                        @else
+                        <small id="coupon_message" class="mt-1 d-none"></small>
+                        @endif
                     </div>
 
                     <!-- Price Summary -->
@@ -391,6 +409,8 @@
                                 type="radio"
                                 id="cod"
                                 name="payment"
+                                value="cod"
+                                form="checkoutForm"
                                 checked>
 
                             <label for="cod">
@@ -406,7 +426,9 @@
                             <input
                                 type="radio"
                                 id="razorpay"
-                                name="payment">
+                                name="payment"
+                                value="razorpay"
+                                form="checkoutForm">
 
                             <label for="razorpay">
 
@@ -421,7 +443,9 @@
                             <input
                                 type="radio"
                                 id="payu"
-                                name="payment">
+                                name="payment"
+                                value="payu"
+                                form="checkoutForm">
 
                             <label for="payu">
 
@@ -502,6 +526,46 @@
             return Math.round(number).toLocaleString("en-IN");
         }
 
+        // ============================================
+        // Address Toggle: show/hide new address fields
+        // ============================================
+        const addressSelectors = document.querySelectorAll('.address-selector');
+        const newAddressFields = document.getElementById('new-address-fields');
+        
+        if (addressSelectors.length > 0 && newAddressFields) {
+            function toggleAddressFields() {
+                const selectedRadio = document.querySelector('.address-selector:checked');
+                const isNewAddress = !selectedRadio || selectedRadio.value === '';
+                
+                if (isNewAddress) {
+                    // Show new address form
+                    newAddressFields.style.display = 'block';
+                    // Re-add required to all fields
+                    newAddressFields.querySelectorAll('.new-addr-field').forEach(field => {
+                        field.setAttribute('required', 'required');
+                    });
+                } else {
+                    // Hide new address form
+                    newAddressFields.style.display = 'none';
+                    // Remove required from all fields so form can submit
+                    newAddressFields.querySelectorAll('.new-addr-field').forEach(field => {
+                        field.removeAttribute('required');
+                    });
+                }
+            }
+
+            // Listen on all address radio buttons
+            addressSelectors.forEach(radio => {
+                radio.addEventListener('change', toggleAddressFields);
+            });
+
+            // Run on page load
+            toggleAddressFields();
+        }
+
+        // ============================================
+        // Checkout Calculation
+        // ============================================
         function calculateCheckout() {
             const summaryList = document.getElementById('checkoutSummaryList');
             if (!summaryList) return;
@@ -555,7 +619,9 @@
         // Run calculation on load
         calculateCheckout();
 
+        // ============================================
         // Coupon AJAX logic
+        // ============================================
         const applyCouponBtn = document.getElementById('apply_coupon_btn');
         const removeCouponBtn = document.getElementById('remove_coupon_btn');
         const couponCodeInput = document.getElementById('coupon_code');
@@ -565,7 +631,8 @@
             applyCouponBtn.addEventListener('click', function() {
                 const code = couponCodeInput.value.trim();
                 if (!code) {
-                    alert("Please enter a coupon code");
+                    couponMessage.innerText = "Please enter a coupon code.";
+                    couponMessage.className = "text-danger mt-1 d-block";
                     return;
                 }
 
@@ -632,7 +699,7 @@
                         applyCouponBtn.style.display = 'block';
                         removeCouponBtn.style.display = 'none';
                         couponMessage.innerText = "";
-                        couponMessage.className = "d-none";
+                        couponMessage.className = "mt-1 d-none";
                         
                         document.getElementById('summaryDiscount').innerHTML = "- ₹" + formatNumber(data.discount);
                         document.getElementById('summaryGrandTotal').innerHTML = "₹" + formatNumber(data.total);

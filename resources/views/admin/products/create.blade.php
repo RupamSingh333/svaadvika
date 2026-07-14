@@ -150,9 +150,13 @@
                             </div>
                             
                             <div class="mb-4">
-                                <div class="form-check form-switch">
+                                <div class="form-check form-switch mb-2">
                                     <input class="form-check-input" type="checkbox" name="is_featured" value="1" id="isFeatured" {{ old('is_featured') ? 'checked' : '' }}>
                                     <label class="form-check-label fw-semibold" for="isFeatured">Featured Product</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="is_out_of_stock" value="1" id="isOutOfStock" {{ old('is_out_of_stock') ? 'checked' : '' }}>
+                                    <label class="form-check-label fw-semibold text-danger" for="isOutOfStock">Mark as Out of Stock</label>
                                 </div>
                             </div>
                             

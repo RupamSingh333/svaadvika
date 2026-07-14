@@ -164,4 +164,28 @@ class ProductController extends Controller
         
         return back()->with('success', 'Image deleted successfully');
     }
+
+    public function updateStock(Request $request, Product $product)
+    {
+        $request->validate([
+            'stock_quantity' => 'required|integer|min:0'
+        ]);
+
+        $product->stock_quantity = $request->stock_quantity;
+        $product->save();
+
+        return redirect()->route('admin.products.index')->with('success', 'Stock updated successfully for ' . $product->name);
+    }
+
+    public function toggleOutOfStock(Product $product)
+    {
+        $product->is_out_of_stock = !$product->is_out_of_stock;
+        
+        // Prevent the booted saving event from resetting is_out_of_stock back to false immediately if stock > 0
+        // We will save quietly if we want to bypass events, but the event only sets true if stock <= 0.
+        // It doesn't set it to false if stock > 0 in my last update.
+        $product->save();
+
+        return redirect()->route('admin.products.index')->with('success', 'Out of stock status updated for ' . $product->name);
+    }
 }

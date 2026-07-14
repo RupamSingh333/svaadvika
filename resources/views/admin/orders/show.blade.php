@@ -40,8 +40,28 @@
                         </tbody>
                         <tfoot class="table-light">
                             <tr>
-                                <td colspan="3" class="text-end fw-semibold">Grand Total:</td>
-                                <td class="text-end fw-bold text-primary">₹{{ $order->total_amount }}</td>
+                                <td colspan="3" class="text-end fw-semibold">Subtotal:</td>
+                                <td class="text-end fw-bold">₹{{ number_format($order->subtotal, 0) }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-end fw-semibold">Tax:</td>
+                                <td class="text-end fw-bold">₹{{ number_format($order->tax_amount, 0) }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-end fw-semibold">Delivery Charge:</td>
+                                <td class="text-end fw-bold">{{ $order->delivery_charge > 0 ? '₹' . number_format($order->delivery_charge, 0) : 'Free' }}</td>
+                            </tr>
+                            @if($order->coupon_code)
+                            <tr>
+                                <td colspan="3" class="text-end fw-semibold text-success">
+                                    Discount ({{ $order->coupon_code }}):
+                                </td>
+                                <td class="text-end fw-bold text-success">- ₹{{ number_format($order->discount_amount, 0) }}</td>
+                            </tr>
+                            @endif
+                            <tr>
+                                <td colspan="3" class="text-end fw-bold fs-5">Grand Total:</td>
+                                <td class="text-end fw-bold fs-5 text-primary">₹{{ number_format($order->total_amount, 0) }}</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -56,6 +76,18 @@
                         <h6 class="fw-semibold border-bottom pb-2 mb-3">Customer Details</h6>
                         <p class="mb-1"><strong>Name:</strong> {{ $order->user ? $order->user->name : 'Guest' }}</p>
                         <p class="mb-1"><strong>Email:</strong> {{ $order->user ? $order->user->email : 'N/A' }}</p>
+                        <p class="mb-1"><strong>Payment:</strong> <span class="badge bg-secondary text-uppercase">{{ $order->payment_method }}</span></p>
+                        @if($order->notes)
+                        <div class="mt-3">
+                            <h6 class="fw-semibold mb-1">Order Notes:</h6>
+                            <p class="text-muted small mb-0">{{ $order->notes }}</p>
+                        </div>
+                        @else
+                        <div class="mt-3">
+                            <h6 class="fw-semibold mb-1">Order Notes:</h6>
+                            <p class="text-muted small mb-0">No notes provided.</p>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

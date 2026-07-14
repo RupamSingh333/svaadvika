@@ -68,11 +68,14 @@
             if(data.status === 'success') {
                 window.updateCartCount(data.count);
                 window.showToast("Product added to cart.");
+            } else if (data.status === 'error' || data.message) {
+                window.showToast(data.message || "Failed to add product to cart.");
             }
         })
         .catch(err => {
             btn.innerHTML = originalText;
             btn.disabled = false;
+            window.showToast("An error occurred. Please try again.");
         });
       }
       if (plus || minus) {
@@ -255,7 +258,10 @@
             <ul><li>Ingredients: ${product.ingredients}</li><li>Weight: ${product.weight}</li><li>Status: ${product.stock ? "In stock" : "Out of Stock"}</li></ul>
             <div class="quick-view-actions">
                <button class="icon-btn wishlist-active-state d-none" type="button" data-wishlist="${product.id}" aria-label="Toggle ${product.title} wishlist"><i class="bi bi-heart"></i></button>
-              <div class="catalog-actions"><div class="qty-control"><button type="button" data-qty-minus>-</button><span>1</span><button type="button" data-qty-plus>+</button></div><button class="add-cart" type="button" data-add-cart="${product.id}">Add To Cart</button></div>
+              <div class="catalog-actions">
+                 <div class="qty-control"><button type="button" data-qty-minus>-</button><span>1</span><button type="button" data-qty-plus>+</button></div>
+                 ${product.stock ? `<button class="add-cart" type="button" data-add-cart="${product.id}">Add To Cart</button>` : `<button class="add-cart" type="button" disabled style="background-color: #ccc; cursor: not-allowed; border: none; color: #666;">Out of Stock</button>`}
+              </div>
             </div>
           </div>
         </div>`;
@@ -351,14 +357,14 @@
             <button class="quick-view-icon" type="button" data-quick-view="${product.id}" aria-label="Quick View ${product.title}"><i class="bi bi-eye"></i></button>
           </div>
           <div class="catalog-body">
-            <div class="catalog-meta"><span class="catalog-category">${labelFor(product.category)}</span><span class="stock-pill">${product.stock ? "In Stock" : "Out of Stock"}</span></div>
+            <div class="catalog-meta"><span class="catalog-category">${labelFor(product.category)}</span><span class="stock-pill ${!product.stock ? 'bg-danger text-white border-danger' : ''}">${product.stock ? "In Stock" : "Out of Stock"}</span></div>
             <h3><a href="/product/${product.id}">${highlight(product.title)}</a></h3>
             <div class="catalog-rating">${stars(product.rating)}<small>(${product.reviews})</small></div>
             <p>${highlight(product.description)}</p>
             <div class="price-line"><strong>${rupee(product.price)}</strong><del>${rupee(product.oldPrice)}</del><span>${product.discount} Off</span></div>
             <div class="catalog-actions">
               <div class="qty-control"><button type="button" data-qty-minus>-</button><span>1</span><button type="button" data-qty-plus>+</button></div>
-              <button class="add-cart" type="button" data-add-cart="${product.id}">Add To Cart</button>
+              ${product.stock ? `<button class="add-cart" type="button" data-add-cart="${product.id}">Add To Cart</button>` : `<button class="add-cart" type="button" disabled style="background-color: #ccc; cursor: not-allowed; border: none; color: #666;">Out of Stock</button>`}
             </div>
           </div>
         </article>`;

@@ -31,6 +31,7 @@
                 <div class="mt-5">
                     <a href="{{ route('home') }}" class="btn btn-gold me-3">Continue Shopping</a>
                     <a href="{{ route('customer.dashboard') }}" class="btn btn-dark">View My Orders</a>
+                    <a href="{{ route('customer.order.details', $order->id) }}" class="btn btn-outline-dark ms-3">View Order Details</a>
                 </div>
             </div>
         </div>
