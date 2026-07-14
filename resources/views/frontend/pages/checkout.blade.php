@@ -44,6 +44,12 @@
                                 </ul>
                             </div>
                         @endif
+
+                        @if (session('error'))
+                            <div class="alert alert-danger mb-4">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                         
                         @if(isset($addresses) && $addresses->isNotEmpty())
                         <div class="mb-4">
@@ -467,6 +473,7 @@
                                 class="form-check-input"
                                 type="checkbox"
                                 id="terms"
+                                form="checkoutForm"
                                 required>
 
                             <label
