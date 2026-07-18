@@ -81,13 +81,55 @@
 
     <nav class="mobile-bottom" aria-label="Mobile quick navigation">
       <a class="{{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}"><i class="bi bi-house"></i><span>Home</span></a>
-      <a href="#products"><i class="bi bi-grid"></i><span>Products</span></a>
-      <a class="shop" href="#products"><i class="bi bi-bag"></i><span>Shop</span></a>
+      <a href="{{ route('frontend.products') }}"><i class="bi bi-grid"></i><span>Products</span></a>
+      <a class="shop" href="{{ route('frontend.products') }}"><i class="bi bi-bag"></i><span>Shop</span></a>
       <a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '919999999999' }}"><i class="bi bi-whatsapp"></i><span>WhatsApp</span></a>
       <a href="tel:{{ $settings['contact_phone'] ?? '+919999999999' }}"><i class="bi bi-telephone"></i><span>Call</span></a>
     </nav>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmFormSubmit(event, formElement, message = 'Are you sure?') {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: message,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#198754',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, proceed!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    formElement.submit();
+                }
+            });
+        }
+
+        function confirmLinkClick(event, linkElement, message = 'Are you sure?') {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: message,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#198754',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, proceed!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (linkElement.onclick) {
+                        // If it has onclick, we shouldn't just redirect unless it's an actual link
+                        // Actually, if it's a form logout via onclick, we'll handle it directly in the view
+                    }
+                    if (linkElement.href && linkElement.href !== '#' && !linkElement.href.endsWith('#')) {
+                        window.location.href = linkElement.href;
+                    }
+                }
+            });
+        }
+    </script>
     <script src="{{ asset('frontend/assets/js/theme.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/slider.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/mobile.js') }}"></script>
@@ -95,5 +137,18 @@
     @stack('before_scripts')
     @stack('scripts')
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+    
+    <script>
+        // Global Input Validation
+        document.addEventListener('input', function (e) {
+            if (e.target.tagName === 'INPUT') {
+                const name = e.target.getAttribute('name');
+                if (name === 'phone' || name === 'mobile' || name === 'postal_code' || name === 'zipcode' || name === 'zip') {
+                    // Strictly remove any non-numeric characters instantly
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                }
+            }
+        });
+    </script>
   </body>
 </html>

@@ -64,7 +64,7 @@
                                         </form>
                                         @endhasPermission
                                         @hasPermission('customers', 'delete')
-                                        <form action="{{ route('admin.customers.destroy', $customer->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure you want to delete this customer?');">
+                                        <form action="{{ route('admin.customers.destroy', $customer->id) }}" method="POST" class="d-inline-block" onsubmit="confirmFormSubmit(event, this, '')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-light border shadow-sm" title="Delete">

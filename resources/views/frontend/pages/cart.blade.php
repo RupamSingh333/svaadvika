@@ -88,17 +88,17 @@
                                                 ₹{{ number_format(round($taxAmount), 0) }} ({{ $tax }}%)
                                             </td>
                                             <td>
-                                                <div class="qty-box" data-item-id="{{ $item->id }}">
-                                                    <button class="qty-btn minus">-</button>
-                                                    <input type="text" value="{{ $item->quantity }}" readonly>
-                                                    <button class="qty-btn plus">+</button>
+                                                <div class="cart-qty-box" data-item-id="{{ $item->id }}" style="display: inline-flex; align-items: center; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 4px; overflow: hidden;">
+                                                    <button class="cart-qty-btn cart-minus" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; cursor: pointer; color: #64748b; font-size: 16px;">-</button>
+                                                    <input type="text" value="{{ $item->quantity }}" readonly style="width: 40px; text-align: center; border: none; font-weight: 600; font-size: 14px; color: #0f172a; padding: 0; outline: none; background: transparent;">
+                                                    <button class="cart-qty-btn cart-plus" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; cursor: pointer; color: #64748b; font-size: 16px;">+</button>
                                                 </div>
                                             </td>
                                             <td>
                                                 <strong>₹{{ number_format(round($total), 0) }}</strong>
                                             </td>
                                             <td>
-                                                <button class="remove-btn" data-item-id="{{ $item->id }}">
+                                                <button class="cart-remove-btn" data-item-id="{{ $item->id }}" style="background: none; border: none; color: #dc3545; padding: 8px; cursor: pointer; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
                                                     <i class="bi bi-trash"></i>
                                                 </button>
                                             </td>
@@ -164,10 +164,10 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const qtyBoxes = document.querySelectorAll(".qty-box");
+    const qtyBoxes = document.querySelectorAll(".cart-qty-box");
     qtyBoxes.forEach((box) => {
-        const minus = box.querySelector(".minus");
-        const plus = box.querySelector(".plus");
+        const minus = box.querySelector(".cart-minus");
+        const plus = box.querySelector(".cart-plus");
         const input = box.querySelector("input");
         const itemId = box.dataset.itemId;
 
@@ -183,7 +183,10 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(res => res.json())
             .then(data => {
                 if(data.status === 'success') {
-                    window.location.reload(); // simple reload to update all totals correctly
+                    if(window.showToast) {
+                        window.showToast('Cart quantity updated!');
+                    }
+                    setTimeout(() => window.location.reload(), 1000);
                 }
             });
         };
@@ -205,26 +208,39 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    const removeBtns = document.querySelectorAll(".remove-btn");
+    const removeBtns = document.querySelectorAll(".cart-remove-btn");
     removeBtns.forEach((btn) => {
         btn.addEventListener("click", function () {
-            if (confirm("Remove this product from cart?")) {
-                const itemId = btn.dataset.itemId;
-                fetch('/api/cart/remove', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({ item_id: itemId })
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if(data.status === 'success') {
-                        window.location.reload();
-                    }
-                });
-            }
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Remove this product from cart?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#198754',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, remove it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const itemId = btn.dataset.itemId;
+                    fetch('/api/cart/remove', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({ item_id: itemId })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if(data.status === 'success') {
+                            if(window.showToast) {
+                                window.showToast('Product removed from cart!');
+                            }
+                            setTimeout(() => window.location.reload(), 1000);
+                        }
+                    });
+                }
+            });
         });
     });
 });

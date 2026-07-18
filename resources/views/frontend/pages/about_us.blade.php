@@ -24,7 +24,7 @@
                 <h2>A Journey Rooted in Tradition, <span>Inspired by India</span></h2>
                 <p>Svaadvika was born from a simple belief - that every home deserves restaurant flavour without the hours of preparation.</p>
                 <p>We blend authentic recipes, premium ingredients and modern technology to deliver purity, taste and trust. From our kitchens to your home, we ensure every bite brings the warmth of tradition and the comfort of home.</p>
-                <a class="btn btn-gold" href="index.html#products">Explore Our Products</a>
+                <a class="btn btn-gold" href="{{ route('frontend.products') }}">Explore Our Products</a>
               </div>
             </div>
             <div class="col-lg-6 about-story-image-wrap reveal-right">
@@ -160,7 +160,7 @@
           <div class="about-cta-copy reveal-up">
             <h2>Experience Authentic Flavours At Home</h2>
             <p>Bring home the perfect blend of tradition, quality and taste with Svaadvika.</p>
-            <a class="btn btn-gold" href="index.html#products">Explore Our Products</a>
+            <a class="btn btn-gold" href="{{ route('frontend.products') }}">Explore Our Products</a>
           </div>
         </div>
       </section>

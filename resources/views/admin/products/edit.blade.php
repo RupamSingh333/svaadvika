@@ -108,7 +108,7 @@
                                 <label class="form-label fw-semibold">Current Featured Image</label>
                                 <div class="position-relative d-inline-block">
                                     <img src="{{ Storage::url($product->featuredImage->image_path) }}" alt="Featured" class="img-thumbnail" style="max-height: 150px;">
-                                    <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 shadow-sm" onclick="if(confirm('Delete featured image?')) document.getElementById('delete-image-{{ $product->featuredImage->id }}').submit();">
+                                    <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 shadow-sm" onclick="confirmFormSubmit(event, document.getElementById(''), '')">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
                                 </div>
@@ -128,7 +128,7 @@
                                     @foreach($product->images->where('is_featured', false) as $image)
                                     <div class="position-relative d-inline-block">
                                         <img src="{{ Storage::url($image->image_path) }}" alt="Gallery" class="img-thumbnail" style="max-height: 80px;">
-                                        <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 shadow-sm px-1 py-0" style="font-size: 0.7rem;" onclick="if(confirm('Delete gallery image?')) document.getElementById('delete-image-{{ $image->id }}').submit();">
+                                        <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 shadow-sm px-1 py-0" style="font-size: 0.7rem;" onclick="confirmFormSubmit(event, document.getElementById(''), '')">
                                             <i class="fa-solid fa-xmark"></i>
                                         </button>
                                     </div>

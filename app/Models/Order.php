@@ -24,6 +24,8 @@ class Order extends Model
         'billing_address',
         'coupon_code',
         'notes',
+        'razorpay_order_id',
+        'razorpay_payment_id',
     ];
 
     public function customer()

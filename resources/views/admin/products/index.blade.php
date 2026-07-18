@@ -21,11 +21,10 @@
                         <thead class="table-light text-muted">
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Category</th>
-                                <th>Price</th>
-                                <th>Stock</th>
-                                <th>Status</th>
+                                <th>Product Info</th>
+                                <th>Pricing & Taxes</th>
+                                <th>Stock Management</th>
+                                <th>Status & Visibility</th>
                                 <th class="text-end">Actions</th>
                             </tr>
                         </thead>
@@ -33,37 +32,45 @@
                             @forelse($products as $product)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td class="fw-semibold d-flex align-items-center">
-                                        @if($product->featuredImage)
-                                            <img src="{{ Storage::url($product->featuredImage->image_path) }}" alt="Img" class="img-thumbnail me-2" style="width: 48px; height: 48px; object-fit: cover;">
-                                        @elseif($product->images->first())
-                                            <img src="{{ Storage::url($product->images->first()->image_path) }}" alt="Img" class="img-thumbnail me-2" style="width: 48px; height: 48px; object-fit: cover;">
-                                        @else
-                                            <div class="bg-light text-muted d-flex align-items-center justify-content-center me-2 border rounded" style="width: 48px; height: 48px;">
-                                                <i class="fa-regular fa-image"></i>
+                                    <td class="fw-semibold">
+                                        <div class="d-flex align-items-center">
+                                            @if($product->featuredImage)
+                                                <img src="{{ Storage::url($product->featuredImage->image_path) }}" alt="Img" class="img-thumbnail me-2" style="width: 48px; height: 48px; object-fit: cover;">
+                                            @elseif($product->images->first())
+                                                <img src="{{ Storage::url($product->images->first()->image_path) }}" alt="Img" class="img-thumbnail me-2" style="width: 48px; height: 48px; object-fit: cover;">
+                                            @else
+                                                <div class="bg-light text-muted d-flex align-items-center justify-content-center me-2 border rounded" style="width: 48px; height: 48px;">
+                                                    <i class="fa-regular fa-image"></i>
+                                                </div>
+                                            @endif
+                                            <div>
+                                                {{ $product->name }}<br>
+                                                <small class="text-muted">SKU: {{ $product->sku }} | Category: {{ $product->category->name }}</small>
                                             </div>
-                                        @endif
-                                        <div>
-                                            {{ $product->name }}<br>
-                                            <small class="text-muted">SKU: {{ $product->sku }}</small>
                                         </div>
                                     </td>
-                                    <td><span class="badge bg-secondary-subtle text-secondary">{{ $product->category->name }}</span></td>
                                     <td>
-                                        @if($product->sale_price)
-                                            <span class="text-danger fw-bold">₹{{ $product->sale_price }}</span>
-                                            <strike class="text-muted small">₹{{ $product->price }}</strike>
+                                        <div>
+                                            @if($product->sale_price)
+                                                <span class="text-danger fw-bold">₹{{ $product->sale_price }}</span>
+                                                <strike class="text-muted small">₹{{ $product->price }}</strike>
+                                            @else
+                                                <span class="fw-bold">₹{{ $product->price }}</span>
+                                            @endif
+                                        </div>
+                                        @if($product->tax)
+                                            <small class="text-muted"><i class="fa-solid fa-receipt me-1"></i>Tax: {{ $product->tax->name }} ({{ $product->tax->rate }}%)</small>
                                         @else
-                                            <span class="fw-bold">₹{{ $product->price }}</span>
+                                            <small class="text-muted">Tax: None</small>
                                         @endif
                                     </td>
                                     <td>
-                                        <form action="{{ route('admin.products.update-stock', $product->id) }}" method="POST" class="d-flex align-items-center m-0">
+                                        <form action="{{ route('admin.products.update-stock', $product->id) }}" method="POST" class="d-flex align-items-center mb-2">
                                             @csrf
                                             <input type="number" name="stock_quantity" value="{{ $product->stock_quantity }}" class="form-control form-control-sm me-1" style="width: 70px;" min="0">
                                             <button type="submit" class="btn btn-sm btn-light border text-primary" title="Update Stock"><i class="fa-solid fa-save"></i></button>
                                         </form>
-                                        <form action="{{ route('admin.products.toggle-out-of-stock', $product->id) }}" method="POST" class="mt-2">
+                                        <form action="{{ route('admin.products.toggle-out-of-stock', $product->id) }}" method="POST">
                                             @csrf
                                             <div class="form-check form-switch form-check-sm mb-0">
                                                 <input class="form-check-input" type="checkbox" onchange="this.form.submit()" {{ $product->is_out_of_stock ? 'checked' : '' }} style="cursor: pointer;" id="oos-{{ $product->id }}">
@@ -74,14 +81,24 @@
                                         </form>
                                     </td>
                                     <td>
-                                        @if($product->status == 'active')
-                                            <span class="badge bg-success-subtle text-success">Active</span>
-                                        @else
-                                            <span class="badge bg-secondary-subtle text-secondary">Draft</span>
-                                        @endif
-                                        @if($product->is_featured)
-                                            <i class="fa-solid fa-star text-warning ms-1" title="Featured"></i>
-                                        @endif
+                                        <form action="{{ route('admin.products.toggle-status', $product->id) }}" method="POST" class="mb-2">
+                                            @csrf
+                                            <div class="form-check form-switch form-check-sm mb-0">
+                                                <input class="form-check-input" type="checkbox" onchange="this.form.submit()" {{ $product->status == 'active' ? 'checked' : '' }} style="cursor: pointer;" id="status-{{ $product->id }}">
+                                                <label class="form-check-label small {{ $product->status == 'active' ? 'text-success fw-bold' : 'text-muted' }}" for="status-{{ $product->id }}" style="cursor: pointer;">
+                                                    {{ ucfirst($product->status) }}
+                                                </label>
+                                            </div>
+                                        </form>
+                                        <form action="{{ route('admin.products.toggle-featured', $product->id) }}" method="POST">
+                                            @csrf
+                                            <div class="form-check form-switch form-check-sm mb-0">
+                                                <input class="form-check-input" type="checkbox" onchange="this.form.submit()" {{ $product->is_featured ? 'checked' : '' }} style="cursor: pointer;" id="featured-{{ $product->id }}">
+                                                <label class="form-check-label small {{ $product->is_featured ? 'text-warning fw-bold' : 'text-muted' }}" for="featured-{{ $product->id }}" style="cursor: pointer;">
+                                                    Featured
+                                                </label>
+                                            </div>
+                                        </form>
                                     </td>
                                     <td class="text-end">
                                         @hasPermission('products', 'edit')
@@ -90,7 +107,7 @@
                                         </a>
                                         @endhasPermission
                                         @hasPermission('products', 'delete')
-                                        <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                        <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" class="d-inline-block" onsubmit="confirmFormSubmit(event, this, '')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-light border shadow-sm">
@@ -102,7 +119,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center py-4 text-muted">
+                                    <td colspan="6" class="text-center py-4 text-muted">
                                         <div class="mb-3"><i class="fa-solid fa-box-open fa-3x text-light-gray"></i></div>
                                         No products found. Add one to get started!
                                     </td>

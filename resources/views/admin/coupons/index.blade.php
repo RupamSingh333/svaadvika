@@ -67,7 +67,7 @@
                                         </a>
                                         @endhasPermission
                                         @hasPermission('coupons', 'delete')
-                                        <form action="{{ route('admin.coupons.destroy', $coupon->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure you want to delete this coupon?');">
+                                        <form action="{{ route('admin.coupons.destroy', $coupon->id) }}" method="POST" class="d-inline-block" onsubmit="confirmFormSubmit(event, this, '')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-light border shadow-sm">

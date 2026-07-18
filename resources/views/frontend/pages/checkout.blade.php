@@ -92,7 +92,9 @@
                                     name="first_name"
                                     class="form-control new-addr-field"
                                     placeholder="Enter First Name"
+                                    value="{{ old('first_name') }}"
                                     required>
+                                @error('first_name') <span class="text-danger small">{{ $message }}</span> @enderror
 
                             </div>
 
@@ -109,7 +111,9 @@
                                     name="last_name"
                                     class="form-control new-addr-field"
                                     placeholder="Enter Last Name"
+                                    value="{{ old('last_name') }}"
                                     required>
+                                @error('last_name') <span class="text-danger small">{{ $message }}</span> @enderror
 
                             </div>
 
@@ -126,7 +130,9 @@
                                     name="email"
                                     class="form-control new-addr-field"
                                     placeholder="Enter Email Address"
+                                    value="{{ old('email') }}"
                                     required>
+                                @error('email') <span class="text-danger small">{{ $message }}</span> @enderror
 
                             </div>
 
@@ -144,7 +150,9 @@
                                     pattern="[0-9]*"
                                     class="form-control new-addr-field"
                                     placeholder="Enter Phone Number"
+                                    value="{{ old('phone') }}"
                                     required>
+                                @error('phone') <span class="text-danger small">{{ $message }}</span> @enderror
 
                             </div>
 
@@ -157,24 +165,12 @@
                                 </label>
 
                                 <select name="country" class="form-select new-addr-field" required>
-
-                                    <option value="">
-                                        Select Country
-                                    </option>
-
-                                    <option>
-                                        India
-                                    </option>
-
-                                    <option>
-                                        United States
-                                    </option>
-
-                                    <option>
-                                        United Kingdom
-                                    </option>
-
+                                    <option value="">Select Country</option>
+                                    @foreach($globalCountries as $country)
+                                        <option value="{{ $country->name }}" {{ old('country') == $country->name ? 'selected' : '' }}>{{ $country->name }}</option>
+                                    @endforeach
                                 </select>
+                                @error('country') <span class="text-danger small">{{ $message }}</span> @enderror
 
                             </div>
 
@@ -187,24 +183,12 @@
                                 </label>
 
                                 <select name="state" class="form-select new-addr-field" required>
-
-                                    <option value="">
-                                        Select State
-                                    </option>
-
-                                    <option>
-                                        Rajasthan
-                                    </option>
-
-                                    <option>
-                                        Delhi
-                                    </option>
-
-                                    <option>
-                                        Uttar Pradesh
-                                    </option>
-
+                                    <option value="">Select State</option>
+                                    @foreach($globalStates as $state)
+                                        <option value="{{ $state->name }}" {{ old('state') == $state->name ? 'selected' : '' }}>{{ $state->name }}</option>
+                                    @endforeach
                                 </select>
+                                @error('state') <span class="text-danger small">{{ $message }}</span> @enderror
 
                             </div>
 
@@ -221,7 +205,9 @@
                                     name="address"
                                     class="form-control mb-3 new-addr-field"
                                     placeholder="House No., Building Name"
+                                    value="{{ old('address') }}"
                                     required>
+                                @error('address') <span class="text-danger small">{{ $message }}</span> @enderror
 
                                 <input
                                     type="text"
@@ -243,7 +229,9 @@
                                     name="city"
                                     class="form-control new-addr-field"
                                     placeholder="Enter City"
+                                    value="{{ old('city') }}"
                                     required>
+                                @error('city') <span class="text-danger small">{{ $message }}</span> @enderror
 
                             </div>
 
@@ -261,7 +249,9 @@
                                     pattern="[0-9]*"
                                     class="form-control new-addr-field"
                                     placeholder="Enter ZIP Code"
+                                    value="{{ old('postal_code') }}"
                                     required>
+                                @error('postal_code') <span class="text-danger small">{{ $message }}</span> @enderror
 
                             </div>
 
@@ -280,7 +270,7 @@
                                     name="notes"
                                     class="form-control"
                                     rows="5"
-                                    placeholder="Write your order notes here..."></textarea>
+                                    placeholder="Write your order notes here...">{{ old('notes') }}</textarea>
 
                             </div>
 

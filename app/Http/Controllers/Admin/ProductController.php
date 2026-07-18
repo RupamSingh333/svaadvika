@@ -188,4 +188,18 @@ class ProductController extends Controller
 
         return redirect()->route('admin.products.index')->with('success', 'Out of stock status updated for ' . $product->name);
     }
+
+    public function toggleFeatured(Product $product)
+    {
+        $product->is_featured = !$product->is_featured;
+        $product->save();
+        return back()->with('success', 'Featured status updated for ' . $product->name);
+    }
+
+    public function toggleStatus(Product $product)
+    {
+        $product->status = $product->status == 'active' ? 'draft' : 'active';
+        $product->save();
+        return back()->with('success', 'Status updated for ' . $product->name);
+    }
 }

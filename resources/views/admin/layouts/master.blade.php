@@ -56,6 +56,47 @@
 
     <!-- Bootstrap 5 JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmFormSubmit(event, formElement, message = 'Are you sure?') {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: message,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#0d6efd',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, proceed!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    formElement.submit();
+                }
+            });
+        }
+
+        function confirmLinkClick(event, linkElement, message = 'Are you sure?') {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: message,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#0d6efd',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, proceed!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (linkElement.onclick) {
+                        // handled by specific onclick if needed
+                    }
+                    if (linkElement.href && linkElement.href !== '#' && !linkElement.href.endsWith('#')) {
+                        window.location.href = linkElement.href;
+                    }
+                }
+            });
+        }
+    </script>
     
     <!-- Custom Admin JS -->
     <script src="{{ asset('admin-assets/js/admin.js') }}"></script>
@@ -92,6 +133,19 @@
         });
     </script>
 
+    <script>
+        // Global Input Validation
+        document.addEventListener('input', function (e) {
+            if (e.target.tagName === 'INPUT') {
+                const name = e.target.getAttribute('name');
+                if (name === 'phone' || name === 'mobile' || name === 'postal_code' || name === 'zipcode' || name === 'zip') {
+                    // Strictly remove any non-numeric characters instantly
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                }
+            }
+        });
+    </script>
+    
     @stack('scripts')
 </body>
 </html>

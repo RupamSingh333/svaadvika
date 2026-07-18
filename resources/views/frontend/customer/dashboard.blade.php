@@ -94,7 +94,7 @@
                         <li><a href="#" class="menu-link" data-target="address-content"><i class="bi bi-geo-alt"></i> Addresses</a></li>
                         <!-- <li><a href="#" class="menu-link" data-target="wishlist-content"><i class="bi bi-heart"></i> Wishlist</a></li> -->
                         <li>
-                            <a href="#" onclick="event.preventDefault(); if(confirm('Are you sure you want to logout?')) { document.getElementById('logout-form').submit(); }">
+                            <a href="#" onclick="confirmFormSubmit(event, document.getElementById('logout-form'), '')">
                                 <i class="bi bi-box-arrow-right"></i> Logout
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -119,7 +119,7 @@
                         <li><a href="#" class="menu-link" data-target="address-content" data-bs-dismiss="offcanvas">Addresses</a></li>
                         <li><a href="#" class="menu-link" data-target="wishlist-content" data-bs-dismiss="offcanvas">Wishlist</a></li>
                         <li>
-                            <a href="#" onclick="event.preventDefault(); if(confirm('Are you sure you want to logout?')) { document.getElementById('logout-form').submit(); }">Logout</a>
+                            <a href="#" onclick="confirmFormSubmit(event, document.getElementById('logout-form'), '')">Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -335,40 +335,18 @@
                                         <label class="form-label">State</label>
                                         <select class="form-select" name="state" required>
                                             <option value="">Select State</option>
-                                            <option value="Andhra Pradesh">Andhra Pradesh</option>
-                                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                                            <option value="Assam">Assam</option>
-                                            <option value="Bihar">Bihar</option>
-                                            <option value="Chhattisgarh">Chhattisgarh</option>
-                                            <option value="Goa">Goa</option>
-                                            <option value="Gujarat">Gujarat</option>
-                                            <option value="Haryana">Haryana</option>
-                                            <option value="Himachal Pradesh">Himachal Pradesh</option>
-                                            <option value="Jharkhand">Jharkhand</option>
-                                            <option value="Karnataka">Karnataka</option>
-                                            <option value="Kerala">Kerala</option>
-                                            <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                            <option value="Maharashtra">Maharashtra</option>
-                                            <option value="Manipur">Manipur</option>
-                                            <option value="Meghalaya">Meghalaya</option>
-                                            <option value="Mizoram">Mizoram</option>
-                                            <option value="Nagaland">Nagaland</option>
-                                            <option value="Odisha">Odisha</option>
-                                            <option value="Punjab">Punjab</option>
-                                            <option value="Rajasthan">Rajasthan</option>
-                                            <option value="Sikkim">Sikkim</option>
-                                            <option value="Tamil Nadu">Tamil Nadu</option>
-                                            <option value="Telangana">Telangana</option>
-                                            <option value="Tripura">Tripura</option>
-                                            <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                            <option value="Uttarakhand">Uttarakhand</option>
-                                            <option value="West Bengal">West Bengal</option>
+                                            @foreach($globalStates as $state)
+                                                <option value="{{ $state->name }}">{{ $state->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">Country</label>
                                         <select class="form-select" name="country" required>
-                                            <option value="India" selected>India</option>
+                                            <option value="">Select Country</option>
+                                            @foreach($globalCountries as $country)
+                                                <option value="{{ $country->name }}" {{ $country->name == 'India' ? 'selected' : '' }}>{{ $country->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-md-6">
@@ -389,7 +367,7 @@
                                 <div class="address-item border rounded p-3 mb-3 bg-white position-relative shadow-sm">
                                     <div class="d-flex justify-content-between">
                                         <span class="badge bg-light text-dark border mb-2 text-uppercase">{{ $address->type }}</span>
-                                        <form action="{{ route('customer.address.destroy', $address->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this address?');">
+                                        <form action="{{ route('customer.address.destroy', $address->id) }}" method="POST" onsubmit="confirmFormSubmit(event, this, '')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-link text-danger p-0" title="Delete Address"><i class="bi bi-trash"></i></button>
@@ -515,22 +493,42 @@
     });
 
     function removeFromWishlist(productId) {
-        if(confirm('Are you sure you want to remove this from your wishlist?')) {
-            fetch('/api/wishlist/toggle', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: JSON.stringify({ product_id: productId })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if(data.status === 'success') {
-                    window.location.reload();
-                }
-            });
-        }
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Are you sure you want to remove this from your wishlist?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#198754',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, remove it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch('/api/wishlist/toggle', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ product_id: productId })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if(data.status === 'success') {
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Removed from wishlist!',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            timerProgressBar: true
+                        }).then(() => {
+                            window.location.reload();
+                        });
+                    }
+                });
+            }
+        });
     }
 </script>
 @endpush

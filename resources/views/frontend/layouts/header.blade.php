@@ -65,7 +65,7 @@
                   <li><a class="dropdown-item py-2" href="{{ route('customer.dashboard') }}"><i class="bi bi-person me-2 text-muted"></i>Dashboard</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li>
-                    <form method="POST" action="{{ route('logout') }}" onsubmit="return confirm('Are you sure you want to logout?');">
+                    <form method="POST" action="{{ route('logout') }}" onsubmit="confirmFormSubmit(event, this, '')">
                       @csrf
                       <button type="submit" class="dropdown-item text-danger py-2">
                         <i class="bi bi-box-arrow-right me-2"></i>Logout

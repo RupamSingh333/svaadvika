@@ -29,6 +29,7 @@ Route::middleware('auth:customer')->group(function () {
     Route::post('/checkout/process', [\App\Http\Controllers\Frontend\CheckoutController::class, 'process'])->name('checkout.process');
     Route::post('/checkout/apply-coupon', [\App\Http\Controllers\Frontend\CheckoutController::class, 'applyCoupon'])->name('checkout.apply_coupon');
     Route::post('/checkout/remove-coupon', [\App\Http\Controllers\Frontend\CheckoutController::class, 'removeCoupon'])->name('checkout.remove_coupon');
+    Route::post('/checkout/razorpay-callback', [\App\Http\Controllers\Frontend\CheckoutController::class, 'razorpayCallback'])->name('checkout.razorpay_callback');
     Route::get('/thankyou/{order_number}', [\App\Http\Controllers\Frontend\CheckoutController::class, 'thankyou'])->name('checkout.thankyou');
 });
 

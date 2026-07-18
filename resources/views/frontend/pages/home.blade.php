@@ -10,7 +10,7 @@
               <h1>Crafted For <span>Modern</span> Families</h1>
               <p class="hero-text">Experience restaurant-quality Indian food at home in just minutes with premium ingredients, chef-led recipes and authentic regional flavour.</p>
               <div class="hero-actions">
-                <a class="btn btn-gold" href="#products">Explore Collection <i class="bi bi-arrow-right"></i></a>
+                <a class="btn btn-gold" href="{{ route('frontend.products') }}">Explore Collection <i class="bi bi-arrow-right"></i></a>
               </div>
               <div class="hero-stats">
                 <div><strong data-counter="25000">0</strong><small>Happy Families</small></div>
@@ -54,18 +54,22 @@
               <p class="eyebrow">Our Bestsellers</p>
               <h2>Featured <span>Collection</span></h2>
             </div>
-            <a class="text-link" href="#products">View All Products <i class="bi bi-arrow-right"></i></a>
+            <a class="text-link" href="{{ route('frontend.products') }}">View All Products <i class="bi bi-arrow-right"></i></a>
           </div>
           <div class="slider-wrap">
             <button class="slider-nav prev" type="button" aria-label="Previous products"><i class="bi bi-chevron-left"></i></button>
             <div class="product-slider" tabindex="0">
               @foreach($featuredProducts as $product)
               <article class="product-card reveal-up">
-                @if($product->sale_price)
+                @if($product->is_out_of_stock)
+                    <span class="tag" style="background-color: #dc3545; color: white; border-color: #dc3545;">Out of Stock</span>
+                @elseif($product->sale_price)
                     <span class="tag">Sale</span>
                 @endif
                 <!-- <button class="card-icon" aria-label="Add {{ $product->name }} to wishlist"><i class="bi bi-heart"></i></button> -->
-                <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?auto=format&fit=crop&w=900&q=85' }}" alt="{{ $product->name }}">
+                <a href="{{ route('frontend.product_details', $product->slug) }}">
+                  <img  src="{{ $product->image ? asset('storage/' . $product->image) : 'https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?auto=format&fit=crop&w=900&q=85' }}" alt="{{ $product->name }}">
+                </a>
                 <div class="product-info">
                   <h3>{{ $product->name }}</h3>
                   <div class="rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><span>(1200)</span></div>
@@ -77,7 +81,11 @@
                               ₹{{ $product->regular_price }}
                           @endif
                       </strong>
-                      <button aria-label="Add {{ $product->name }} to cart"><i class="bi bi-bag-plus"></i></button>
+                      @if($product->is_out_of_stock)
+                      <button aria-label="Out of stock {{ $product->name }}" disabled style="opacity: 0.5; cursor: not-allowed; border: none; background: none; color: inherit;"><i class="bi bi-bag-x"></i></button>
+                      @else
+                      <button aria-label="Add {{ $product->name }} to cart" data-add-cart="{{ $product->id }}"><i class="bi bi-bag-plus"></i></button>
+                      @endif
                   <a href="{{ route('frontend.product_details', $product->slug) }}" class="quick-view-btn text-decoration-none text-center">View Details</a>
                   </div>
                 </div>
@@ -100,7 +108,7 @@
               <h2>Home Convenience. <br><span>Zero</span> Compromise.</h2>
               <p>Svaadvika started with a simple belief: Indian flavours deserve pure ingredients, measured spice craft and the comfort of family kitchens.</p>
               <div class="story-actions">
-                <a class="btn btn-green" href="#about">Know Our Story <i class="bi bi-arrow-right"></i></a>
+                <a class="btn btn-green" href="{{ route('about') }}">Know Our Story <i class="bi bi-arrow-right"></i></a>
                 <button class="video-btn dark" type="button"><i class="bi bi-play-fill"></i><span>Watch Our Journey</span></button>
               </div>
             </div>
@@ -132,7 +140,7 @@
             </div>
             <div class="col-lg-3 reveal-right">
               <p class="region-text">Each region has a story. Click any city to explore its authentic flavours.</p>
-              <a class="btn btn-gold" href="#recipes">Explore Now <i class="bi bi-arrow-right"></i></a>
+              <a class="btn btn-gold" href="{{ route('recipes') }}">Explore Now <i class="bi bi-arrow-right"></i></a>
             </div>
           </div>
         </div>

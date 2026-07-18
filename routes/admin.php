@@ -44,6 +44,8 @@ Route::middleware(['auth', \App\Http\Middleware\CheckUserPermission::class])->gr
     // Products
     Route::post('products/{product}/update-stock', [\App\Http\Controllers\Admin\ProductController::class, 'updateStock'])->name('products.update-stock');
     Route::post('products/{product}/toggle-out-of-stock', [\App\Http\Controllers\Admin\ProductController::class, 'toggleOutOfStock'])->name('products.toggle-out-of-stock');
+    Route::post('products/{product}/toggle-featured', [\App\Http\Controllers\Admin\ProductController::class, 'toggleFeatured'])->name('products.toggle-featured');
+    Route::post('products/{product}/toggle-status', [\App\Http\Controllers\Admin\ProductController::class, 'toggleStatus'])->name('products.toggle-status');
     Route::resource('products', \App\Http\Controllers\Admin\ProductController::class)->except(['show']);
     Route::delete('product-images/{productImage}', [\App\Http\Controllers\Admin\ProductController::class, 'destroyImage'])->name('product-images.destroy');
 

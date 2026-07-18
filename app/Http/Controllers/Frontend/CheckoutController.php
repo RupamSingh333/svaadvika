@@ -166,11 +166,15 @@ class CheckoutController extends Controller
             'address' => 'required_without:address_id|nullable|string|max:255',
             'city' => 'required_without:address_id|nullable|string|max:255',
             'state' => 'required_without:address_id|nullable|string|max:255',
-            'postal_code' => 'required_without:address_id|nullable|string|max:255',
-            'phone' => 'required_without:address_id|nullable|string|max:20',
-            'email' => 'required_without:address_id|nullable|email',
+            'postal_code' => 'required_without:address_id|nullable|digits:6',
+            'phone' => 'required_without:address_id|nullable|digits:10',
+            'email' => 'required_without:address_id|nullable|email:rfc,dns|max:255',
             'notes' => 'nullable|string',
-            'payment' => 'nullable|string'
+            'payment' => 'required|string|in:cod,razorpay'
+        ], [
+            'postal_code.digits' => 'The pincode must be exactly 6 digits.',
+            'phone.digits' => 'The mobile number must be exactly 10 digits.',
+            'payment.required' => 'Please select a payment method.'
         ]);
 
         $cart = $this->getCart();
@@ -271,12 +275,56 @@ class CheckoutController extends Controller
             session()->forget('applied_coupon_id');
             session()->forget('applied_coupon_code');
 
+            if ($request->payment === 'razorpay') {
+                $api = new \Razorpay\Api\Api(env('RAZORPAY_KEY'), env('RAZORPAY_SECRET'));
+                $razorpayOrder = $api->order->create([
+                    'receipt' => $order->order_number,
+                    'amount' => round($order->total_amount * 100), // in paise
+                    'currency' => 'INR'
+                ]);
+                
+                $order->razorpay_order_id = $razorpayOrder['id'];
+                $order->save();
+                DB::commit();
+
+                return view('frontend.pages.payment', compact('order', 'customer'));
+            }
+
             DB::commit();
 
             return redirect()->route('checkout.thankyou', $order->order_number)->with('success', 'Order placed successfully!');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Error placing order: ' . $e->getMessage())->withInput();
+        }
+    }
+
+    public function razorpayCallback(Request $request)
+    {
+        $request->validate([
+            'razorpay_payment_id' => 'required|string',
+            'razorpay_order_id' => 'required|string',
+            'razorpay_signature' => 'required|string'
+        ]);
+
+        $api = new \Razorpay\Api\Api(env('RAZORPAY_KEY'), env('RAZORPAY_SECRET'));
+        
+        try {
+            $attributes = array(
+                'razorpay_order_id' => $request->razorpay_order_id,
+                'razorpay_payment_id' => $request->razorpay_payment_id,
+                'razorpay_signature' => $request->razorpay_signature
+            );
+            $api->utility->verifyPaymentSignature($attributes);
+            
+            $order = Order::where('razorpay_order_id', $request->razorpay_order_id)->firstOrFail();
+            $order->payment_status = 'paid';
+            $order->razorpay_payment_id = $request->razorpay_payment_id;
+            $order->save();
+            
+            return redirect()->route('checkout.thankyou', $order->order_number)->with('success', 'Payment successful!');
+        } catch (\Razorpay\Api\Errors\SignatureVerificationError $e) {
+            return redirect()->route('home')->with('error', 'Payment verification failed!');
         }
     }
 

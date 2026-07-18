@@ -106,7 +106,7 @@
                                         </a>
                                         @endhasPermission
                                         @hasPermission('recipes', 'delete')
-                                        <form action="{{ route('admin.recipes.destroy', $recipe->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure you want to delete this recipe?');">
+                                        <form action="{{ route('admin.recipes.destroy', $recipe->id) }}" method="POST" class="d-inline-block" onsubmit="confirmFormSubmit(event, this, '')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-light border shadow-sm">
