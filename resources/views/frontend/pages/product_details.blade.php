@@ -1,5 +1,20 @@
 @extends('frontend.layouts.master')
 
+@section('title', $product->meta_title ?: $product->name . ' - Premium Quality')
+@section('meta_description', $product->meta_description ?: 'Buy ' . $product->name . '. ' . Str::limit(strip_tags($product->short_description), 150))
+
+@push('styles')
+    @php
+        $keywords = $product->meta_keywords;
+        if (!$keywords && !empty($product->ingredients_list)) {
+            $keywords = implode(', ', array_column($product->ingredients_list, 'name'));
+        } elseif (!$keywords) {
+            $keywords = $product->name . ', biryani, ready to cook, premium food';
+        }
+    @endphp
+    <meta name="keywords" content="{{ $keywords }}">
+@endpush
+
 @section('content')
 <section class="products-hero">
     <div class="container-xl">
@@ -98,7 +113,15 @@
             <div class="inside-card">
               <div>
                 <h2>What&rsquo;s Inside the Kit?</h2>
-                <ul><li>Basmati Rice</li><li>Biryani Masala</li><li>Marinade Paste</li><li>Fried Onions</li><li>Whole Spices</li><li>Ghee</li><li>Saffron</li></ul>
+                <ul>
+                  @if(is_array($product->kit_items) && count($product->kit_items) > 0)
+                    @foreach($product->kit_items as $item)
+                      <li>{{ $item }}</li>
+                    @endforeach
+                  @else
+                    <li>Basmati Rice</li><li>Biryani Masala</li><li>Marinade Paste</li><li>Fried Onions</li><li>Whole Spices</li><li>Ghee</li><li>Saffron</li>
+                  @endif
+                </ul>
               </div>
               <div class="inside-pack"></div>
             </div>
@@ -106,10 +129,16 @@
         </section>
 
         <section class="details-feature-strip reveal-up">
-          <article><i class="bi bi-fire"></i><span><strong>Authentic Recipe</strong><small>Traditional flavours</small></span></article>
-          <article><i class="bi bi-basket2"></i><span><strong>Premium Ingredients</strong><small>Handpicked &amp; natural</small></span></article>
-          <article><i class="bi bi-heart-pulse"></i><span><strong>No Artificial Colours</strong><small>100% natural</small></span></article>
-          <article><i class="bi bi-flower1"></i><span><strong>Made in India</strong><small>Proudly Indian</small></span></article>
+          @if(is_array($product->features) && count($product->features) > 0)
+            @foreach($product->features as $feature)
+              <article><i class="{{ $feature['icon'] ?? 'bi bi-check' }}"></i><span><strong>{{ $feature['title'] ?? '' }}</strong><small>{{ $feature['subtitle'] ?? '' }}</small></span></article>
+            @endforeach
+          @else
+            <article><i class="bi bi-fire"></i><span><strong>Authentic Recipe</strong><small>Traditional flavours</small></span></article>
+            <article><i class="bi bi-basket2"></i><span><strong>Premium Ingredients</strong><small>Handpicked &amp; natural</small></span></article>
+            <article><i class="bi bi-heart-pulse"></i><span><strong>No Artificial Colours</strong><small>100% natural</small></span></article>
+            <article><i class="bi bi-flower1"></i><span><strong>Made in India</strong><small>Proudly Indian</small></span></article>
+          @endif
         </section>
 
         <section class="details-panel details-ingredients-grid">
@@ -117,13 +146,19 @@
             <h2>Ingredients</h2>
             <p>Made with the finest quality ingredients for an authentic taste.</p>
             <div class="ingredient-row">
-              <article><i class="bi bi-circle"></i><span>Basmati Rice</span></article>
-              <article><i class="bi bi-droplet"></i><span>Biryani Masala</span></article>
-              <article><i class="bi bi-cup-hot"></i><span>Marinade Paste</span></article>
-              <article><i class="bi bi-flower2"></i><span>Fried Onions</span></article>
-              <article><i class="bi bi-stars"></i><span>Whole Spices</span></article>
-              <article><i class="bi bi-circle-fill"></i><span>Ghee</span></article>
-              <article><i class="bi bi-brightness-high"></i><span>Saffron</span></article>
+              @if(is_array($product->ingredients_list) && count($product->ingredients_list) > 0)
+                @foreach($product->ingredients_list as $ingredient)
+                  <article><i class="{{ $ingredient['icon'] ?? 'bi bi-circle' }}"></i><span>{{ $ingredient['name'] ?? '' }}</span></article>
+                @endforeach
+              @else
+                <article><i class="bi bi-circle"></i><span>Basmati Rice</span></article>
+                <article><i class="bi bi-droplet"></i><span>Biryani Masala</span></article>
+                <article><i class="bi bi-cup-hot"></i><span>Marinade Paste</span></article>
+                <article><i class="bi bi-flower2"></i><span>Fried Onions</span></article>
+                <article><i class="bi bi-stars"></i><span>Whole Spices</span></article>
+                <article><i class="bi bi-circle-fill"></i><span>Ghee</span></article>
+                <article><i class="bi bi-brightness-high"></i><span>Saffron</span></article>
+              @endif
             </div>
             @if($product->ingredients)
             <p class="mt-3 text-muted"><small><strong>Full List:</strong> {{ $product->ingredients }}</small></p>
@@ -134,34 +169,27 @@
             <p>Per 100g (Approx.)</p>
             <table class="table nutrition-table">
               <tbody>
-                <tr>
-                  <th>Energy</th>
-                  <td>350 kcal</td>
-                </tr>
-                <tr>
-                  <th>Protein</th>
-                  <td>8 g</td>
-                </tr>
-                <tr>
-                  <th>Carbohydrates</th>
-                  <td>58 g</td>
-                </tr>
-                <tr>
-                  <th>Total Fat</th>
-                  <td>9 g</td>
-                </tr>
-                <tr>
-                  <th>Sugar</th>
-                  <td>2 g</td>
-                </tr>
-                <tr>
-                  <th>Sodium</th>
-                  <td>620 mg</td>
-                </tr>
+                @if(is_array($product->nutrition_info) && count($product->nutrition_info) > 0)
+                  @foreach($product->nutrition_info as $nutrition)
+                    <tr>
+                      <th>{{ $nutrition['name'] ?? '' }}</th>
+                      <td>{{ $nutrition['value'] ?? '' }}</td>
+                    </tr>
+                  @endforeach
+                @else
+                  <tr><th>Energy</th><td>350 kcal</td></tr>
+                  <tr><th>Protein</th><td>8 g</td></tr>
+                  <tr><th>Carbohydrates</th><td>58 g</td></tr>
+                  <tr><th>Total Fat</th><td>9 g</td></tr>
+                  <tr><th>Sugar</th><td>2 g</td></tr>
+                  <tr><th>Sodium</th><td>620 mg</td></tr>
+                @endif
               </tbody>
             </table>
           </aside>
         </section>
+
+
 
         @if($product->long_description)
         <section class="details-panel mt-5">
@@ -189,16 +217,24 @@
         </section>
 
         <section class="details-media-grid">
+          @if($product->video_url)
           <div class="details-panel video-panel">
-            <div><h2>Video</h2><p>Watch our chef prepare Hyderabadi Biryani step by step.</p></div>
+            <div><h2>Video</h2><p>Watch our chef prepare {{ $product->name }} step by step.</p></div>
             <div class="details-video"><button type="button" aria-label="Play video" data-bs-toggle="modal" data-bs-target="#videoModal"><i class="bi bi-play-fill"></i></button></div>
           </div>
-          <div class="details-panel">
+          @endif
+          <div class="details-panel {{ !$product->video_url ? 'w-100' : '' }}">
             <h2>Frequently Asked Questions</h2>
             <div class="accordion details-faq" id="detailsFaq">
-              <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqOne">Can I make it vegetarian?</button></h3><div id="faqOne" class="accordion-collapse collapse" data-bs-parent="#detailsFaq"><div class="accordion-body">Yes, use paneer, vegetables, soya chunks or mushrooms instead of meat.</div></div></div>
-              <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTwo">How spicy is the biryani?</button></h3><div id="faqTwo" class="accordion-collapse collapse" data-bs-parent="#detailsFaq"><div class="accordion-body">It is medium-spiced and balanced for family meals.</div></div></div>
-              <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqThree">How much time does it take?</button></h3><div id="faqThree" class="accordion-collapse collapse" data-bs-parent="#detailsFaq"><div class="accordion-body">Most recipes are ready in 35-45 minutes.</div></div></div>
+              @if(is_array($product->faqs) && count($product->faqs) > 0)
+                @foreach($product->faqs as $index => $faq)
+                <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq{{ $index }}">{{ $faq['question'] ?? '' }}</button></h3><div id="faq{{ $index }}" class="accordion-collapse collapse" data-bs-parent="#detailsFaq"><div class="accordion-body">{{ $faq['answer'] ?? '' }}</div></div></div>
+                @endforeach
+              @else
+                <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqOne">Can I make it vegetarian?</button></h3><div id="faqOne" class="accordion-collapse collapse" data-bs-parent="#detailsFaq"><div class="accordion-body">Yes, use paneer, vegetables, soya chunks or mushrooms instead of meat.</div></div></div>
+                <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTwo">How spicy is the biryani?</button></h3><div id="faqTwo" class="accordion-collapse collapse" data-bs-parent="#detailsFaq"><div class="accordion-body">It is medium-spiced and balanced for family meals.</div></div></div>
+                <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqThree">How much time does it take?</button></h3><div id="faqThree" class="accordion-collapse collapse" data-bs-parent="#detailsFaq"><div class="accordion-body">Most recipes are ready in 35-45 minutes.</div></div></div>
+              @endif
             </div>
           </div>
         </section>
@@ -274,8 +310,26 @@
         <h2 class="modal-title" id="videoModalTitle">Cooking Video</h2>
         <button class="icon-btn" type="button" data-bs-dismiss="modal" aria-label="Close video"><i class="bi bi-x-lg"></i></button>
       </div>
-      <div class="modal-body">
-        <div class="details-video modal-video-frame"><button type="button" aria-label="Video preview"><i class="bi bi-play-fill"></i></button></div>
+      <div class="modal-body p-0" style="aspect-ratio: 16/9; background: #000;">
+        @if($product->video_url)
+          @php
+            $url = $product->video_url;
+            $ytMatch = preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/', $url, $matches);
+          @endphp
+          @if($ytMatch && isset($matches[1]))
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{ $matches[1] }}" frameborder="0" allowfullscreen></iframe>
+          @elseif(str_contains($url, 'instagram.com'))
+            <iframe width="100%" height="100%" src="{{ $url }}/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+          @elseif(preg_match('/\.(mp4|webm|ogg)$/i', $url))
+            <video width="100%" height="100%" controls style="object-fit:contain"><source src="{{ $url }}" type="video/mp4"></video>
+          @else
+            <div class="d-flex align-items-center justify-content-center h-100">
+                <a href="{{ $url }}" target="_blank" class="btn btn-outline-light">Watch Video Here</a>
+            </div>
+          @endif
+        @else
+          <div class="details-video modal-video-frame h-100 w-100 d-flex align-items-center justify-content-center text-white"><p>No video available.</p></div>
+        @endif
       </div>
     </div>
   </div>

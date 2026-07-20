@@ -13,7 +13,17 @@ class Product extends Model
         'category_id', 'tax_id', 'name', 'slug', 'sku', 'short_description', 
         'long_description', 'price', 'sale_price', 'stock_quantity', 
         'is_featured', 'status', 'image', 'is_out_of_stock',
-        'rating', 'reviews_count', 'ingredients', 'weight'
+        'rating', 'reviews_count', 'ingredients', 'weight',
+        'video_url', 'kit_items', 'features', 'ingredients_list', 'nutrition_info', 'faqs',
+        'meta_title', 'meta_description', 'meta_keywords'
+    ];
+
+    protected $casts = [
+        'kit_items' => 'array',
+        'features' => 'array',
+        'ingredients_list' => 'array',
+        'nutrition_info' => 'array',
+        'faqs' => 'array',
     ];
 
     protected static function booted()

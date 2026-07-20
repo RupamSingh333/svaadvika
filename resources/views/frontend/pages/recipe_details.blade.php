@@ -1,5 +1,18 @@
 @extends('frontend.layouts.master')
 
+@section('title', $recipe->meta_title ?: $recipe->title . ' - Recipe')
+@section('meta_description', $recipe->meta_description ?: 'Learn how to make ' . $recipe->title . '. ' . Str::limit(strip_tags($recipe->short_description), 150))
+
+@push('styles')
+    @php
+        $keywords = $recipe->meta_keywords;
+        if (!$keywords) {
+            $keywords = $recipe->title . ', recipe, ' . strtolower($recipe->category) . ', how to cook';
+        }
+    @endphp
+    <meta name="keywords" content="{{ $keywords }}">
+@endpush
+
 @section('content')
 <section class="recipes-hero">
     <div class="container-xl">

@@ -23,6 +23,9 @@ class Recipe extends Model
         'spice_level',
         'duration',
         'status',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
     ];
 
     protected $casts = [

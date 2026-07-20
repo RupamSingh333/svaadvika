@@ -36,14 +36,220 @@
                                 @error('long_description')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
 
-                            <div class="mb-4">
+                            <!-- <div class="mb-4">
                                 <label class="form-label fw-semibold">Ingredients</label>
                                 <textarea name="ingredients" class="form-control @error('ingredients') is-invalid @enderror" rows="3">{{ old('ingredients', $product->ingredients) }}</textarea>
                                 @error('ingredients')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     
+                    <!-- Dynamic Content -->
+                    <div class="card border-0 shadow-sm glass-effect mb-4">
+                        <div class="card-header bg-transparent border-0 pt-4 pb-0">
+                            <h5 class="fw-semibold mb-0">Dynamic Details</h5>
+                        </div>
+                        <div class="card-body p-4">
+                            <!-- Video URL -->
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Video URL</label>
+                                <input type="url" name="video_url" id="videoUrlInput" class="form-control" placeholder="YouTube, Instagram, or MP4 Video Link" value="{{ old('video_url', $product->video_url) }}">
+                                <div id="videoPreviewContainer" class="mt-3" style="display: none; border-radius: 8px; overflow: hidden; background: #000; width: 100%; max-width: 500px;"></div>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <!-- Kit Items -->
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <label class="form-label fw-semibold mb-0">What's Inside the Kit?</label>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="addKitItem()">+ Add Item</button>
+                                </div>
+                                <div id="kitItemsContainer">
+                                    @php $kitItems = old('kit_items', $product->kit_items ?? []); @endphp
+                                    @foreach($kitItems as $item)
+                                    <div class="input-group mb-2 kit-item-row">
+                                        <input type="text" name="kit_items[]" class="form-control" placeholder="e.g. Basmati Rice" value="{{ $item }}">
+                                        <button type="button" class="btn btn-outline-danger" onclick="this.closest('.kit-item-row').remove()"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                    @endforeach
+                                    @if(empty($kitItems))
+                                    <div class="input-group mb-2 kit-item-row">
+                                        <input type="text" name="kit_items[]" class="form-control" placeholder="e.g. Basmati Rice">
+                                        <button type="button" class="btn btn-outline-danger" onclick="this.closest('.kit-item-row').remove()"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <!-- Features -->
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <label class="form-label fw-semibold mb-0">Features (Icon Strip)</label>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="addFeature()">+ Add Feature</button>
+                                </div>
+                                <div id="featuresContainer">
+                                    @php $features = old('features', $product->features ?? []); $featureCount = 0; @endphp
+                                    @foreach($features as $feature)
+                                    <div class="row g-2 mb-2 feature-row">
+                                        <div class="col-md-3">
+                                            <input type="text" name="features[{{ $featureCount }}][icon]" class="form-control" placeholder="Icon class" value="{{ $feature['icon'] ?? '' }}">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" name="features[{{ $featureCount }}][title]" class="form-control" placeholder="Title" value="{{ $feature['title'] ?? '' }}">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" name="features[{{ $featureCount }}][subtitle]" class="form-control" placeholder="Subtitle" value="{{ $feature['subtitle'] ?? '' }}">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.feature-row').remove()"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                    @php $featureCount++; @endphp
+                                    @endforeach
+                                    @if(empty($features))
+                                    <div class="row g-2 mb-2 feature-row">
+                                        <div class="col-md-3">
+                                            <input type="text" name="features[0][icon]" class="form-control" placeholder="Icon class (e.g. bi bi-fire)">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" name="features[0][title]" class="form-control" placeholder="Title (e.g. Authentic Recipe)">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" name="features[0][subtitle]" class="form-control" placeholder="Subtitle (e.g. Traditional flavours)">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.feature-row').remove()"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <!-- Ingredients (with Icon) -->
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <label class="form-label fw-semibold mb-0">Ingredients List</label>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="addIngredient()">+ Add Ingredient</button>
+                                </div>
+                                <div id="ingredientsContainer">
+                                    @php $ingredientsList = old('ingredients_list', $product->ingredients_list ?? []); $ingredientCount = 0; @endphp
+                                    @foreach($ingredientsList as $ingredient)
+                                    <div class="row g-2 mb-2 ingredient-row">
+                                        <div class="col-md-4">
+                                            <input type="text" name="ingredients_list[{{ $ingredientCount }}][icon]" class="form-control" placeholder="Icon class" value="{{ $ingredient['icon'] ?? '' }}">
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="text" name="ingredients_list[{{ $ingredientCount }}][name]" class="form-control" placeholder="Ingredient Name" value="{{ $ingredient['name'] ?? '' }}">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.ingredient-row').remove()"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                    @php $ingredientCount++; @endphp
+                                    @endforeach
+                                    @if(empty($ingredientsList))
+                                    <div class="row g-2 mb-2 ingredient-row">
+                                        <div class="col-md-4">
+                                            <input type="text" name="ingredients_list[0][icon]" class="form-control" placeholder="Icon class (e.g. bi bi-circle)">
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="text" name="ingredients_list[0][name]" class="form-control" placeholder="Ingredient Name">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.ingredient-row').remove()"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <!-- Nutrition Information -->
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <label class="form-label fw-semibold mb-0">Nutrition Information</label>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="addNutrition()">+ Add Nutrition Info</button>
+                                </div>
+                                <div id="nutritionContainer">
+                                    @php $nutritionInfo = old('nutrition_info', $product->nutrition_info ?? []); $nutritionCount = 0; @endphp
+                                    @foreach($nutritionInfo as $nutrition)
+                                    <div class="row g-2 mb-2 nutrition-row">
+                                        <div class="col-md-5">
+                                            <input type="text" name="nutrition_info[{{ $nutritionCount }}][name]" class="form-control" placeholder="Name" value="{{ $nutrition['name'] ?? '' }}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" name="nutrition_info[{{ $nutritionCount }}][value]" class="form-control" placeholder="Value" value="{{ $nutrition['value'] ?? '' }}">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.nutrition-row').remove()"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                    @php $nutritionCount++; @endphp
+                                    @endforeach
+                                    @if(empty($nutritionInfo))
+                                    <div class="row g-2 mb-2 nutrition-row">
+                                        <div class="col-md-5">
+                                            <input type="text" name="nutrition_info[0][name]" class="form-control" placeholder="Name (e.g. Energy)">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" name="nutrition_info[0][value]" class="form-control" placeholder="Value (e.g. 350 kcal)">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.nutrition-row').remove()"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <!-- Frequently Asked Questions (FAQ) -->
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <label class="form-label fw-semibold mb-0">Frequently Asked Questions</label>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="addFaq()">+ Add FAQ</button>
+                                </div>
+                                <div id="faqsContainer">
+                                    @php $faqs = old('faqs', $product->faqs ?? []); $faqCount = 0; @endphp
+                                    @foreach($faqs as $faq)
+                                    <div class="row g-2 mb-2 faq-row">
+                                        <div class="col-md-5">
+                                            <input type="text" name="faqs[{{ $faqCount }}][question]" class="form-control" placeholder="Question" value="{{ $faq['question'] ?? '' }}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" name="faqs[{{ $faqCount }}][answer]" class="form-control" placeholder="Answer" value="{{ $faq['answer'] ?? '' }}">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.faq-row').remove()"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                    @php $faqCount++; @endphp
+                                    @endforeach
+                                    @if(empty($faqs))
+                                    <div class="row g-2 mb-2 faq-row">
+                                        <div class="col-md-5">
+                                            <input type="text" name="faqs[0][question]" class="form-control" placeholder="Question">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" name="faqs[0][answer]" class="form-control" placeholder="Answer">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.faq-row').remove()"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="card border-0 shadow-sm glass-effect mb-4">
                         <div class="card-header bg-transparent border-0 pt-4 pb-0">
                             <h5 class="fw-semibold mb-0">Pricing & Inventory</h5>
@@ -91,6 +297,29 @@
                                     <input type="text" name="weight" class="form-control @error('weight') is-invalid @enderror" value="{{ old('weight', $product->weight) }}" placeholder="e.g. 250g pack">
                                     @error('weight')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card border-0 shadow-sm glass-effect mb-4">
+                        <div class="card-header bg-transparent border-0 pt-4 pb-0">
+                            <h5 class="fw-semibold mb-0">Search Engine Optimization (SEO)</h5>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Meta Title</label>
+                                <input type="text" name="meta_title" class="form-control @error('meta_title') is-invalid @enderror" value="{{ old('meta_title', $product->meta_title) }}" placeholder="Leave blank to auto-generate from product name">
+                                @error('meta_title')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Meta Description</label>
+                                <textarea name="meta_description" class="form-control @error('meta_description') is-invalid @enderror" rows="3" placeholder="Leave blank to auto-generate from product description">{{ old('meta_description', $product->meta_description) }}</textarea>
+                                @error('meta_description')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Meta Keywords</label>
+                                <input type="text" name="meta_keywords" class="form-control @error('meta_keywords') is-invalid @enderror" value="{{ old('meta_keywords', $product->meta_keywords) }}" placeholder="e.g. biryani, ready to cook, indian food">
+                                @error('meta_keywords')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                         </div>
                     </div>
@@ -210,3 +439,142 @@
 @endforeach
 
 @endsection
+
+@push('scripts')
+<script>
+    let featureCount = {{ isset($featureCount) ? max(1, $featureCount) : 1 }};
+    let ingredientCount = {{ isset($ingredientCount) ? max(1, $ingredientCount) : 1 }};
+    let nutritionCount = {{ isset($nutritionCount) ? max(1, $nutritionCount) : 1 }};
+    let faqCount = {{ isset($faqCount) ? max(1, $faqCount) : 1 }};
+
+    function addKitItem() {
+        const html = `
+            <div class="input-group mb-2 kit-item-row">
+                <input type="text" name="kit_items[]" class="form-control" placeholder="e.g. Basmati Rice">
+                <button type="button" class="btn btn-outline-danger" onclick="this.closest('.kit-item-row').remove()"><i class="fa fa-trash"></i></button>
+            </div>
+        `;
+        document.getElementById('kitItemsContainer').insertAdjacentHTML('beforeend', html);
+    }
+
+    function addFeature() {
+        const html = `
+            <div class="row g-2 mb-2 feature-row">
+                <div class="col-md-3">
+                    <input type="text" name="features[${featureCount}][icon]" class="form-control" placeholder="Icon class (e.g. bi bi-fire)">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" name="features[${featureCount}][title]" class="form-control" placeholder="Title (e.g. Authentic Recipe)">
+                </div>
+                <div class="col-md-4">
+                    <input type="text" name="features[${featureCount}][subtitle]" class="form-control" placeholder="Subtitle (e.g. Traditional flavours)">
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.feature-row').remove()"><i class="fa fa-trash"></i></button>
+                </div>
+            </div>
+        `;
+        document.getElementById('featuresContainer').insertAdjacentHTML('beforeend', html);
+        featureCount++;
+    }
+
+    function addIngredient() {
+        const html = `
+            <div class="row g-2 mb-2 ingredient-row">
+                <div class="col-md-4">
+                    <input type="text" name="ingredients_list[${ingredientCount}][icon]" class="form-control" placeholder="Icon class (e.g. bi bi-circle)">
+                </div>
+                <div class="col-md-7">
+                    <input type="text" name="ingredients_list[${ingredientCount}][name]" class="form-control" placeholder="Ingredient Name">
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.ingredient-row').remove()"><i class="fa fa-trash"></i></button>
+                </div>
+            </div>
+        `;
+        document.getElementById('ingredientsContainer').insertAdjacentHTML('beforeend', html);
+        ingredientCount++;
+    }
+
+    function addNutrition() {
+        const html = `
+            <div class="row g-2 mb-2 nutrition-row">
+                <div class="col-md-5">
+                    <input type="text" name="nutrition_info[${nutritionCount}][name]" class="form-control" placeholder="Name (e.g. Energy)">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" name="nutrition_info[${nutritionCount}][value]" class="form-control" placeholder="Value (e.g. 350 kcal)">
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.nutrition-row').remove()"><i class="fa fa-trash"></i></button>
+                </div>
+            </div>
+        `;
+        document.getElementById('nutritionContainer').insertAdjacentHTML('beforeend', html);
+        nutritionCount++;
+    }
+
+    function addFaq() {
+        const html = `
+            <div class="row g-2 mb-2 faq-row">
+                <div class="col-md-5">
+                    <input type="text" name="faqs[${faqCount}][question]" class="form-control" placeholder="Question">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" name="faqs[${faqCount}][answer]" class="form-control" placeholder="Answer">
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.faq-row').remove()"><i class="fa fa-trash"></i></button>
+                </div>
+            </div>
+        `;
+        document.getElementById('faqsContainer').insertAdjacentHTML('beforeend', html);
+        faqCount++;
+    }
+
+    // Video Preview Logic
+    let videoInput = document.getElementById('videoUrlInput');
+    function updateVideoPreview() {
+        let url = videoInput.value.trim();
+        let container = document.getElementById('videoPreviewContainer');
+        
+        if (!url) {
+            container.style.display = 'none';
+            container.innerHTML = '';
+            return;
+        }
+
+        container.style.display = 'block';
+        container.style.aspectRatio = '16/9';
+        
+        // YouTube
+        let ytMatch = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+        if (ytMatch) {
+            container.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${ytMatch[1]}" frameborder="0" allowfullscreen></iframe>`;
+            return;
+        }
+
+        // Instagram Reels/Posts
+        if (url.includes('instagram.com')) {
+            container.innerHTML = `<iframe width="100%" height="100%" src="${url}/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
+            return;
+        }
+
+        // Direct Video
+        if (url.match(/\.(mp4|webm|ogg)$/i)) {
+            container.innerHTML = `<video width="100%" height="100%" controls style="object-fit:cover"><source src="${url}" type="video/mp4"></video>`;
+            return;
+        }
+
+        // Fallback / Unknown
+        container.innerHTML = `<div class="d-flex align-items-center justify-content-center h-100 text-white p-3 text-center">Cannot generate preview for this URL format.</div>`;
+    }
+    
+    videoInput.addEventListener('input', updateVideoPreview);
+    
+    // Trigger on load if there's a value
+    if (videoInput.value) {
+        updateVideoPreview();
+    }
+</script>
+@endpush

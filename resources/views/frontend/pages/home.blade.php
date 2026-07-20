@@ -61,30 +61,43 @@
             <div class="product-slider" tabindex="0">
               @foreach($featuredProducts as $product)
               <article class="product-card reveal-up">
+                @php
+                    $imageUrl = 'https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?auto=format&fit=crop&w=900&q=85';
+                    if ($product->featuredImage) {
+                        $imageUrl = asset('storage/' . $product->featuredImage->image_path);
+                    } elseif ($product->images && $product->images->isNotEmpty()) {
+                        $imageUrl = asset('storage/' . $product->images->first()->image_path);
+                    }
+                @endphp
                 @if($product->is_out_of_stock)
                     <span class="tag" style="background-color: #dc3545; color: white; border-color: #dc3545;">Out of Stock</span>
                 @elseif($product->sale_price)
                     <span class="tag">Sale</span>
                 @endif
-                <!-- <button class="card-icon" aria-label="Add {{ $product->name }} to wishlist"><i class="bi bi-heart"></i></button> -->
                 <a href="{{ route('frontend.product_details', $product->slug) }}">
-                  <img  src="{{ $product->image ? asset('storage/' . $product->image) : 'https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?auto=format&fit=crop&w=900&q=85' }}" alt="{{ $product->name }}">
+                  <img src="{{ $imageUrl }}" alt="{{ $product->name }}">
                 </a>
                 <div class="product-info">
-                  <h3>{{ $product->name }}</h3>
+                  <h3><a href="{{ route('frontend.product_details', $product->slug) }}" style="color: inherit; text-decoration: none;">{{ $product->name }}</a></h3>
                   <div class="rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><span>(1200)</span></div>
                   <div class="price-row">
                       <strong>
                           @if($product->sale_price)
-                              ₹{{ $product->sale_price }} <small class="text-muted text-decoration-line-through">₹{{ $product->regular_price }}</small>
+                              ₹{{ (float)$product->sale_price }} 
+                              <small class="text-muted text-decoration-line-through">₹{{ (float)($product->regular_price ?? $product->price) }}</small>
+                              @php
+                                  $base_price = $product->regular_price ?? $product->price;
+                                  $discount = $base_price > 0 ? round((($base_price - $product->sale_price) / $base_price) * 100) : 0;
+                              @endphp
+                              <span class="badge bg-success ms-1" style="font-size: 0.75rem;">{{ $discount }}% Off</span>
                           @else
-                              ₹{{ $product->regular_price }}
+                              ₹{{ (float)($product->regular_price ?? $product->price) }}
                           @endif
                       </strong>
                       @if($product->is_out_of_stock)
                       <button aria-label="Out of stock {{ $product->name }}" disabled style="opacity: 0.5; cursor: not-allowed; border: none; background: none; color: inherit;"><i class="bi bi-bag-x"></i></button>
                       @else
-                      <button aria-label="Add {{ $product->name }} to cart" data-add-cart="{{ $product->id }}"><i class="bi bi-bag-plus"></i></button>
+                      <button aria-label="Add {{ $product->name }} to cart" data-add-cart="{{ $product->id }}" style="position: relative; z-index: 2;"><i class="bi bi-bag-plus"></i></button>
                       @endif
                   <a href="{{ route('frontend.product_details', $product->slug) }}" class="quick-view-btn text-decoration-none text-center">View Details</a>
                   </div>

@@ -74,6 +74,29 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="card border-0 shadow-sm glass-effect mb-4">
+                        <div class="card-header bg-transparent border-0 pt-4 pb-0">
+                            <h5 class="fw-semibold mb-0">Search Engine Optimization (SEO)</h5>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Meta Title</label>
+                                <input type="text" name="meta_title" class="form-control @error('meta_title') is-invalid @enderror" value="{{ old('meta_title', $recipe->meta_title) }}" placeholder="Leave blank to auto-generate from recipe title">
+                                @error('meta_title')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Meta Description</label>
+                                <textarea name="meta_description" class="form-control @error('meta_description') is-invalid @enderror" rows="3" placeholder="Leave blank to auto-generate from recipe description">{{ old('meta_description', $recipe->meta_description) }}</textarea>
+                                @error('meta_description')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Meta Keywords</label>
+                                <input type="text" name="meta_keywords" class="form-control @error('meta_keywords') is-invalid @enderror" value="{{ old('meta_keywords', $recipe->meta_keywords) }}" placeholder="e.g. chicken biryani, recipe, how to cook">
+                                @error('meta_keywords')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Sidebar -->

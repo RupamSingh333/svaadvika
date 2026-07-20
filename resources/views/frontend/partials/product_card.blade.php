@@ -29,9 +29,9 @@
       </div>
       <p>{{ $product->short_description ?? '' }}</p>
       <div class="price-line">
-          <strong>₹{{ $product->sale_price ?? $product->price }}</strong>
+          <strong>₹{{ (float)($product->sale_price ?? $product->price) }}</strong>
           @if($product->sale_price && $product->price > $product->sale_price)
-              <del>₹{{ $product->price }}</del>
+              <del>₹{{ (float)$product->price }}</del>
               <span>{{ round((($product->price - $product->sale_price) / $product->price) * 100) }}% Off</span>
           @endif
       </div>

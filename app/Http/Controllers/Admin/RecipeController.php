@@ -57,6 +57,9 @@ class RecipeController extends Controller
             'spice_level' => 'required|in:Mild,Medium,Hot',
             'duration' => 'required|string|max:255',
             'status' => 'required|in:Draft,Published,Featured',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'meta_keywords' => 'nullable|string',
         ]);
 
         $validated['slug'] = \Illuminate\Support\Str::slug($validated['title']);
@@ -104,6 +107,9 @@ class RecipeController extends Controller
             'spice_level' => 'required|in:Mild,Medium,Hot',
             'duration' => 'required|string|max:255',
             'status' => 'required|in:Draft,Published,Featured',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'meta_keywords' => 'nullable|string',
         ]);
 
         if ($request->title !== $recipe->title) {

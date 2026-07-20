@@ -47,8 +47,42 @@ class ProductController extends Controller
             'ingredients' => 'nullable|string',
             'weight' => 'nullable|string|max:255',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'gallery_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'gallery_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'video_url' => 'nullable|url',
+            'kit_items' => 'nullable|array',
+            'features' => 'nullable|array',
+            'ingredients_list' => 'nullable|array',
+            'nutrition_info' => 'nullable|array',
+            'faqs' => 'nullable|array',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'meta_keywords' => 'nullable|string',
         ]);
+
+        // Clean up arrays to remove empty items
+        if (isset($validated['kit_items'])) {
+            $validated['kit_items'] = array_values(array_filter($validated['kit_items']));
+        }
+        if (isset($validated['features'])) {
+            $validated['features'] = array_values(array_filter($validated['features'], function($item) {
+                return !empty($item['title']) || !empty($item['icon']);
+            }));
+        }
+        if (isset($validated['ingredients_list'])) {
+            $validated['ingredients_list'] = array_values(array_filter($validated['ingredients_list'], function($item) {
+                return !empty($item['name']);
+            }));
+        }
+        if (isset($validated['nutrition_info'])) {
+            $validated['nutrition_info'] = array_values(array_filter($validated['nutrition_info'], function($item) {
+                return !empty($item['name']);
+            }));
+        }
+        if (isset($validated['faqs'])) {
+            $validated['faqs'] = array_values(array_filter($validated['faqs'], function($item) {
+                return !empty($item['question']) && !empty($item['answer']);
+            }));
+        }
 
         $validated['slug'] = Str::slug($validated['name']);
         $validated['is_featured'] = $request->has('is_featured');
@@ -107,8 +141,42 @@ class ProductController extends Controller
             'ingredients' => 'nullable|string',
             'weight' => 'nullable|string|max:255',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'gallery_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'gallery_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'video_url' => 'nullable|url',
+            'kit_items' => 'nullable|array',
+            'features' => 'nullable|array',
+            'ingredients_list' => 'nullable|array',
+            'nutrition_info' => 'nullable|array',
+            'faqs' => 'nullable|array',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'meta_keywords' => 'nullable|string',
         ]);
+
+        // Clean up arrays to remove empty items
+        if (isset($validated['kit_items'])) {
+            $validated['kit_items'] = array_values(array_filter($validated['kit_items']));
+        }
+        if (isset($validated['features'])) {
+            $validated['features'] = array_values(array_filter($validated['features'], function($item) {
+                return !empty($item['title']) || !empty($item['icon']);
+            }));
+        }
+        if (isset($validated['ingredients_list'])) {
+            $validated['ingredients_list'] = array_values(array_filter($validated['ingredients_list'], function($item) {
+                return !empty($item['name']);
+            }));
+        }
+        if (isset($validated['nutrition_info'])) {
+            $validated['nutrition_info'] = array_values(array_filter($validated['nutrition_info'], function($item) {
+                return !empty($item['name']);
+            }));
+        }
+        if (isset($validated['faqs'])) {
+            $validated['faqs'] = array_values(array_filter($validated['faqs'], function($item) {
+                return !empty($item['question']) && !empty($item['answer']);
+            }));
+        }
 
         $validated['slug'] = Str::slug($validated['name']);
         $validated['is_featured'] = $request->has('is_featured');
