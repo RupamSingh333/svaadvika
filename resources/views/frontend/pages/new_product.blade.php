@@ -41,8 +41,8 @@
               </div>
             </div>
             <div class="price-filter d-none">
-              <label for="productPriceRange">Max Price <strong id="priceRangeValue">&#8377;600</strong></label>
-              <input id="productPriceRange" type="range" min="100" max="600" value="600" step="10">
+              <label for="productPriceRange">Max Price: <span id="priceValue">₹2000</span></label>
+              <input id="productPriceRange" type="range" min="100" max="2000" value="2000" step="10">
             </div>
             <div class="rating-filter d-none">
               <label for="productRatingFilter">Rating</label>

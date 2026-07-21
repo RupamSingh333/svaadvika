@@ -15,7 +15,7 @@ class FrontendController extends Controller
         $categories = Category::where('parent_id', null)->get();
         $featuredProducts = Product::where('status', 'active')
                                    ->where('is_featured', true)
-                                   ->take(4)
+                                   ->take(12)
                                    ->get();
                                    
         return view('frontend.pages.home', compact('categories', 'featuredProducts'));

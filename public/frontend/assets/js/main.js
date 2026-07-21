@@ -288,7 +288,7 @@
     const perPage = 12;
 
 
-    let state = { category: "all", search: "", price: 600, rating: 0, sort: "best-selling", page: 1 };
+    let state = { category: "all", search: "", price: 2000, rating: 0, sort: "best-selling", page: 1 };
 
     function rupee(value) { return `₹${value}`; }
     function labelFor(category) { return category.split("-").map((part) => part[0].toUpperCase() + part.slice(1)).join(" "); }
@@ -324,7 +324,7 @@
       const params = new URLSearchParams();
       if (state.category !== "all") params.set("category", state.category);
       if (state.search) params.set("search", state.search);
-      if (state.price < 600) params.set("price", `100-${state.price}`);
+      if (state.price < 2000) params.set("price", `100-${state.price}`);
       if (state.rating) params.set("rating", state.rating);
       if (state.sort !== "best-selling") params.set("sort", state.sort);
       if (state.page > 1) params.set("page", state.page);
@@ -335,7 +335,7 @@
       state = {
         category: params.get("category") || "all",
         search: params.get("search") || "",
-        price: Number((params.get("price") || "100-600").split("-")[1] || 600),
+        price: Number((params.get("price") || "100-2000").split("-")[1] || 2000),
         rating: Number(params.get("rating") || 0),
         sort: params.get("sort") || "best-selling",
         page: Number(params.get("page") || 1)
