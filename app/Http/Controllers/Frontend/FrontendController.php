@@ -198,7 +198,7 @@ class FrontendController extends Controller
                 break;
         }
 
-        $recipes = $query->paginate(12)->withQueryString();
+        $recipes = $query->paginate(8)->withQueryString();
 
         $categories = \App\Models\Recipe::whereIn('status', ['Published', 'Featured'])->distinct()->pluck('category')->filter()->toArray();
         $dietTypes = ['Vegetarian', 'Non-Vegetarian', 'Vegan'];
