@@ -1,6 +1,7 @@
 @extends('frontend.layouts.master')
 
 @section('title', $recipe->meta_title ?: $recipe->title . ' - Recipe')
+@section('canonical_url', url()->current())
 @section('meta_description', $recipe->meta_description ?: 'Learn how to make ' . $recipe->title . '. ' . Str::limit(strip_tags($recipe->short_description), 150))
 
 @push('styles')

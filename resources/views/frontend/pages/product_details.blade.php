@@ -1,6 +1,7 @@
 @extends('frontend.layouts.master')
 
 @section('title', $product->meta_title ?: $product->name . ' - Premium Quality')
+@section('canonical_url', url()->current())
 @section('meta_description', $product->meta_description ?: 'Buy ' . $product->name . '. ' . Str::limit(strip_tags($product->short_description), 150))
 
 @push('styles')
