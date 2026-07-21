@@ -285,7 +285,7 @@
     const sortSelect = document.querySelector("#productSortSelect");
     const noProducts = document.querySelector("#noProductsFound");
 
-    const perPage = 12;
+    const perPage = 8;
 
 
     let state = { category: "all", search: "", price: 2000, rating: 0, sort: "best-selling", page: 1 };

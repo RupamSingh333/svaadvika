@@ -71,7 +71,7 @@
           <div class="products-toolbar reveal-up">
             <div>
               <h2>All Products</h2>
-              <p id="productCountText">Showing 12 of 30 Products</p>
+              <p id="productCountText">Showing 8 Products</p>
             </div>
             
           </div>
