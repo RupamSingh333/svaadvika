@@ -4,6 +4,9 @@
 @section('meta_description', $recipe->meta_description ?: 'Learn how to make ' . $recipe->title . '. ' . Str::limit(strip_tags($recipe->short_description), 150))
 
 @push('styles')
+    @if($recipe->schema_markup)
+        {!! $recipe->schema_markup !!}
+    @endif
     @php
         $keywords = $recipe->meta_keywords;
         if (!$keywords) {

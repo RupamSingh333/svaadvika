@@ -94,6 +94,12 @@
                                 <input type="text" name="meta_keywords" class="form-control @error('meta_keywords') is-invalid @enderror" value="{{ old('meta_keywords') }}" placeholder="e.g. chicken biryani, recipe, how to cook">
                                 @error('meta_keywords')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Schema Markup (JSON-LD)</label>
+                                <textarea name="schema_markup" class="form-control @error('schema_markup') is-invalid @enderror" rows="4" placeholder='<script type="application/ld+json">{...}</script>'>{{ old('schema_markup') }}</textarea>
+                                @error('schema_markup')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                <small class="text-muted d-block mt-1">Add structured data for rich snippets in search engines.</small>
+                            </div>
                         </div>
                     </div>
                 </div>

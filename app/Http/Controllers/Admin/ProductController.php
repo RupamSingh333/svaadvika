@@ -57,6 +57,7 @@ class ProductController extends Controller
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
+            'schema_markup' => 'nullable|string',
         ]);
 
         // Clean up arrays to remove empty items
@@ -151,6 +152,7 @@ class ProductController extends Controller
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
+            'schema_markup' => 'nullable|string',
         ]);
 
         // Clean up arrays to remove empty items

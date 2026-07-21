@@ -26,6 +26,7 @@ class Recipe extends Model
         'meta_title',
         'meta_description',
         'meta_keywords',
+        'schema_markup',
     ];
 
     protected $casts = [

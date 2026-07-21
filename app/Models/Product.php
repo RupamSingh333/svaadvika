@@ -15,7 +15,7 @@ class Product extends Model
         'is_featured', 'status', 'image', 'is_out_of_stock',
         'rating', 'reviews_count', 'ingredients', 'weight',
         'video_url', 'kit_items', 'features', 'ingredients_list', 'nutrition_info', 'faqs',
-        'meta_title', 'meta_description', 'meta_keywords'
+        'meta_title', 'meta_description', 'meta_keywords', 'schema_markup'
     ];
 
     protected $casts = [

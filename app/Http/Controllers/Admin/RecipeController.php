@@ -60,6 +60,7 @@ class RecipeController extends Controller
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
+            'schema_markup' => 'nullable|string',
         ]);
 
         $validated['slug'] = \Illuminate\Support\Str::slug($validated['title']);
@@ -110,6 +111,7 @@ class RecipeController extends Controller
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
+            'schema_markup' => 'nullable|string',
         ]);
 
         if ($request->title !== $recipe->title) {

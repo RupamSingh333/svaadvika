@@ -4,6 +4,9 @@
 @section('meta_description', $product->meta_description ?: 'Buy ' . $product->name . '. ' . Str::limit(strip_tags($product->short_description), 150))
 
 @push('styles')
+    @if($product->schema_markup)
+        {!! $product->schema_markup !!}
+    @endif
     @php
         $keywords = $product->meta_keywords;
         if (!$keywords && !empty($product->ingredients_list)) {
