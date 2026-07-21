@@ -203,7 +203,7 @@
                                 </div>
                                 <div class="col-md-4 mb-4">
                                     <label class="form-label fw-semibold">Rating (0-5)</label>
-                                    <input type="number" step="0.1" name="rating" class="form-control @error('rating') is-invalid @enderror" value="{{ old('rating', '4.5') }}">
+                                    <input type="number" min="0" max="5" step="0.1" name="rating" class="form-control @error('rating') is-invalid @enderror" value="{{ old('rating', '4.5') }}">
                                     @error('rating')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                                 <div class="col-md-4 mb-4">
