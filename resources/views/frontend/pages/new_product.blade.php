@@ -41,7 +41,7 @@
               </div>
             </div>
             <div class="price-filter d-none">
-              <label for="productPriceRange">Max Price: <span id="priceValue">₹2000</span></label>
+              <label for="productPriceRange">Max Price: <span id="priceRangeValue">₹2000</span></label>
               <input id="productPriceRange" type="range" min="100" max="2000" value="2000" step="10">
             </div>
             <div class="rating-filter d-none">
@@ -80,20 +80,21 @@
             @forelse($products as $product)
                 @include('frontend.partials.product_card', ['product' => $product])
             @empty
-                <div class="no-products-found w-100 text-center py-5" id="noProductsFound">
-                  <i class="bi bi-search-heart"></i>
-                  <h3>No Products Found</h3>
-                  <p>Try changing the category, search, price or rating filter.</p>
-                  <a href="{{ route('frontend.products') }}" class="btn btn-gold mt-3">Clear Filters</a>
-                </div>
             @endforelse
           </div>
           
-          @if($products->hasPages())
-          <div class="mt-5 d-flex justify-content-center">
-              {{ $products->links('pagination::bootstrap-5') }}
+          <div class="no-products-found w-100 text-center py-5" id="noProductsFound" hidden>
+            <i class="bi bi-search-heart" style="font-size: 3rem; color: #ccc;"></i>
+            <h3>No Products Found</h3>
+            <p>Try changing the category, search, price or rating filter.</p>
+            <a href="{{ route('frontend.products') }}" class="btn btn-gold mt-3">Clear Filters</a>
           </div>
-          @endif
+          
+          <div class="mt-5 d-flex justify-content-center catalog-pagination" id="newProductPagination">
+            @if($products->hasPages())
+              {{ $products->links('pagination::bootstrap-5') }}
+            @endif
+          </div>
       </section>
 
 @push('before_scripts')
