@@ -956,7 +956,7 @@ h3 {
 }
 
 .testimonial-card img {
-  width: 72px;
+  width: 72px !important;
   height: 72px;
   border-radius: 50%;
   margin-bottom: 12px;
@@ -5597,4 +5597,32 @@ blockquote {
 
 button.icon-btn.search-open {
   display: none;
+}
+
+.testimonial-slider .owl-stage{
+    display:flex;
+}
+
+.testimonial-slider .owl-item{
+    display:flex;
+}
+
+.testimonial-slider .testimonial-card{
+    width:100%;
+    height:100%;
+}
+
+.testimonial-slider .owl-dots{
+    margin-top:25px;
+    text-align:center;
+}
+
+.testimonial-slider .owl-dot span{
+    width:12px;
+    height:12px;
+    margin:5px;
+}
+
+.testimonial-slider .owl-nav{
+    display:none;
 }

@@ -14,8 +14,10 @@
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <link href="{{ asset('frontend/assets/css/variables.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/assets/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/assets/css/dark.css') }}" rel="stylesheet">
@@ -130,6 +132,7 @@
             });
         }
     </script>
+    
     <script src="{{ asset('frontend/assets/js/theme.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/slider.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/mobile.js') }}"></script>
@@ -137,7 +140,31 @@
     @stack('before_scripts')
     @stack('scripts')
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
-    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script>
+      $('.testimonial-slider').owlCarousel({
+    loop: true,
+    margin: 30,
+    nav: false,
+    dots: true,
+    autoplay: true,
+    autoplayTimeout: 4000,
+    autoplayHoverPause: true,
+    smartSpeed: 800,
+    responsive: {
+        0: {
+            items: 1
+        },
+        768: {
+            items: 1
+        },
+        1200: {
+            items: 1
+        }
+    }
+});
+    </script>
     <script>
         // Global Input Validation
         document.addEventListener('input', function (e) {
