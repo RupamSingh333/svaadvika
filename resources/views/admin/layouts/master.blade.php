@@ -133,17 +133,27 @@
         });
     </script>
 
-    <script>
+    <script >
         // Global Input Validation
         document.addEventListener('input', function (e) {
-            if (e.target.tagName === 'INPUT') {
+                if (e.target.tagName !== 'INPUT') return;
+
                 const name = e.target.getAttribute('name');
-                if (name === 'phone' || name === 'mobile' || name === 'postal_code' || name === 'zipcode' || name === 'zip') {
-                    // Strictly remove any non-numeric characters instantly
+                const type = e.target.getAttribute('type');
+
+                // 1. Numeric Fields (Phone / Zip)
+                if (['phone', 'mobile', 'phoneNumber', 'postal_code', 'zipcode', 'zip'].includes(name)) {
                     e.target.value = e.target.value.replace(/[^0-9]/g, '');
                 }
-            }
+
+                // 2. Email Fields (Checks name OR type attribute)
+                if (name === 'email' || type === 'email') {
+                    // Safe regex: Allows letters, numbers, @, periods, underscores, hyphens, and plus signs
+                    e.target.value = e.target.value.replace(/[^a-zA-Z0-9@._+-]/g, '');
+                }
         });
+
+
     </script>
     
     @stack('scripts')

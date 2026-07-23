@@ -108,6 +108,8 @@ php artisan storage:link
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
+php artisan view:clear
+
 npm install
 npm run build
 chmod -R 775 storage bootstrap/cache

@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <link href="{{ asset('frontend/assets/css/variables.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/assets/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/assets/css/dark.css') }}" rel="stylesheet">
@@ -165,17 +165,26 @@
     }
 });
     </script>
-    <script>
+    
+        <script >
         // Global Input Validation
         document.addEventListener('input', function (e) {
-            if (e.target.tagName === 'INPUT') {
+                if (e.target.tagName !== 'INPUT') return;
+
                 const name = e.target.getAttribute('name');
-                if (name === 'phone' || name === 'mobile' || name === 'postal_code' || name === 'zipcode' || name === 'zip') {
-                    // Strictly remove any non-numeric characters instantly
+                const type = e.target.getAttribute('type');
+
+                // 1. Numeric Fields (Phone / Zip)
+                if (['phone', 'mobile', 'phoneNumber', 'postal_code', 'zipcode', 'zip'].includes(name)) {
                     e.target.value = e.target.value.replace(/[^0-9]/g, '');
                 }
-            }
+
+                // 2. Email Fields (Checks name OR type attribute)
+                if (name == 'email' || type == 'email') {
+                    // Safe regex: Allows letters, numbers, @, periods, underscores, hyphens, and plus signs
+                    e.target.value = e.target.value.replace(/[^a-zA-Z0-9@._+-]/g, '');
+                }
         });
-    </script>
+        </script>
   </body>
 </html>

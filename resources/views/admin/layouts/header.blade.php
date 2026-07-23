@@ -38,8 +38,8 @@
                 </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                <li><a class="dropdown-item" href="#"><i class="fa-regular fa-user me-2"></i> Profile</a></li>
-                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-cog me-2"></i> Settings</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.users.edit', Auth::user()->id) }}"><i class="fa-regular fa-user me-2"></i> Profile</a></li>
+                <li><a class="dropdown-item" href="{{ route('admin.settings.index') }}"><i class="fa-solid fa-cog me-2"></i> Settings</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
                     <form method="POST" action="{{ route('admin.logout') }}">
