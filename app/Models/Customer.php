@@ -45,6 +45,11 @@ class Customer extends Authenticatable
         return $this->hasMany(CustomerAddress::class);
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(ProductReview::class);
+    }
+
     public function loginHistory()
     {
         return $this->hasMany(CustomerLoginHistory::class);

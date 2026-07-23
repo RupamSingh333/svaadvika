@@ -42,8 +42,6 @@ class ProductController extends Controller
             'is_featured' => 'boolean',
             'is_out_of_stock' => 'boolean',
             'status' => 'required|in:active,draft',
-            'rating' => 'nullable|numeric|min:0|max:5',
-            'reviews_count' => 'nullable|integer|min:0',
             'ingredients' => 'nullable|string',
             'weight' => 'nullable|string|max:255',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -58,6 +56,7 @@ class ProductController extends Controller
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
             'schema_markup' => 'nullable|string',
+            'cooking_steps' => 'nullable|array',
         ]);
 
         // Clean up arrays to remove empty items
@@ -82,6 +81,11 @@ class ProductController extends Controller
         if (isset($validated['faqs'])) {
             $validated['faqs'] = array_values(array_filter($validated['faqs'], function($item) {
                 return !empty($item['question']) && !empty($item['answer']);
+            }));
+        }
+        if (isset($validated['cooking_steps'])) {
+            $validated['cooking_steps'] = array_values(array_filter($validated['cooking_steps'], function($item) {
+                return !empty($item['title']);
             }));
         }
 
@@ -111,7 +115,7 @@ class ProductController extends Controller
             }
         }
         
-        return redirect()->route('admin.products.index')->with('success', 'Product created successfully');
+        return redirect()->route('admin.products.index')->with('success', "Product '{$product->name}' created successfully");
     }
 
     public function edit(Product $product)
@@ -137,8 +141,6 @@ class ProductController extends Controller
             'is_featured' => 'boolean',
             'is_out_of_stock' => 'boolean',
             'status' => 'required|in:active,draft',
-            'rating' => 'nullable|numeric|min:0|max:5',
-            'reviews_count' => 'nullable|integer|min:0',
             'ingredients' => 'nullable|string',
             'weight' => 'nullable|string|max:255',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -153,6 +155,7 @@ class ProductController extends Controller
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
             'schema_markup' => 'nullable|string',
+            'cooking_steps' => 'nullable|array',
         ]);
 
         // Clean up arrays to remove empty items
@@ -177,6 +180,11 @@ class ProductController extends Controller
         if (isset($validated['faqs'])) {
             $validated['faqs'] = array_values(array_filter($validated['faqs'], function($item) {
                 return !empty($item['question']) && !empty($item['answer']);
+            }));
+        }
+        if (isset($validated['cooking_steps'])) {
+            $validated['cooking_steps'] = array_values(array_filter($validated['cooking_steps'], function($item) {
+                return !empty($item['title']);
             }));
         }
 
@@ -213,7 +221,7 @@ class ProductController extends Controller
             }
         }
         
-        return redirect()->route('admin.products.index')->with('success', 'Product updated successfully');
+        return redirect()->route('admin.products.index')->with('success', "Product '{$product->name}' updated successfully");
     }
 
     public function destroy(Product $product)
@@ -223,8 +231,9 @@ class ProductController extends Controller
             Storage::disk('public')->delete($image->image_path);
         }
         
+        $productName = $product->name;
         $product->delete();
-        return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully');
+        return redirect()->route('admin.products.index')->with('success', "Product '{$productName}' deleted successfully");
     }
 
     public function destroyImage(ProductImage $productImage)

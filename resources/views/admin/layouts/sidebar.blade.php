@@ -77,6 +77,15 @@
             </li>
             @endhasPermission
 
+            @hasPermission('testimonials', 'view')
+            <li class="nav-item">
+                <a href="{{ route('admin.testimonials.index') }}" class="nav-link {{ request()->routeIs('admin.testimonials.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-quote-left"></i>
+                    <span>Testimonials</span>
+                </a>
+            </li>
+            @endhasPermission
+
 
 
             @hasPermission('customers', 'view')

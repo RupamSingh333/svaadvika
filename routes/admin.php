@@ -55,6 +55,9 @@ Route::middleware(['auth', \App\Http\Middleware\CheckUserPermission::class])->gr
     // Coupons
     Route::resource('coupons', \App\Http\Controllers\Admin\CouponController::class)->except(['show']);
 
+    // Testimonials
+    Route::resource('testimonials', \App\Http\Controllers\Admin\TestimonialController::class)->except(['show']);
+
     // Posts / CMS
     Route::resource('posts', \App\Http\Controllers\Admin\PostController::class)->except(['show']);
 

@@ -14,7 +14,7 @@ class Product extends Model
         'long_description', 'price', 'sale_price', 'stock_quantity', 
         'is_featured', 'status', 'image', 'is_out_of_stock',
         'rating', 'reviews_count', 'ingredients', 'weight',
-        'video_url', 'kit_items', 'features', 'ingredients_list', 'nutrition_info', 'faqs',
+        'video_url', 'kit_items', 'features', 'ingredients_list', 'nutrition_info', 'faqs', 'cooking_steps',
         'meta_title', 'meta_description', 'meta_keywords', 'schema_markup'
     ];
 
@@ -24,6 +24,7 @@ class Product extends Model
         'ingredients_list' => 'array',
         'nutrition_info' => 'array',
         'faqs' => 'array',
+        'cooking_steps' => 'array',
     ];
 
     protected static function booted()
@@ -53,5 +54,10 @@ class Product extends Model
     public function featuredImage()
     {
         return $this->hasOne(ProductImage::class)->where('is_featured', true);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(ProductReview::class);
     }
 }

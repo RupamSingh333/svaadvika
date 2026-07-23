@@ -14,6 +14,7 @@ class Recipe extends Model
         'slug',
         'short_description',
         'description',
+        'ingredients',
         'featured_image',
         'gallery_images',
         'youtube_url',

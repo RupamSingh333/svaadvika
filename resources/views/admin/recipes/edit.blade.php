@@ -31,9 +31,16 @@
                             </div>
 
                             <div class="mb-4">
-                                <label class="form-label fw-semibold">Full Description (Ingredients, Steps, Tips, etc.)</label>
+                                <label class="form-label fw-semibold">Full Description (Steps, Tips, etc.)</label>
                                 <textarea name="description" class="form-control richtext @error('description') is-invalid @enderror" rows="10">{{ old('description', $recipe->description) }}</textarea>
                                 @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">Ingredients (Comma separated)</label>
+                                <textarea name="ingredients" class="form-control @error('ingredients') is-invalid @enderror" rows="3" placeholder="e.g. 1 cup Basmati Rice, 2 tbsp Ghee, 1 tsp Cumin Seeds">{{ old('ingredients', $recipe->ingredients) }}</textarea>
+                                @error('ingredients')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                <small class="text-muted">Enter ingredients separated by commas.</small>
                             </div>
                             
                             <hr class="my-4">

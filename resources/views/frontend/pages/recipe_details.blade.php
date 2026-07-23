@@ -183,7 +183,7 @@
                 <h2>Ingredients</h2>
                 <ul style="padding-left: 1.5rem; line-height: 1.8;">
                     @php
-                        $ingredientsList = explode(',', $recipe->ingredients ?? 'Premium spices, Basmati Rice, Ghee');
+                        $ingredientsList = explode(',', $recipe->ingredients ?? 'No ingridients added yet.');
                     @endphp
                     @foreach($ingredientsList as $ingredient)
                         <li>{{ trim($ingredient) }}</li>

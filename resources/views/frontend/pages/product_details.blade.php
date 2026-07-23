@@ -80,8 +80,24 @@
           </div>
 
           <aside class="details-info reveal-right">
+            @php
+                $approvedReviews = $product->reviews()->where('is_approved', true)->get();
+                $reviewsCount = $approvedReviews->count();
+                $averageRating = $reviewsCount > 0 ? round($approvedReviews->avg('rating'), 1) : 0;
+            @endphp
             <h1 id="detailsTitle">{{ $product->name }}</h1>
-            <div class="details-rating" id="detailsRating"><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-half text-warning"></i><span>({{ $product->reviews_count ?? 120 }} Reviews)</span></div>
+            <div class="details-rating" id="detailsRating">
+                @for($i = 1; $i <= 5; $i++)
+                    @if($i <= $averageRating)
+                        <i class="bi bi-star-fill text-warning"></i>
+                    @elseif($i - 0.5 <= $averageRating)
+                        <i class="bi bi-star-half text-warning"></i>
+                    @else
+                        <i class="bi bi-star text-warning"></i>
+                    @endif
+                @endfor
+                <span>({{ $reviewsCount }} Reviews)</span>
+            </div>
             <div id="detailsDescription" class="mt-3 mb-3">{!! $product->short_description !!}</div>
             
             <ul class="list-unstyled mb-4 text-muted">
@@ -137,19 +153,15 @@
           </aside>
         </section>
 
+        @if(is_array($product->features) && count($product->features) > 0)
         <section class="details-feature-strip reveal-up">
-          @if(is_array($product->features) && count($product->features) > 0)
             @foreach($product->features as $feature)
               <article><i class="{{ $feature['icon'] ?? 'bi bi-check' }}"></i><span><strong>{{ $feature['title'] ?? '' }}</strong><small>{{ $feature['subtitle'] ?? '' }}</small></span></article>
             @endforeach
-          @else
-            <article><i class="bi bi-fire"></i><span><strong>Authentic Recipe</strong><small>Traditional flavours</small></span></article>
-            <article><i class="bi bi-basket2"></i><span><strong>Premium Ingredients</strong><small>Handpicked &amp; natural</small></span></article>
-            <article><i class="bi bi-heart-pulse"></i><span><strong>No Artificial Colours</strong><small>100% natural</small></span></article>
-            <article><i class="bi bi-flower1"></i><span><strong>Made in India</strong><small>Proudly Indian</small></span></article>
-          @endif
         </section>
+        @endif
 
+        @if((is_array($product->ingredients_list) && count($product->ingredients_list) > 0) || !empty($product->ingredients))
         <section class="details-panel details-ingredients-grid">
           <div>
             <h2>Ingredients</h2>
@@ -159,14 +171,6 @@
                 @foreach($product->ingredients_list as $ingredient)
                   <article><i class="{{ $ingredient['icon'] ?? 'bi bi-circle' }}"></i><span>{{ $ingredient['name'] ?? '' }}</span></article>
                 @endforeach
-              @else
-                <article><i class="bi bi-circle"></i><span>Basmati Rice</span></article>
-                <article><i class="bi bi-droplet"></i><span>Biryani Masala</span></article>
-                <article><i class="bi bi-cup-hot"></i><span>Marinade Paste</span></article>
-                <article><i class="bi bi-flower2"></i><span>Fried Onions</span></article>
-                <article><i class="bi bi-stars"></i><span>Whole Spices</span></article>
-                <article><i class="bi bi-circle-fill"></i><span>Ghee</span></article>
-                <article><i class="bi bi-brightness-high"></i><span>Saffron</span></article>
               @endif
             </div>
             @if($product->ingredients)
@@ -197,6 +201,8 @@
             </table>
           </aside>
         </section>
+        @endif
+
 
 
 
@@ -209,21 +215,20 @@
         </section>
         @endif
 
+        @if(is_array($product->cooking_steps) && count($product->cooking_steps) > 0)
         <section class="details-panel mt-5">
           <h2>Cooking Steps</h2>
           <p>Simple steps to cook delicious biryani at home.</p>
           <div class="cooking-steps">
-            <article><i class="bi bi-hand-index"></i><strong>Step 1</strong><h3>Marinate</h3><p>Marinate meat with the paste for 30 minutes.</p></article>
+            @foreach($product->cooking_steps as $index => $step)
+            <article><i class="{{ $step['icon'] ?? 'bi bi-hand-index' }}"></i><strong>Step {{ $index + 1 }}</strong><h3>{{ $step['title'] ?? '' }}</h3><p>{{ $step['description'] ?? '' }}</p></article>
+            @if(!$loop->last)
             <article><i class="bi bi-arrow-right"></i></article>
-            <article><i class="bi bi-cup-hot"></i><strong>Step 2</strong><h3>Cook Rice</h3><p>Cook basmati rice until 70% done.</p></article>
-            <article><i class="bi bi-arrow-right"></i></article>
-            <article><i class="bi bi-layers"></i><strong>Step 3</strong><h3>Layer</h3><p>Layer rice and marinated meat, add spices.</p></article>
-            <article><i class="bi bi-arrow-right"></i></article>
-            <article><i class="bi bi-alarm"></i><strong>Step 4</strong><h3>Dum Cook</h3><p>Cook on low heat for 20-25 minutes.</p></article>
-            <article><i class="bi bi-arrow-right"></i></article>
-            <article><i class="bi bi-stars"></i><strong>Step 5</strong><h3>Serve</h3><p>Fluff gently and serve hot with raita.</p></article>
+            @endif
+            @endforeach
           </div>
         </section>
+        @endif
 
         <section class="details-media-grid">
           @if($product->video_url)
@@ -250,12 +255,53 @@
 
         <section class="details-panel reviews-panel">
           <h2>Customer Reviews</h2>
-          <div class="reviews-grid">
-            <div class="overall-rating"><strong>4.8</strong><div class="catalog-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i></div><p>Based on 128 reviews</p></div>
-            <div class="rating-bars"><span>5 ★ <b></b>102</span><span>4 ★ <b></b>18</span><span>3 ★ <b></b>6</span><span>2 ★ <b></b>1</span><span>1 ★ <b></b>1</span></div>
-            <article><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" alt="Neha Sharma" loading="lazy"><h3>Neha Sharma</h3><div class="catalog-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div><small>Verified Buyer</small><p>Super easy to cook and taste just like authentic Hyderabadi biryani.</p></article>
-            <article><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="Rahul Verma" loading="lazy"><h3>Rahul Verma</h3><div class="catalog-rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div><small>Verified Buyer</small><p>The flavours are rich and ingredients are of premium quality.</p></article>
-          </div>
+          @if($reviewsCount > 0)
+              <div class="reviews-grid">
+                <div class="overall-rating">
+                    <strong>{{ $averageRating }}</strong>
+                    <div class="catalog-rating">
+                        @for($i = 1; $i <= 5; $i++)
+                            @if($i <= $averageRating)
+                                <i class="bi bi-star-fill text-warning"></i>
+                            @elseif($i - 0.5 <= $averageRating)
+                                <i class="bi bi-star-half text-warning"></i>
+                            @else
+                                <i class="bi bi-star text-warning"></i>
+                            @endif
+                        @endfor
+                    </div>
+                    <p>Based on {{ $reviewsCount }} reviews</p>
+                </div>
+                
+                @php
+                    $ratingsDist = [5 => 0, 4 => 0, 3 => 0, 2 => 0, 1 => 0];
+                    foreach($approvedReviews as $r) {
+                        $ratingsDist[$r->rating] = ($ratingsDist[$r->rating] ?? 0) + 1;
+                    }
+                @endphp
+                <div class="rating-bars">
+                    @for($i = 5; $i >= 1; $i--)
+                    <span>{{ $i }} ★ <b><span style="width: {{ $reviewsCount > 0 ? ($ratingsDist[$i] / $reviewsCount * 100) : 0 }}%"></span></b>{{ $ratingsDist[$i] }}</span>
+                    @endfor
+                </div>
+
+                @foreach($approvedReviews as $review)
+                <article>
+                    <img src="https://ui-avatars.com/api/?name={{ urlencode($review->customer->first_name . ' ' . $review->customer->last_name) }}&background=0A3D2E&color=fff" alt="{{ $review->customer->first_name }}" loading="lazy">
+                    <h3>{{ $review->customer->first_name }} {{ $review->customer->last_name }}</h3>
+                    <div class="catalog-rating">
+                        @for($i = 1; $i <= 5; $i++)
+                            <i class="bi bi-star{{ $i <= $review->rating ? '-fill' : '' }} text-warning"></i>
+                        @endfor
+                    </div>
+                    <small>Verified Buyer - {{ $review->created_at->format('M d, Y') }}</small>
+                    <p>{{ $review->review }}</p>
+                </article>
+                @endforeach
+              </div>
+          @else
+              <p class="text-muted mt-3">No reviews yet. Be the first to review this product after purchasing!</p>
+          @endif
         </section>
 
         <section class="details-related" id="detailsRelated">

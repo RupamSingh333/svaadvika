@@ -24,8 +24,22 @@
       </div>
       <h3><a href="{{ route('frontend.product_details', $product->slug) }}">{{ $product->name }}</a></h3>
       <div class="catalog-rating">
-          <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
-          <small>({{ $product->reviews_count ?? 120 }})</small>
+          @php
+              $approvedReviews = clone $product->reviews();
+              $approvedReviews = $approvedReviews->where('is_approved', true)->get();
+              $reviewsCount = $approvedReviews->count();
+              $averageRating = $reviewsCount > 0 ? round($approvedReviews->avg('rating'), 1) : 0;
+          @endphp
+          @for($i = 1; $i <= 5; $i++)
+              @if($i <= $averageRating)
+                  <i class="bi bi-star-fill text-warning"></i>
+              @elseif($i - 0.5 <= $averageRating)
+                  <i class="bi bi-star-half text-warning"></i>
+              @else
+                  <i class="bi bi-star text-warning"></i>
+              @endif
+          @endfor
+          <small>({{ $reviewsCount }})</small>
       </div>
       <p>{{ $product->short_description ?? '' }}</p>
       <div class="price-line">

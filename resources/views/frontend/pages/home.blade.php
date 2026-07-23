@@ -79,7 +79,23 @@
           </a>
           <div class="product-info">
             <h3><a href="{{ route('frontend.product_details', $product->slug) }}" style="color: inherit; text-decoration: none;">{{ $product->name }}</a></h3>
-            <div class="rating"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><span>(1200)</span></div>
+            @php
+                $approvedReviews = $product->reviews()->where('is_approved', true)->get();
+                $reviewsCount = $approvedReviews->count();
+                $averageRating = $reviewsCount > 0 ? round($approvedReviews->avg('rating'), 1) : 0;
+            @endphp
+            <div class="rating">
+                @for($i = 1; $i <= 5; $i++)
+                    @if($i <= $averageRating)
+                        <i class="bi bi-star-fill text-warning"></i>
+                    @elseif($i - 0.5 <= $averageRating)
+                        <i class="bi bi-star-half text-warning"></i>
+                    @else
+                        <i class="bi bi-star text-warning"></i>
+                    @endif
+                @endfor
+                <span>({{ $reviewsCount }})</span>
+            </div>
             <div class="price-row">
               <strong>
                 @if($product->sale_price)
@@ -203,71 +219,43 @@
       <div class="col-lg-3">
         <div class="owl-carousel testimonial-slider">
 
+          @forelse($testimonials as $testimonial)
           <article class="testimonial-card">
             <p class="eyebrow">What Our Customers Say</p>
 
-            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=240&q=85"
-              alt="Customer Neha Sharma" loading="lazy">
+            @if($testimonial->avatar)
+                <img src="{{ asset('storage/' . $testimonial->avatar) }}" alt="Customer {{ $testimonial->name }}" loading="lazy" style="object-fit: cover;">
+            @else
+                <img src="https://ui-avatars.com/api/?name={{ urlencode($testimonial->name) }}&background=0A3D2E&color=fff" alt="Customer {{ $testimonial->name }}" loading="lazy">
+            @endif
 
             <div class="rating text-start">
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
+              @for($i=1; $i<=5; $i++)
+                  <i class="bi bi-star{{ $i <= $testimonial->rating ? '-fill' : '' }}"></i>
+              @endfor
             </div>
 
             <blockquote>
-              “The taste is just like my grandmother’s biryani. Absolutely love it!”
+              “{{ $testimonial->message }}”
             </blockquote>
 
+            <strong>{{ $testimonial->name }}</strong>
+            @if($testimonial->designation)
+                <small>{{ $testimonial->designation }}</small>
+            @endif
+          </article>
+          @empty
+          <article class="testimonial-card">
+            <p class="eyebrow">What Our Customers Say</p>
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=240&q=85" alt="Customer Neha Sharma" loading="lazy">
+            <div class="rating text-start">
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+            </div>
+            <blockquote>“The taste is just like my grandmother’s biryani. Absolutely love it!”</blockquote>
             <strong>Neha Sharma</strong>
             <small>Verified Purchase</small>
           </article>
-
-          <article class="testimonial-card">
-            <p class="eyebrow">What Our Customers Say</p>
-
-            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=240&q=85"
-              alt="Customer Rahul" loading="lazy">
-
-            <div class="rating text-start">
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-            </div>
-
-            <blockquote>
-              “Amazing quality and very fresh ingredients. Highly recommended.”
-            </blockquote>
-
-            <strong>Rahul Verma</strong>
-            <small>Verified Purchase</small>
-          </article>
-
-          <article class="testimonial-card">
-            <p class="eyebrow">What Our Customers Say</p>
-
-            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&q=85"
-              alt="Customer Aman" loading="lazy">
-
-            <div class="rating text-start">
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-            </div>
-
-            <blockquote>
-              “Best ready-to-cook product I have ever tried.”
-            </blockquote>
-
-            <strong>Aman Gupta</strong>
-            <small>Verified Purchase</small>
-          </article>
+          @endforelse
 
         </div>
 

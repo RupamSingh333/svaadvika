@@ -17,8 +17,11 @@ class FrontendController extends Controller
                                    ->where('is_featured', true)
                                    ->take(12)
                                    ->get();
+        $testimonials = \App\Models\Testimonial::where('is_active', true)
+                                               ->orderBy('sort_order')
+                                               ->get();
                                    
-        return view('frontend.pages.home', compact('categories', 'featuredProducts'));
+        return view('frontend.pages.home', compact('categories', 'featuredProducts', 'testimonials'));
     }
 
     public function about()
@@ -64,13 +67,17 @@ class FrontendController extends Controller
                 ]];
             }
 
+            $approvedReviews = $product->reviews()->where('is_approved', true)->get();
+            $reviewsCount = $approvedReviews->count();
+            $averageRating = $reviewsCount > 0 ? round($approvedReviews->avg('rating'), 1) : 0;
+
             return [
                 'id' => $product->slug,
                 'category' => $product->category ? $product->category->slug : 'other',
                 'title' => $product->name,
                 'description' => $product->short_description ?? '',
-                'rating' => (float) ($product->rating ?? 4.5),
-                'reviews' => (int) ($product->reviews_count ?? 120),
+                'rating' => (float) $averageRating,
+                'reviews' => (int) $reviewsCount,
                 'price' => (float) ($product->sale_price ?: $product->price),
                 'oldPrice' => (float) $product->price,
                 'discount' => $discount ? $discount . ' Off' : '',
@@ -122,13 +129,17 @@ class FrontendController extends Controller
             if (empty($imagesArray)) {
                 $imagesArray = [['src' => $imageUrl, 'label' => 'Default Image', 'alt' => $prod->name]];
             }
+            $approvedReviews = $prod->reviews()->where('is_approved', true)->get();
+            $reviewsCount = $approvedReviews->count();
+            $averageRating = $reviewsCount > 0 ? round($approvedReviews->avg('rating'), 1) : 0;
+
             return [
                 'id' => $prod->slug,
                 'category' => $prod->category ? $prod->category->slug : 'other',
                 'title' => $prod->name,
                 'description' => $prod->short_description ?? '',
-                'rating' => (float) ($prod->rating ?? 4.5),
-                'reviews' => (int) ($prod->reviews_count ?? 120),
+                'rating' => (float) $averageRating,
+                'reviews' => (int) $reviewsCount,
                 'price' => (float) ($prod->sale_price ?: $prod->price),
                 'oldPrice' => (float) $prod->price,
                 'discount' => $discount ? $discount . ' Off' : '',

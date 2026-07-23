@@ -59,6 +59,7 @@
                                         <th>Price</th>
                                         <th>Quantity</th>
                                         <th class="text-end">Total</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -85,32 +86,88 @@
                                         <td>₹{{ number_format($item->price, 0) }}</td>
                                         <td>{{ $item->quantity }}</td>
                                         <td class="text-end fw-bold">₹{{ number_format($item->total, 0) }}</td>
+                                        <td class="text-center">
+                                            @if($order->status === 'delivered' && $item->product)
+                                                @php
+                                                    $existingReview = \App\Models\ProductReview::where('product_id', $item->product_id)
+                                                        ->where('customer_id', auth('customer')->id())
+                                                        ->where('order_id', $order->id)
+                                                        ->first();
+                                                @endphp
+                                                @if(!$existingReview)
+                                                    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reviewModal{{ $item->id }}">
+                                                        Write Review
+                                                    </button>
+
+                                                    <!-- Review Modal -->
+                                                    <div class="modal fade text-start" id="reviewModal{{ $item->id }}" tabindex="-1" aria-labelledby="reviewModalLabel{{ $item->id }}" aria-hidden="true">
+                                                      <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                          <div class="modal-header border-0 pb-0">
+                                                            <h5 class="modal-title" id="reviewModalLabel{{ $item->id }}">Review {{ $item->product->name }}</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                          </div>
+                                                          <form action="{{ route('customer.reviews.store') }}" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="product_id" value="{{ $item->product_id }}">
+                                                            <input type="hidden" name="order_id" value="{{ $order->id }}">
+                                                            <div class="modal-body">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label fw-semibold">Rating</label>
+                                                                    <select class="form-select" name="rating" required>
+                                                                        <option value="5" selected>5 - Excellent</option>
+                                                                        <option value="4">4 - Good</option>
+                                                                        <option value="3">3 - Average</option>
+                                                                        <option value="2">2 - Poor</option>
+                                                                        <option value="1">1 - Terrible</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label class="form-label fw-semibold">Your Review</label>
+                                                                    <textarea class="form-control" name="review" rows="4" required placeholder="Tell us what you thought about this product..."></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer border-0 pt-0">
+                                                              <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                                                              <button type="submit" class="btn btn-primary px-4">Submit Review</button>
+                                                            </div>
+                                                          </form>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                @else
+                                                    <span class="text-success"><i class="bi bi-check-circle"></i> Reviewed</span>
+                                                @endif
+                                            @else
+                                                <span class="text-muted">-</span>
+                                            @endif
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot class="table-light">
                                     <tr>
-                                        <td colspan="3" class="text-end fw-semibold">Subtotal:</td>
+                                        <td colspan="4" class="text-end fw-semibold">Subtotal:</td>
                                         <td class="text-end fw-bold">₹{{ number_format($order->subtotal, 0) }}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3" class="text-end fw-semibold">Tax:</td>
+                                        <td colspan="4" class="text-end fw-semibold">Tax:</td>
                                         <td class="text-end fw-bold">₹{{ number_format($order->tax_amount, 0) }}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3" class="text-end fw-semibold">Delivery Charge:</td>
+                                        <td colspan="4" class="text-end fw-semibold">Delivery Charge:</td>
                                         <td class="text-end fw-bold">{{ $order->delivery_charge > 0 ? '₹' . number_format($order->delivery_charge, 0) : 'Free' }}</td>
                                     </tr>
                                     @if($order->coupon_code)
                                     <tr>
-                                        <td colspan="3" class="text-end fw-semibold text-success">
+                                        <td colspan="4" class="text-end fw-semibold text-success">
                                             Discount ({{ $order->coupon_code }}):
                                         </td>
                                         <td class="text-end fw-bold text-success">- ₹{{ number_format($order->discount_amount, 0) }}</td>
                                     </tr>
                                     @endif
                                     <tr>
-                                        <td colspan="3" class="text-end fw-bold fs-5">Grand Total:</td>
+                                        <td colspan="4" class="text-end fw-bold fs-5">Grand Total:</td>
                                         <td class="text-end fw-bold fs-5 text-success">₹{{ number_format($order->total_amount, 0) }}</td>
                                     </tr>
                                 </tfoot>

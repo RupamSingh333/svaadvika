@@ -83,7 +83,13 @@
                                 <div id="featuresContainer">
                                     <div class="row g-2 mb-2 feature-row">
                                         <div class="col-md-3">
-                                            <input type="text" name="features[0][icon]" class="form-control" placeholder="Icon class (e.g. bi bi-fire)">
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text px-2" style="width: 35px; justify-content: center;"><i class="bi bi-fire"></i></span>
+                                                <input type="text" name="features[0][icon]" class="form-control px-2" placeholder="Icon class" value="bi bi-fire" oninput="this.previousElementSibling.querySelector('i').className = this.value || 'bi bi-question'">
+                                                <select class="form-select px-1" style="max-width: 60px;" onchange="if(this.value){let inp = this.previousElementSibling; inp.value = this.value; inp.dispatchEvent(new Event('input')); this.value='';}">
+                                                    @include('admin.products.icon_options')
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="col-md-4">
                                             <input type="text" name="features[0][title]" class="form-control" placeholder="Title (e.g. Authentic Recipe)">
@@ -109,7 +115,13 @@
                                 <div id="ingredientsContainer">
                                     <div class="row g-2 mb-2 ingredient-row">
                                         <div class="col-md-4">
-                                            <input type="text" name="ingredients_list[0][icon]" class="form-control" placeholder="Icon class (e.g. bi bi-circle)">
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text px-2" style="width: 35px; justify-content: center;"><i class="bi bi-circle"></i></span>
+                                                <input type="text" name="ingredients_list[0][icon]" class="form-control px-2" placeholder="Icon class" value="bi bi-circle" oninput="this.previousElementSibling.querySelector('i').className = this.value || 'bi bi-question'">
+                                                <select class="form-select px-1" style="max-width: 60px;" onchange="if(this.value){let inp = this.previousElementSibling; inp.value = this.value; inp.dispatchEvent(new Event('input')); this.value='';}">
+                                                    @include('admin.products.icon_options')
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="col-md-7">
                                             <input type="text" name="ingredients_list[0][name]" class="form-control" placeholder="Ingredient Name">
@@ -139,6 +151,38 @@
                                         </div>
                                         <div class="col-md-1">
                                             <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.nutrition-row').remove()"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <!-- Cooking Steps -->
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <label class="form-label fw-semibold mb-0">Cooking Steps</label>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="addCookingStep()">+ Add Step</button>
+                                </div>
+                                <div id="cookingStepsContainer">
+                                    <div class="row g-2 mb-2 cooking-step-row">
+                                        <div class="col-md-3">
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text px-2" style="width: 35px; justify-content: center;"><i class="bi bi-hand-index"></i></span>
+                                                <input type="text" name="cooking_steps[0][icon]" class="form-control px-2" placeholder="Icon class" value="bi bi-hand-index" oninput="this.previousElementSibling.querySelector('i').className = this.value || 'bi bi-question'">
+                                                <select class="form-select px-1" style="max-width: 60px;" onchange="if(this.value){let inp = this.previousElementSibling; inp.value = this.value; inp.dispatchEvent(new Event('input')); this.value='';}">
+                                                    @include('admin.products.icon_options')
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" name="cooking_steps[0][title]" class="form-control" placeholder="Step Title (e.g. Marinate)">
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="text" name="cooking_steps[0][description]" class="form-control" placeholder="Description (e.g. Marinate meat...)">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.cooking-step-row').remove()"><i class="fa fa-trash"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -201,16 +245,16 @@
                                     </div>
                                     @error('stock_quantity')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                                 </div>
+                                <!-- FUTURE USE: Manual rating overrides
                                 <div class="col-md-4 mb-4">
                                     <label class="form-label fw-semibold">Rating (0-5)</label>
-                                    <input type="number" min="0" max="5" step="0.1" name="rating" class="form-control @error('rating') is-invalid @enderror" value="{{ old('rating', '4.5') }}">
-                                    @error('rating')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    <input type="number" step="0.1" name="rating" class="form-control" value="{{ old('rating') }}">
                                 </div>
                                 <div class="col-md-4 mb-4">
-                                    <label class="form-label fw-semibold">Reviews Count</label>
-                                    <input type="number" name="reviews_count" class="form-control @error('reviews_count') is-invalid @enderror" value="{{ old('reviews_count', 120) }}">
-                                    @error('reviews_count')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    <label class="form-label fw-semibold">Total Reviews</label>
+                                    <input type="number" name="reviews_count" class="form-control" value="{{ old('reviews_count') }}">
                                 </div>
+                                -->
                                 <div class="col-md-4 mb-4">
                                     <label class="form-label fw-semibold">Weight</label>
                                     <input type="text" name="weight" class="form-control @error('weight') is-invalid @enderror" value="{{ old('weight') }}" placeholder="e.g. 250g pack">
@@ -336,6 +380,34 @@
     let ingredientCount = 1;
     let nutritionCount = 1;
     let faqCount = 1;
+    let cookingStepCount = 1;
+
+    function addCookingStep() {
+        const html = `
+            <div class="row g-2 mb-2 cooking-step-row">
+                <div class="col-md-3">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text px-2" style="width: 35px; justify-content: center;"><i class="bi bi-hand-index"></i></span>
+                        <input type="text" name="cooking_steps[${cookingStepCount}][icon]" class="form-control px-2" placeholder="Icon class" value="bi bi-hand-index" oninput="this.previousElementSibling.querySelector('i').className = this.value || 'bi bi-question'">
+                        <select class="form-select px-1" style="max-width: 60px;" onchange="if(this.value){let inp = this.previousElementSibling; inp.value = this.value; inp.dispatchEvent(new Event('input')); this.value='';}">
+                            @include('admin.products.icon_options')
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" name="cooking_steps[${cookingStepCount}][title]" class="form-control" placeholder="Step Title (e.g. Marinate)">
+                </div>
+                <div class="col-md-5">
+                    <input type="text" name="cooking_steps[${cookingStepCount}][description]" class="form-control" placeholder="Description (e.g. Marinate meat...)">
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.cooking-step-row').remove()"><i class="fa fa-trash"></i></button>
+                </div>
+            </div>
+        `;
+        document.getElementById('cookingStepsContainer').insertAdjacentHTML('beforeend', html);
+        cookingStepCount++;
+    }
 
     function addKitItem() {
         const html = `
@@ -351,7 +423,13 @@
         const html = `
             <div class="row g-2 mb-2 feature-row">
                 <div class="col-md-3">
-                    <input type="text" name="features[${featureCount}][icon]" class="form-control" placeholder="Icon class (e.g. bi bi-fire)">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text px-2" style="width: 35px; justify-content: center;"><i class="bi bi-fire"></i></span>
+                        <input type="text" name="features[${featureCount}][icon]" class="form-control px-2" placeholder="Icon class" value="bi bi-fire" oninput="this.previousElementSibling.querySelector('i').className = this.value || 'bi bi-question'">
+                        <select class="form-select px-1" style="max-width: 60px;" onchange="if(this.value){let inp = this.previousElementSibling; inp.value = this.value; inp.dispatchEvent(new Event('input')); this.value='';}">
+                            @include('admin.products.icon_options')
+                        </select>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <input type="text" name="features[${featureCount}][title]" class="form-control" placeholder="Title (e.g. Authentic Recipe)">
@@ -372,7 +450,13 @@
         const html = `
             <div class="row g-2 mb-2 ingredient-row">
                 <div class="col-md-4">
-                    <input type="text" name="ingredients_list[${ingredientCount}][icon]" class="form-control" placeholder="Icon class (e.g. bi bi-circle)">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text px-2" style="width: 35px; justify-content: center;"><i class="bi bi-circle"></i></span>
+                        <input type="text" name="ingredients_list[${ingredientCount}][icon]" class="form-control px-2" placeholder="Icon class" value="bi bi-circle" oninput="this.previousElementSibling.querySelector('i').className = this.value || 'bi bi-question'">
+                        <select class="form-select px-1" style="max-width: 60px;" onchange="if(this.value){let inp = this.previousElementSibling; inp.value = this.value; inp.dispatchEvent(new Event('input')); this.value='';}">
+                            @include('admin.products.icon_options')
+                        </select>
+                    </div>
                 </div>
                 <div class="col-md-7">
                     <input type="text" name="ingredients_list[${ingredientCount}][name]" class="form-control" placeholder="Ingredient Name">
