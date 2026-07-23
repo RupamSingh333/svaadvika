@@ -5,9 +5,14 @@
 @section('meta_description', $product->meta_description ?: 'Buy ' . $product->name . '. ' . Str::limit(strip_tags($product->short_description), 150))
 
 @push('styles')
-    @if($product->schema_markup)
-        {!! $product->schema_markup !!}
-    @endif
+   @if(
+    !empty(trim($product->schema_markup ?? '')) &&
+    str_contains($product->schema_markup, 'application/ld+json')
+)
+    {!! $product->schema_markup !!}
+@endif
+
+    
     @php
         $keywords = $product->meta_keywords;
         if (!$keywords && !empty($product->ingredients_list)) {
@@ -114,7 +119,7 @@
               <article><i class="bi bi-shield-lock"></i><strong>Secure Payment</strong><small>100% secure checkout</small></article>
               <article><i class="bi bi-arrow-repeat"></i><strong>Easy Returns</strong><small>7 days return policy</small></article>
             </div>
-            <div class="inside-card">
+            <!-- <div class="inside-card">
               <div>
                 <h2>What&rsquo;s Inside the Kit?</h2>
                 <ul>
@@ -128,7 +133,7 @@
                 </ul>
               </div>
               <div class="inside-pack"></div>
-            </div>
+            </div> -->
           </aside>
         </section>
 

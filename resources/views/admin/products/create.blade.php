@@ -56,10 +56,10 @@
                                 <div id="videoPreviewContainer" class="mt-3" style="display: none; border-radius: 8px; overflow: hidden; background: #000; width: 100%; max-width: 500px;"></div>
                             </div>
 
-                            <hr class="my-4">
+                            <!-- <hr class="my-4"> -->
 
                             <!-- Kit Items -->
-                            <div class="mb-4">
+                            <!-- <div class="mb-4">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                     <label class="form-label fw-semibold mb-0">What's Inside the Kit?</label>
                                     <button type="button" class="btn btn-sm btn-outline-primary" onclick="addKitItem()">+ Add Item</button>
@@ -72,7 +72,7 @@
                                 </div>
                             </div>
 
-                            <hr class="my-4">
+                            <hr class="my-4"> -->
 
                             <!-- Features -->
                             <div class="mb-4">

@@ -5,9 +5,12 @@
 @section('meta_description', $recipe->meta_description ?: 'Learn how to make ' . $recipe->title . '. ' . Str::limit(strip_tags($recipe->short_description), 150))
 
 @push('styles')
-    @if($recipe->schema_markup)
-        {!! $recipe->schema_markup !!}
-    @endif
+    @if(
+    !empty(trim($recipe->schema_markup ?? '')) &&
+    str_contains($recipe->schema_markup, 'application/ld+json')
+)
+    {!! $recipe->schema_markup !!}
+@endif
     @php
         $keywords = $recipe->meta_keywords;
         if (!$keywords) {
@@ -101,8 +104,8 @@
             </div>
             
             <div class="row g-3 mb-4 text-muted">
-                <div class="col-6 col-md-4">
-                    <div class="d-flex align-items-center">
+                <div class="col-6 col-md-3">
+                    <div class="d-block align-items-center  text-center">
                         <i class="bi bi-clock fs-4 me-2 text-primary"></i>
                         <div>
                             <small class="d-block text-uppercase">Time</small>
@@ -110,8 +113,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-4">
-                    <div class="d-flex align-items-center">
+                <div class="col-6 col-md-3">
+                    <div class="d-block align-items-center  text-center">
                         <i class="bi bi-fire fs-4 me-2 text-danger"></i>
                         <div>
                             <small class="d-block text-uppercase">Spice</small>
@@ -119,8 +122,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-4">
-                    <div class="d-flex align-items-center">
+                <div class="col-6 col-md-3">
+                    <div class="d-block align-items-center  text-center">
                         <i class="bi bi-bar-chart fs-4 me-2 text-success"></i>
                         <div>
                             <small class="d-block text-uppercase">Difficulty</small>
@@ -128,8 +131,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-4">
-                    <div class="d-flex align-items-center">
+                <div class="col-6 col-md-3">
+                    <div class="d-block align-items-center text-center">
                         <i class="bi bi-egg-fried fs-4 me-2 text-warning"></i>
                         <div>
                             <small class="d-block text-uppercase">Diet</small>
@@ -138,33 +141,9 @@
                     </div>
                 </div>
             </div>
-
-            <div class="inside-card mt-5">
-              <div>
-                <h2>Ingredients</h2>
-                <ul style="padding-left: 1.5rem; line-height: 1.8;">
-                    @php
-                        $ingredientsList = explode(',', $recipe->ingredients ?? 'Premium spices, Basmati Rice, Ghee');
-                    @endphp
-                    @foreach($ingredientsList as $ingredient)
-                        <li>{{ trim($ingredient) }}</li>
-                    @endforeach
-                </ul>
-              </div>
-            </div>
-          </aside>
-        </section>
-
-        <section class="details-panel mt-5 pt-4 border-top">
-            <div class="row">
-                <div class="col-lg-8">
-                    <h2>Instructions</h2>
-                    <div class="recipe-instructions mt-4" style="line-height: 1.8; font-size: 1.1rem; color: var(--text-base);">
-                        {!! $recipe->description !!}
-                    </div>
-
-                    @if($recipe->youtube_url)
-                        <h2 class="mt-5">Video Guide</h2>
+@if($recipe->youtube_url)
+<div class="details-panel">
+                        <h2 >Video Guide</h2>
                         <div class="ratio ratio-16x9 mt-4" style="border-radius: var(--radius-xl); overflow: hidden;">
                             @php
                                 $videoUrl = $recipe->youtube_url;
@@ -185,7 +164,33 @@
                             <iframe src="{{ $embedUrl }}" title="YouTube video" allowfullscreen></iframe>
                         </div>
                     @endif
+</div>
+            
+          </aside>
+        </section>
+
+        <section class="details-panel mt-5 pt-4 border-top">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h2>Instructions</h2>
+                    <div class="recipe-instructions mt-4" style="line-height: 1.8; font-size: 1.1rem; color: var(--text-base);">
+                        {!! $recipe->description !!}
+                    </div>
                 </div>
+                <div class="col-lg-4">
+                     
+              <div>
+                <h2>Ingredients</h2>
+                <ul style="padding-left: 1.5rem; line-height: 1.8;">
+                    @php
+                        $ingredientsList = explode(',', $recipe->ingredients ?? 'Premium spices, Basmati Rice, Ghee');
+                    @endphp
+                    @foreach($ingredientsList as $ingredient)
+                        <li>{{ trim($ingredient) }}</li>
+                    @endforeach
+                </ul>
+              </div>
+            </div>
             </div>
         </section>
 
