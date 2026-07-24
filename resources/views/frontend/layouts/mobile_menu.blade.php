@@ -18,7 +18,7 @@
           <a href="{{ route('recipes') }}" data-bs-dismiss="offcanvas">Recipes</a>
           <a href="{{ route('contact') }}" data-bs-dismiss="offcanvas">Contact</a>
         </div>
-        <button class="theme-row theme-toggle" type="button"><i class="bi bi-moon-stars"></i><span>Switch theme</span></button>
+        <!-- <button class="theme-row theme-toggle" type="button"><i class="bi bi-moon-stars"></i><span>Switch theme</span></button> -->
         <!-- <a class="btn btn-gold w-100" href="#products" data-bs-dismiss="offcanvas">Shop Now</a> -->
         <div class="mobile-quick">
           @auth('customer')

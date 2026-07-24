@@ -1031,19 +1031,20 @@ blockquote {
 }
 
 .footer-brand {
-  margin-bottom: 24px;
+  margin-bottom: 0px;
 }
 
 .site-footer h3 {
   color: var(--gold);
   font: 700 0.82rem var(--font-button);
   text-transform: uppercase;
+  margin-bottom: 20px;
 }
 
 .site-footer a:not(.brand) {
   display: block;
   color: rgba(255, 255, 255, 0.78);
-  margin-bottom: 7px;
+  margin-bottom: 10px;
   font-size: 0.9rem;
 }
 
@@ -1077,7 +1078,7 @@ blockquote {
 }
 
 .footer-bottom {
-  margin-top: 44px;
+  margin-top: 0px;
   color: rgba(255, 255, 255, 0.72);
   font-size: 0.85rem;
 }
@@ -1093,15 +1094,17 @@ blockquote {
 }
 
 .float-whatsapp {
-  right: 22px;
-  bottom: 92px;
-  background: #25d366;
-  color: var(--white);
-  padding: 12px 18px;
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-  font: 700 0.86rem var(--font-button);
+ right: 22px;
+    bottom: 92px;
+    background: #25d366;
+    color: var(--white);
+    display: inline-flex;
+    align-items: center;
+    font-size: 50px;
+    height: 50px;
+    width: 50px;
+    flex-wrap: nowrap;
+    justify-content: space-around;
 }
 
 .float-call {
