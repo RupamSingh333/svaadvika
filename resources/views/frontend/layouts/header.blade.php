@@ -47,7 +47,7 @@
             <!-- <button class="icon-btn search-open" type="button" aria-label="Search" aria-haspopup="dialog"><i class="bi bi-search"></i></button> -->
             <!-- <a href="{{ Auth::guard('customer')->check() ? route('customer.dashboard').'#wishlist' : route('login') }}" class="icon-btn wishlist-btn" aria-label="Wishlist"><i class="bi bi-heart"></i><span class="wishlist-count-badge">{{ $wishlistCount }}</span></a> -->
             <a href="{{ route('cart') }}" class="icon-btn cart-btn" aria-label="Cart"><i class="bi bi-bag"></i><span class="cart-count-badge">{{ $cartCount }}</span></a>
-            <button class="icon-btn theme-toggle" type="button" aria-label="Toggle dark mode"><i class="bi bi-moon-stars"></i></button>
+            <!-- <button class="icon-btn theme-toggle" type="button" aria-label="Toggle dark mode"><i class="bi bi-moon-stars"></i></button> -->
             @auth('customer')
               <div class="dropdown d-inline-block ms-2">
                 <a href="#" class="btn btn-outline-light rounded-pill d-flex align-items-center gap-2 px-3 py-1" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Account">

@@ -313,12 +313,7 @@
           </div>
         </section>
 
-        <section class="details-feature-strip bottom">
-          <article><i class="bi bi-fire"></i><span><strong>Authentic Recipes</strong><small>Traditional flavours</small></span></article>
-          <article><i class="bi bi-basket2"></i><span><strong>Premium Ingredients</strong><small>Handpicked &amp; natural</small></span></article>
-          <article><i class="bi bi-box-seam"></i><span><strong>Secure Packaging</strong><small>Hygienic &amp; safe</small></span></article>
-          <article><i class="bi bi-flower1"></i><span><strong>Made in India</strong><small>Proudly Indian</small></span></article>
-        </section>
+   
       </div>
 </div>
 

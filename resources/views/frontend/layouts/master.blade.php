@@ -77,7 +77,7 @@
     <!-- Footer -->
     @include('frontend.layouts.footer')
 
-    <a class="float-whatsapp" href="https://wa.me/{{ $settings['whatsapp_number'] ?? '919999999999' }}" aria-label="Chat on WhatsApp"><i class="bi bi-whatsapp"></i><span>WhatsApp</span></a>
+    <a class="float-whatsapp" href="https://wa.me/{{ $settings['whatsapp_number'] ?? '919999999999' }}" aria-label="Chat on WhatsApp"><i class="bi bi-whatsapp"></i></a>
     <a class="float-call" href="tel:{{ $settings['contact_phone'] ?? '+919999999999' }}" aria-label="Call Svaadvika"><i class="bi bi-telephone"></i></a>
     <button class="back-top" type="button" aria-label="Back to top"><i class="bi bi-arrow-up"></i></button>
 
@@ -85,7 +85,7 @@
       <a class="{{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}"><i class="bi bi-house"></i><span>Home</span></a>
       <a href="{{ route('frontend.products') }}"><i class="bi bi-grid"></i><span>Products</span></a>
       <a class="shop" href="{{ route('frontend.products') }}"><i class="bi bi-bag"></i><span>Shop</span></a>
-      <a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '919999999999' }}"><i class="bi bi-whatsapp"></i><span>WhatsApp</span></a>
+      <a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '919999999999' }}"><i class="bi bi-whatsapp"></i></a>
       <a href="tel:{{ $settings['contact_phone'] ?? '+919999999999' }}"><i class="bi bi-telephone"></i><span>Call</span></a>
     </nav>
 
