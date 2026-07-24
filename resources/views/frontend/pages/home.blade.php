@@ -216,7 +216,7 @@
 <section class="social-section" id="blog">
   <div class="container-xl">
     <div class="row g-4 align-items-stretch">
-      <div class="col-lg-3">
+      <div class="col-lg-6">
         <div class="owl-carousel testimonial-slider">
 
           @forelse($testimonials as $testimonial)
@@ -273,7 +273,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-3">
+      <!-- <div class="col-lg-3">
         <form class="newsletter-card reveal-up" id="newsletterForm" novalidate>
           <p class="eyebrow">Join The Svaadvika Family</p>
           <h3>Get exclusive offers, recipes and more!</h3>
@@ -282,7 +282,7 @@
           <button class="btn btn-green w-100" type="submit">Subscribe Now <i class="bi bi-arrow-right"></i></button>
           <small class="form-message" role="status">We respect your privacy.</small>
         </form>
-      </div>
+      </div> -->
       <div class="col-lg-3">
         <aside class="service-list reveal-right" aria-label="Store benefits">
           <article><i class="bi bi-truck"></i><span><strong>Free Shipping</strong><small>On orders above ₹699</small></span></article>
