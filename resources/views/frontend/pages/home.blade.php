@@ -219,7 +219,8 @@
       <div class="col-lg-3">
         <div class="owl-carousel testimonial-slider">
 
-          @forelse($testimonials as $testimonial)
+        @if(isset($testimonials) && count($testimonials) > 0)
+          @foreach($testimonials as $testimonial)
           <article class="testimonial-card">
             <p class="eyebrow">What Our Customers Say</p>
 
@@ -244,18 +245,8 @@
                 <small>{{ $testimonial->designation }}</small>
             @endif
           </article>
-          @empty
-          <article class="testimonial-card">
-            <p class="eyebrow">What Our Customers Say</p>
-            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=240&q=85" alt="Customer Neha Sharma" loading="lazy">
-            <div class="rating text-start">
-              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            </div>
-            <blockquote>“The taste is just like my grandmother’s biryani. Absolutely love it!”</blockquote>
-            <strong>Neha Sharma</strong>
-            <small>Verified Purchase</small>
-          </article>
-          @endforelse
+          @endforeach
+        @endif
 
         </div>
 
