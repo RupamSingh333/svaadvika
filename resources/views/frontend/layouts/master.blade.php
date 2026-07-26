@@ -1,17 +1,53 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @if(request()->is('contact'))
+    <!-- Contact SEO -->
+    <title>Contact Svaadvika | Order Support, Wholesale & Franchise Enquiries</title>
+    <meta name="description" content="Get in touch with Svaadvika for order support, bulk/wholesale enquiries, or franchise opportunities. We reply within 24 hours. ISO & FSSAI certified food brand.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ url('/contact') }}">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('/contact') }}">
+    <meta property="og:title" content="Contact Svaadvika | Order Support & Enquiries">
+    <meta property="og:description" content="Order support, wholesale enquiries, or franchise interest — reach Svaadvika directly. We reply within 24 hours.">
+    <meta property="og:image" content="{{ asset('assets/images/og/contact-og.jpg') }}">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contact Svaadvika">
+    <meta name="twitter:description" content="Order support, wholesale enquiries, or franchise interest — reach us directly.">
+    <meta name="twitter:image" content="{{ asset('assets/images/og/contact-og.jpg') }}">
+    @elseif(request()->is('about'))
+    <!-- About SEO -->
+    <title>Our Story | Svaadvika - ISO & FSSAI Certified Indian Food Startup</title>
+    <meta name="description" content="Meet Svaadvika — a young, ISO certified, FSSAI licensed food startup on a mission to bring real Indian home-cooked flavour to your kitchen, minus the hours of prep.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ url('/about') }}">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('/about') }}">
+    <meta property="og:title" content="Our Story | Svaadvika - ISO & FSSAI Certified Indian Food Startup">
+    <meta property="og:description" content="A young food company built on real recipes and real certifications. ISO certified, FSSAI licensed, Startup India registered.">
+    <meta property="og:image" content="{{ asset('assets/images/og/about-og.jpg') }}">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Our Story | Svaadvika">
+    <meta name="twitter:description" content="A young food company built on real recipes and real certifications.">
+    <meta name="twitter:image" content="{{ asset('assets/images/og/about-og.jpg') }}">
+    @else
+    <!-- Default SEO -->
     <title>@yield('title', ($settings['site_name'] ?? 'Svaadvika') . ' | Premium Indian Ready-to-Cook Food')</title>
     <meta name="description" content="@yield('meta_description', $settings['site_description'] ?? 'Svaadvika brings authentic Indian biryani kits, marinades and premium recipes to modern family kitchens with restaurant-quality taste.')">
     <link rel="canonical" href="@yield('canonical_url', url()->current())">
-    
+    @endif
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -23,24 +59,25 @@
     <link href="{{ asset('frontend/assets/css/dark.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/assets/css/animations.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/assets/css/responsive.css') }}" rel="stylesheet">
-    
+
     @if(isset($settings['header_seo_content']))
-        {!! $settings['header_seo_content'] !!}
+    {!! $settings['header_seo_content'] !!}
     @endif
 
     @stack('styles')
-  </head>
-  <body class="@yield('body_class', 'home')">
-    
+</head>
+
+<body class="@yield('body_class', 'home')">
+
     <div class="page-loader" aria-hidden="true">
-      <div class="loader-mark">
-        @if(isset($settings['site_logo']) && $settings['site_logo'])
+        <div class="loader-mark">
+            @if(isset($settings['site_logo']) && $settings['site_logo'])
             <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="{{ $settings['site_name'] ?? 'Svaadvika' }}" style="height: 60px; margin-bottom: 15px; border-radius: 4px; animation: pulse 2s infinite;">
-        @else
+            @else
             <span>{{ substr($settings['site_name'] ?? 'S', 0, 1) }}</span>
-        @endif
-        <small>{{ $settings['site_name'] ?? 'Svaadvika' }}</small>
-      </div>
+            @endif
+            <small>{{ $settings['site_name'] ?? 'Svaadvika' }}</small>
+        </div>
     </div>
 
     <!-- Header -->
@@ -54,24 +91,24 @@
 
     <!-- Main Content -->
     <main>
-      @yield('content')
+        @yield('content')
     </main>
 
     <!-- Quick View Modal -->
     <div class="modal fade product-quick-modal" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          <div class="modal-body" id="quickViewBody"></div>
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-body" id="quickViewBody"></div>
+            </div>
         </div>
-      </div>
     </div>
 
     <!-- Cart Toast -->
     <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1080;">
-      <div id="cartToast" class="toast premium-toast" role="status" aria-live="polite" aria-atomic="true" data-bs-delay="2400">
-        <div class="toast-body"><i class="bi bi-check-circle-fill"></i><span>Added to cart successfully.</span></div>
-      </div>
+        <div id="cartToast" class="toast premium-toast" role="status" aria-live="polite" aria-atomic="true" data-bs-delay="2400">
+            <div class="toast-body"><i class="bi bi-check-circle-fill"></i><span>Added to cart successfully.</span></div>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -82,11 +119,11 @@
     <button class="back-top" type="button" aria-label="Back to top"><i class="bi bi-arrow-up"></i></button>
 
     <nav class="mobile-bottom" aria-label="Mobile quick navigation">
-      <a class="{{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}"><i class="bi bi-house"></i><span>Home</span></a>
-      <a href="{{ route('frontend.products') }}"><i class="bi bi-grid"></i><span>Products</span></a>
-      <a class="shop" href="{{ route('frontend.products') }}"><i class="bi bi-bag"></i><span>Shop</span></a>
-      <a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '919999999999' }}"><i class="bi bi-whatsapp"></i></a>
-      <a href="tel:{{ $settings['contact_phone'] ?? '+919999999999' }}"><i class="bi bi-telephone"></i><span>Call</span></a>
+        <a class="{{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}"><i class="bi bi-house"></i><span>Home</span></a>
+        <a href="{{ route('frontend.products') }}"><i class="bi bi-grid"></i><span>Products</span></a>
+        <a class="shop" href="{{ route('frontend.products') }}"><i class="bi bi-bag"></i><span>Shop</span></a>
+        <a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '919999999999' }}"><i class="bi bi-whatsapp"></i></a>
+        <a href="tel:{{ $settings['contact_phone'] ?? '+919999999999' }}"><i class="bi bi-telephone"></i><span>Call</span></a>
     </nav>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -132,7 +169,7 @@
             });
         }
     </script>
-    
+
     <script src="{{ asset('frontend/assets/js/theme.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/slider.js') }}"></script>
     <script src="{{ asset('frontend/assets/js/mobile.js') }}"></script>
@@ -143,48 +180,49 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script>
-      $('.testimonial-slider').owlCarousel({
-    loop: true,
-    margin: 30,
-    nav: false,
-    dots: false,
-    autoplay: true,
-    autoplayTimeout: 4000,
-    autoplayHoverPause: true,
-    smartSpeed: 800,
-    responsive: {
-        0: {
-            items: 1
-        },
-        768: {
-            items: 1
-        },
-        1200: {
-            items: 1
-        }
-    }
-});
-    </script>
-    
-        <script >
-        // Global Input Validation
-        document.addEventListener('input', function (e) {
-                if (e.target.tagName !== 'INPUT') return;
-
-                const name = e.target.getAttribute('name');
-                const type = e.target.getAttribute('type');
-
-                // 1. Numeric Fields (Phone / Zip)
-                if (['phone', 'mobile', 'phoneNumber', 'postal_code', 'zipcode', 'zip'].includes(name)) {
-                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+        $('.testimonial-slider').owlCarousel({
+            loop: true,
+            margin: 30,
+            nav: false,
+            dots: false,
+            autoplay: true,
+            autoplayTimeout: 4000,
+            autoplayHoverPause: true,
+            smartSpeed: 800,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                768: {
+                    items: 1
+                },
+                1200: {
+                    items: 1
                 }
-
-                // 2. Email Fields (Checks name OR type attribute)
-                if (name == 'email' || type == 'email') {
-                    // Safe regex: Allows letters, numbers, @, periods, underscores, hyphens, and plus signs
-                    e.target.value = e.target.value.replace(/[^a-zA-Z0-9@._+-]/g, '');
-                }
+            }
         });
-        </script>
-  </body>
+    </script>
+
+    <script>
+        // Global Input Validation
+        document.addEventListener('input', function(e) {
+            if (e.target.tagName !== 'INPUT') return;
+
+            const name = e.target.getAttribute('name');
+            const type = e.target.getAttribute('type');
+
+            // 1. Numeric Fields (Phone / Zip)
+            if (['phone', 'mobile', 'phoneNumber', 'postal_code', 'zipcode', 'zip'].includes(name)) {
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+            }
+
+            // 2. Email Fields (Checks name OR type attribute)
+            if (name == 'email' || type == 'email') {
+                // Safe regex: Allows letters, numbers, @, periods, underscores, hyphens, and plus signs
+                e.target.value = e.target.value.replace(/[^a-zA-Z0-9@._+-]/g, '');
+            }
+        });
+    </script>
+</body>
+
 </html>
