@@ -254,7 +254,7 @@
             <h2 id="quickViewTitle">${product.title}</h2>
             <div class="catalog-rating">${stars(product.rating)}<small>(${product.reviews} reviews)</small></div>
             <div class="price-line"><strong>${rupee(product.price)}</strong><del>${rupee(product.oldPrice)}</del><span>${product.discount}</span></div>
-            <p>${product.description}</p>
+            ${product.description ? `<p>${product.description}</p>` : ''}
             <ul><li>Ingredients: ${product.ingredients}</li><li>Weight: ${product.weight}</li><li>Status: ${product.stock ? "In stock" : "Out of Stock"}</li></ul>
             <div class="quick-view-actions">
                <button class="icon-btn wishlist-active-state d-none" type="button" data-wishlist="${product.id}" aria-label="Toggle ${product.title} wishlist"><i class="bi bi-heart"></i></button>
@@ -360,7 +360,7 @@
             <div class="catalog-meta"><span class="catalog-category">${labelFor(product.category)}</span><span class="stock-pill ${!product.stock ? 'bg-danger text-white border-danger' : ''}">${product.stock ? "In Stock" : "Out of Stock"}</span></div>
             <h3><a href="/product/${product.id}">${highlight(product.title)}</a></h3>
             <div class="catalog-rating">${stars(product.rating)}<small>(${product.reviews})</small></div>
-            <p>${highlight(product.description)}</p>
+            ${product.description ? `<p>${highlight(product.description)}</p>` : ''}
             <div class="price-line"><strong>${rupee(product.price)}</strong><del>${rupee(product.oldPrice)}</del><span>${product.discount} Off</span></div>
             <div class="catalog-actions">
               <div class="qty-control"><button type="button" data-qty-minus>-</button><span>1</span><button type="button" data-qty-plus>+</button></div>
