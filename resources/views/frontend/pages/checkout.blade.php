@@ -326,7 +326,7 @@
                     <!-- Coupon Code -->
                     <div class="coupon-box mb-4">
                         <div class="input-group">
-                            <input type="text" id="coupon_code" class="form-control" placeholder="Enter Coupon Code" 
+                            <input type="text" id="coupon_code" class="form-control" placeholder="Enter Coupon Code" oninput="this.value = this.value.toUpperCase();"
                                    value="{{ session('applied_coupon_code', '') }}"
                                    {{ session('applied_coupon_id') ? 'readonly' : '' }}>
                             <button class="btn btn-dark" type="button" id="apply_coupon_btn" 
@@ -374,9 +374,9 @@
 
                         </div>
 
-                        <div class="summary-item">
+                        <div class="summary-item" id="summaryDiscountRow" style="{{ (isset($discountAmount) && $discountAmount > 0) ? '' : 'display: none;' }}">
                             <span>Discount</span>
-                            <strong id="summaryDiscount" class="text-success">- ₹0</strong>
+                            <strong id="summaryDiscount" class="text-success">- ₹{{ number_format(round($discountAmount ?? 0), 0) }}</strong>
                         </div>
 
                         <div class="summary-item total">
@@ -588,7 +588,15 @@
             // Update DOM
             document.getElementById('summarySubtotal').innerHTML = "₹" + formatNumber(subtotal);
             document.getElementById('summaryTax').innerHTML = "₹" + formatNumber(tax);
-            document.getElementById('summaryDiscount').innerHTML = "- ₹" + formatNumber(discount);
+            const discountRow = document.getElementById('summaryDiscountRow');
+            if (discountRow) {
+                if (discount > 0) {
+                    discountRow.style.display = 'flex';
+                    document.getElementById('summaryDiscount').innerHTML = "- ₹" + formatNumber(discount);
+                } else {
+                    discountRow.style.display = 'none';
+                }
+            }
             
             if (deliveryCharge === 0) {
                 document.getElementById('summaryShipping').innerHTML = "Free";

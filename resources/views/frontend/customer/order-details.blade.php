@@ -16,6 +16,7 @@
     }
     body.dark-mode .table td {
         border-color: var(--border, rgba(200, 155, 35, 0.28)) !important;
+        background-color: var(--cream-2, #12241a) !important;
     }
     body.dark-mode .text-muted {
         color: var(--muted, #d9d9d9) !important;
@@ -24,6 +25,7 @@
 <section class="contactmain-contact-hero">
     <div class="container-xl">
         <div class="contact-hero-copy reveal-up">
+            <h1 class="display-4 fw-bold mb-3 text-white">Order Details</h1>
             <nav class="breadcrumb-nav" aria-label="Breadcrumb">
                 <a href="{{ route('home') }}">Home</a>
                 <i class="bi bi-chevron-right"></i>
