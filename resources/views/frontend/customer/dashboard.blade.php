@@ -5,7 +5,7 @@
 
 @section('content')
 <style>
-    body.dark-mode .dashboard-sidebar, body.dark-mode .info-card, body.dark-mode .content-card, body.dark-mode .wishlist-card {
+    body.dark-mode .dashboard-sidebar, body.dark-mode .dashboard-page, body.dark-mode .info-card, body.dark-mode .content-card, body.dark-mode .wishlist-card {
         background-color: var(--cream-2, #12241a) !important;
         border-color: var(--border, rgba(200, 155, 35, 0.28)) !important;
         color: var(--text, #ffffff) !important;
@@ -21,6 +21,9 @@
     body.dark-mode .dashboard-section strong,
     body.dark-mode .dashboard-section span {
         color: #ffffff;
+    }
+    body.dark-mode .dashboard-section {
+        background-color: transparent !important;
     }
     body.dark-mode .dashboard-menu a { color: var(--text, #ffffff) !important; }
     body.dark-mode .dashboard-menu a:hover, body.dark-mode .dashboard-menu a.active { background: rgba(255,255,255,0.1); color: #c89b23 !important; }
@@ -38,11 +41,21 @@
     body.dark-mode .text-muted { color: var(--muted, #d9d9d9) !important; }
     
     /* Table styles */
-    body.dark-mode .table { border-color: var(--border, rgba(200, 155, 35, 0.28)) !important; }
-    body.dark-mode .table td { border-color: var(--border, rgba(200, 155, 35, 0.28)) !important; }
+    body.dark-mode .table { border-color: var(--border, rgba(200, 155, 35, 0.28)) !important; background-color: var(--cream-2, #12241a) !important; }
+    body.dark-mode .table td, body.dark-mode .table th { border-color: var(--border, rgba(200, 155, 35, 0.28)) !important; background-color: var(--cream-2, #12241a) !important; color: #ffffff !important; }
+    body.dark-mode .table-hover tbody tr:hover td { background-color: rgba(255, 255, 255, 0.1) !important; }
     
     body.dark-mode .btn-close { filter: invert(1) grayscale(100%) brightness(200%); }
     body.dark-mode .offcanvas { background-color: var(--cream-2, #12241a) !important; color: #fff !important; }
+    
+    body.dark-mode .dashboard-section .btn-outline-dark {
+        color: #ffffff !important;
+        border-color: #ffffff !important;
+    }
+    body.dark-mode .dashboard-section .btn-outline-dark:hover {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+    }
 </style>
 <section class="contactmain-contact-hero">
     <div class="container-xl">

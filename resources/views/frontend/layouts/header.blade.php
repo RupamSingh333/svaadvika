@@ -1,4 +1,57 @@
     <header class="site-header fixed-top" id="siteHeader">
+      <style>
+        .cart-btn {
+          position: relative;
+        }
+        .cart-count-badge {
+          position: absolute;
+          top: 0;
+          right: 0;
+          background: #c89b23;
+          color: #fff;
+          font-size: 11px;
+          font-weight: bold;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 2px solid transparent;
+        }
+        .site-header.scrolled .cart-count-badge {
+          border-color: #fff;
+        }
+        body.dark-mode .site-header.scrolled .cart-count-badge {
+          border-color: #08140e;
+        }
+        
+        .account-btn {
+          background: rgba(255, 255, 255, 0.1);
+          color: #ffffff;
+          border-radius: 30px;
+          text-decoration: none;
+          transition: all 0.3s ease;
+          border: 1px solid transparent;
+        }
+        .account-btn:hover {
+          background: rgba(255, 255, 255, 0.2);
+          color: #ffffff;
+        }
+        .site-header.scrolled .account-btn {
+          background: rgba(0, 0, 0, 0.05);
+          color: #12241A;
+        }
+        .site-header.scrolled .account-btn:hover {
+          background: rgba(0, 0, 0, 0.1);
+          color: #12241A;
+        }
+        body.dark-mode .site-header.scrolled .account-btn,
+        body.dark-mode .site-header .account-btn {
+          background: rgba(255, 255, 255, 0.1);
+          color: #fff;
+        }
+      </style>
       <nav class="navbar navbar-expand-xl" aria-label="Primary navigation">
         <div class="container-xl">
           <a class="brand" href="{{ route('home') }}" aria-label="{{ $settings['site_name'] ?? 'Svaadvika' }} home">
@@ -50,7 +103,7 @@
             <!-- <button class="icon-btn theme-toggle" type="button" aria-label="Toggle dark mode"><i class="bi bi-moon-stars"></i></button> -->
             @auth('customer')
               <div class="dropdown d-inline-block ms-2">
-                <a href="#" class="btn btn-outline-light rounded-pill d-flex align-items-center gap-2 px-3 py-1" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Account">
+                <a href="#" class="account-btn d-flex align-items-center gap-2 px-3 py-1" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Account">
                   @if(Auth::guard('customer')->user()->image)
                     <img src="{{ asset('storage/' . Auth::guard('customer')->user()->image) }}" alt="Profile" class="rounded-circle" style="width: 24px; height: 24px; object-fit: cover;">
                   @else

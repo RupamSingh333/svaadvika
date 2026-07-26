@@ -5,6 +5,9 @@
     body.dark-mode .dashboard-section, body.dark-mode .dashboard-section * {
         color: #ffffff;
     }
+    body.dark-mode .dashboard-section {
+        background-color: transparent !important;
+    }
     body.dark-mode .card, body.dark-mode .list-group-item {
         background-color: var(--cream-2, #12241a) !important;
         border-color: var(--border, rgba(200, 155, 35, 0.28)) !important;
