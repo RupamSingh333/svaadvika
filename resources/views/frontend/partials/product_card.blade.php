@@ -41,7 +41,10 @@
           @endfor
           <small>({{ $reviewsCount }})</small>
       </div>
-      <p>{{ $product->short_description ?? '' }}</p>
+      @if($product->short_description)
+        <p>{{ Str::words(strip_tags($product->short_description), 20, '...') }}</p>
+      @endif
+          
       <div class="price-line">
           <strong>₹{{ (float)($product->sale_price ?? $product->price) }}</strong>
           @if($product->sale_price && $product->price > $product->sale_price)

@@ -176,7 +176,7 @@
     <script src="{{ asset('frontend/assets/js/animation.js') }}"></script>
     @stack('before_scripts')
     @stack('scripts')
-    <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
+    <script src="{{ asset('frontend/assets/js/main.js?v=3') }}"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script>

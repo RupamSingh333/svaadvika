@@ -98,9 +98,7 @@
                                             <div class="input-group input-group-sm">
                                                 <span class="input-group-text px-2" style="width: 35px; justify-content: center;"><i class="{{ $feature['icon'] ?? 'bi bi-fire' }}"></i></span>
                                                 <input type="text" name="features[{{ $featureCount }}][icon]" class="form-control px-2" placeholder="Icon class" value="{{ $feature['icon'] ?? '' }}" oninput="this.previousElementSibling.querySelector('i').className = this.value || 'bi bi-question'">
-                                                <select class="form-select px-1" style="max-width: 60px;" onchange="if(this.value){let inp = this.previousElementSibling; inp.value = this.value; inp.dispatchEvent(new Event('input')); this.value='';}">
-                                                    @include('admin.products.icon_options')
-                                                </select>
+                                                <button class="btn btn-outline-secondary px-2" type="button" onclick="openIconModal(this.previousElementSibling)" title="Choose Icon"><i class="bi bi-grid-3x3-gap"></i></button>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -121,9 +119,7 @@
                                             <div class="input-group input-group-sm">
                                                 <span class="input-group-text px-2" style="width: 35px; justify-content: center;"><i class="bi bi-fire"></i></span>
                                                 <input type="text" name="features[0][icon]" class="form-control px-2" placeholder="Icon class" value="bi bi-fire" oninput="this.previousElementSibling.querySelector('i').className = this.value || 'bi bi-question'">
-                                                <select class="form-select px-1" style="max-width: 60px;" onchange="if(this.value){let inp = this.previousElementSibling; inp.value = this.value; inp.dispatchEvent(new Event('input')); this.value='';}">
-                                                    @include('admin.products.icon_options')
-                                                </select>
+                                                <button class="btn btn-outline-secondary px-2" type="button" onclick="openIconModal(this.previousElementSibling)" title="Choose Icon"><i class="bi bi-grid-3x3-gap"></i></button>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -156,9 +152,7 @@
                                             <div class="input-group input-group-sm">
                                                 <span class="input-group-text px-2" style="width: 35px; justify-content: center;"><i class="{{ $ingredient['icon'] ?? 'bi bi-circle' }}"></i></span>
                                                 <input type="text" name="ingredients_list[{{ $ingredientCount }}][icon]" class="form-control px-2" placeholder="Icon class" value="{{ $ingredient['icon'] ?? '' }}" oninput="this.previousElementSibling.querySelector('i').className = this.value || 'bi bi-question'">
-                                                <select class="form-select px-1" style="max-width: 60px;" onchange="if(this.value){let inp = this.previousElementSibling; inp.value = this.value; inp.dispatchEvent(new Event('input')); this.value='';}">
-                                                    @include('admin.products.icon_options')
-                                                </select>
+                                                <button class="btn btn-outline-secondary px-2" type="button" onclick="openIconModal(this.previousElementSibling)" title="Choose Icon"><i class="bi bi-grid-3x3-gap"></i></button>
                                             </div>
                                         </div>
                                         <div class="col-md-7">
@@ -176,9 +170,7 @@
                                             <div class="input-group input-group-sm">
                                                 <span class="input-group-text px-2" style="width: 35px; justify-content: center;"><i class="bi bi-circle"></i></span>
                                                 <input type="text" name="ingredients_list[0][icon]" class="form-control px-2" placeholder="Icon class" value="bi bi-circle" oninput="this.previousElementSibling.querySelector('i').className = this.value || 'bi bi-question'">
-                                                <select class="form-select px-1" style="max-width: 60px;" onchange="if(this.value){let inp = this.previousElementSibling; inp.value = this.value; inp.dispatchEvent(new Event('input')); this.value='';}">
-                                                    @include('admin.products.icon_options')
-                                                </select>
+                                                <button class="btn btn-outline-secondary px-2" type="button" onclick="openIconModal(this.previousElementSibling)" title="Choose Icon"><i class="bi bi-grid-3x3-gap"></i></button>
                                             </div>
                                         </div>
                                         <div class="col-md-7">
@@ -248,9 +240,7 @@
                                             <div class="input-group input-group-sm">
                                                 <span class="input-group-text px-2" style="width: 35px; justify-content: center;"><i class="{{ $step['icon'] ?? 'bi bi-hand-index' }}"></i></span>
                                                 <input type="text" name="cooking_steps[{{ $cookingStepCount }}][icon]" class="form-control px-2" placeholder="Icon class" value="{{ $step['icon'] ?? '' }}" oninput="this.previousElementSibling.querySelector('i').className = this.value || 'bi bi-question'">
-                                                <select class="form-select px-1" style="max-width: 60px;" onchange="if(this.value){let inp = this.previousElementSibling; inp.value = this.value; inp.dispatchEvent(new Event('input')); this.value='';}">
-                                                    @include('admin.products.icon_options')
-                                                </select>
+                                                <button class="btn btn-outline-secondary px-2" type="button" onclick="openIconModal(this.previousElementSibling)" title="Choose Icon"><i class="bi bi-grid-3x3-gap"></i></button>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -271,9 +261,7 @@
                                             <div class="input-group input-group-sm">
                                                 <span class="input-group-text px-2" style="width: 35px; justify-content: center;"><i class="bi bi-hand-index"></i></span>
                                                 <input type="text" name="cooking_steps[0][icon]" class="form-control px-2" placeholder="Icon class" value="bi bi-hand-index" oninput="this.previousElementSibling.querySelector('i').className = this.value || 'bi bi-question'">
-                                                <select class="form-select px-1" style="max-width: 60px;" onchange="if(this.value){let inp = this.previousElementSibling; inp.value = this.value; inp.dispatchEvent(new Event('input')); this.value='';}">
-                                                    @include('admin.products.icon_options')
-                                                </select>
+                                                <button class="btn btn-outline-secondary px-2" type="button" onclick="openIconModal(this.previousElementSibling)" title="Choose Icon"><i class="bi bi-grid-3x3-gap"></i></button>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -526,9 +514,70 @@
 </form>
 @endforeach
 
+
+<!-- Icon Chooser Modal -->
+<div class="modal fade" id="iconModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Choose an Icon</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="iconSearch" class="form-control mb-3" placeholder="Search icons...">
+                <div class="row g-2" id="iconGrid">
+                    <!-- Icons will be injected here via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @push('scripts')
+
+<script>
+    let currentIconTarget = null;
+    const icons = [
+        'bi-activity', 'bi-alarm', 'bi-align-center', 'bi-align-left', 'bi-align-right', 'bi-archive', 'bi-arrow-clockwise', 'bi-arrow-counterclockwise', 'bi-arrow-down', 'bi-arrow-down-circle', 'bi-arrow-down-square', 'bi-arrow-left', 'bi-arrow-left-circle', 'bi-arrow-left-square', 'bi-arrow-right', 'bi-arrow-right-circle', 'bi-arrow-right-square', 'bi-arrow-up', 'bi-arrow-up-circle', 'bi-arrow-up-square', 'bi-arrows-angle-contract', 'bi-arrows-angle-expand', 'bi-arrows-collapse', 'bi-arrows-expand', 'bi-arrows-fullscreen', 'bi-arrows-move', 'bi-aspect-ratio', 'bi-asterisk', 'bi-at', 'bi-award', 'bi-backspace', 'bi-bag', 'bi-bag-check', 'bi-bag-dash', 'bi-bag-plus', 'bi-bag-x', 'bi-bandaid', 'bi-bank', 'bi-bar-chart', 'bi-bar-chart-line', 'bi-bar-chart-steps', 'bi-basket', 'bi-basket2', 'bi-basket3', 'bi-battery', 'bi-battery-charging', 'bi-battery-full', 'bi-battery-half', 'bi-bell', 'bi-bicycle', 'bi-binoculars', 'bi-book', 'bi-book-half', 'bi-bookmark', 'bi-bookmark-check', 'bi-bookmark-dash', 'bi-bookmark-heart', 'bi-bookmark-plus', 'bi-bookmark-star', 'bi-bookmark-x', 'bi-bookmarks', 'bi-bookshelf', 'bi-bootstrap', 'bi-border-all', 'bi-box', 'bi-box-seam', 'bi-braces', 'bi-bricks', 'bi-briefcase', 'bi-brightness-alt-high', 'bi-brightness-alt-low', 'bi-brightness-high', 'bi-brightness-low', 'bi-brush', 'bi-bucket', 'bi-bug', 'bi-building', 'bi-bullseye', 'bi-calculator', 'bi-calendar', 'bi-calendar-check', 'bi-calendar-date', 'bi-calendar-day', 'bi-calendar-event', 'bi-calendar-minus', 'bi-calendar-month', 'bi-calendar-plus', 'bi-calendar-range', 'bi-calendar-week', 'bi-calendar-x', 'bi-camera', 'bi-camera-video', 'bi-camera-video-off', 'bi-capslock', 'bi-card-checklist', 'bi-card-heading', 'bi-card-image', 'bi-card-list', 'bi-card-text', 'bi-caret-down', 'bi-caret-left', 'bi-caret-right', 'bi-caret-up', 'bi-cart', 'bi-cart-check', 'bi-cart-dash', 'bi-cart-plus', 'bi-cart-x', 'bi-cart2', 'bi-cart3', 'bi-cart4', 'bi-cash', 'bi-cash-stack', 'bi-cast', 'bi-chat', 'bi-chat-dots', 'bi-chat-left', 'bi-chat-right', 'bi-chat-square', 'bi-chat-text', 'bi-check', 'bi-check-all', 'bi-check-circle', 'bi-check-square', 'bi-chevron-down', 'bi-chevron-expand', 'bi-chevron-left', 'bi-chevron-right', 'bi-chevron-up', 'bi-circle', 'bi-circle-half', 'bi-circle-square', 'bi-clipboard', 'bi-clipboard-check', 'bi-clipboard-data', 'bi-clipboard-minus', 'bi-clipboard-plus', 'bi-clipboard-x', 'bi-clock', 'bi-clock-history', 'bi-cloud', 'bi-cloud-arrow-down', 'bi-cloud-arrow-up', 'bi-cloud-check', 'bi-cloud-download', 'bi-cloud-drizzle', 'bi-cloud-fog', 'bi-cloud-hail', 'bi-cloud-haze', 'bi-cloud-lightning', 'bi-cloud-moon', 'bi-cloud-plus', 'bi-cloud-rain', 'bi-cloud-slash', 'bi-cloud-sleet', 'bi-cloud-snow', 'bi-cloud-sun', 'bi-cloud-upload', 'bi-code', 'bi-code-slash', 'bi-code-square', 'bi-collection', 'bi-collection-play', 'bi-columns', 'bi-columns-gap', 'bi-command', 'bi-compass', 'bi-cone', 'bi-controller', 'bi-cpu', 'bi-credit-card', 'bi-crop', 'bi-cup', 'bi-cup-hot', 'bi-cursor', 'bi-dash', 'bi-dash-circle', 'bi-dash-square', 'bi-diamond', 'bi-display', 'bi-door-closed', 'bi-door-open', 'bi-download', 'bi-droplet', 'bi-droplet-half', 'bi-earbuds', 'bi-easel', 'bi-egg', 'bi-egg-fried', 'bi-eject', 'bi-envelope', 'bi-envelope-open', 'bi-eraser', 'bi-exclamation', 'bi-exclamation-circle', 'bi-exclamation-diamond', 'bi-exclamation-triangle', 'bi-eye', 'bi-eye-slash', 'bi-eyedropper', 'bi-eyeglasses', 'bi-facebook', 'bi-file', 'bi-file-earmark', 'bi-file-earmark-code', 'bi-file-earmark-image', 'bi-file-earmark-music', 'bi-file-earmark-pdf', 'bi-file-earmark-play', 'bi-file-earmark-text', 'bi-file-earmark-zip', 'bi-files', 'bi-film', 'bi-filter', 'bi-filter-circle', 'bi-flag', 'bi-flower1', 'bi-flower2', 'bi-flower3', 'bi-folder', 'bi-folder-check', 'bi-folder-minus', 'bi-folder-plus', 'bi-folder-symlink', 'bi-folder-x', 'bi-forward', 'bi-fullscreen', 'bi-fullscreen-exit', 'bi-funnel', 'bi-gear', 'bi-gem', 'bi-geo', 'bi-geo-alt', 'bi-gift', 'bi-github', 'bi-globe', 'bi-globe2', 'bi-google', 'bi-graph-down', 'bi-graph-up', 'bi-grid', 'bi-grid-1x2', 'bi-grid-3x2', 'bi-grid-3x3', 'bi-grid-3x3-gap', 'bi-grip-horizontal', 'bi-grip-vertical', 'bi-hammer', 'bi-hand-index', 'bi-hand-thumbs-down', 'bi-hand-thumbs-up', 'bi-handbag', 'bi-hash', 'bi-hdd', 'bi-headphones', 'bi-headset', 'bi-heart', 'bi-heart-half', 'bi-heart-pulse', 'bi-hexagon', 'bi-hexagon-half', 'bi-hourglass', 'bi-house', 'bi-house-door', 'bi-hr', 'bi-image', 'bi-images', 'bi-inbox', 'bi-inboxes', 'bi-info', 'bi-info-circle', 'bi-info-square', 'bi-input-cursor', 'bi-input-cursor-text', 'bi-instagram', 'bi-intersect', 'bi-journal', 'bi-journal-check', 'bi-journal-code', 'bi-journal-text', 'bi-journal-x', 'bi-journals', 'bi-joystick', 'bi-justify', 'bi-justify-left', 'bi-justify-right', 'bi-key', 'bi-keyboard', 'bi-ladder', 'bi-lamp', 'bi-laptop', 'bi-layers', 'bi-life-preserver', 'bi-lightbulb', 'bi-lightbulb-off', 'bi-lightning', 'bi-link', 'bi-link-45deg', 'bi-linkedin', 'bi-list', 'bi-list-check', 'bi-list-ol', 'bi-list-task', 'bi-list-ul', 'bi-lock', 'bi-map', 'bi-markdown', 'bi-mask', 'bi-megaphone', 'bi-menu-app', 'bi-menu-button', 'bi-menu-down', 'bi-menu-up', 'bi-mic', 'bi-mic-mute', 'bi-moon', 'bi-mouse', 'bi-music-note', 'bi-newspaper', 'bi-nut', 'bi-octagon', 'bi-option', 'bi-outlet', 'bi-paint-bucket', 'bi-palette', 'bi-paperclip', 'bi-paragraph', 'bi-patch-check', 'bi-patch-exclamation', 'bi-patch-question', 'bi-pause', 'bi-pause-circle', 'bi-peace', 'bi-pen', 'bi-pencil', 'bi-pencil-square', 'bi-pentagon', 'bi-people', 'bi-percent', 'bi-person', 'bi-person-badge', 'bi-person-check', 'bi-person-circle', 'bi-person-plus', 'bi-person-x', 'bi-phone', 'bi-pie-chart', 'bi-pin', 'bi-pin-map', 'bi-play', 'bi-play-circle', 'bi-plug', 'bi-plus', 'bi-plus-circle', 'bi-plus-square', 'bi-power', 'bi-printer', 'bi-puzzle', 'bi-question', 'bi-question-circle', 'bi-receipt', 'bi-record-circle', 'bi-reply', 'bi-reply-all', 'bi-rss', 'bi-rulers', 'bi-safe', 'bi-save', 'bi-scissors', 'bi-search', 'bi-server', 'bi-share', 'bi-shield', 'bi-shield-check', 'bi-shield-lock', 'bi-shield-slash', 'bi-shield-x', 'bi-shift', 'bi-shop', 'bi-shuffle', 'bi-signpost', 'bi-skip-backward', 'bi-skip-end', 'bi-skip-forward', 'bi-skip-start', 'bi-slack', 'bi-slash', 'bi-slash-circle', 'bi-slash-square', 'bi-sliders', 'bi-smartwatch', 'bi-snow', 'bi-sort-alpha-down', 'bi-sort-alpha-up', 'bi-sort-down', 'bi-sort-numeric-down', 'bi-sort-numeric-up', 'bi-sort-up', 'bi-soundwave', 'bi-speaker', 'bi-speedometer', 'bi-speedometer2', 'bi-spellcheck', 'bi-square', 'bi-square-half', 'bi-star', 'bi-star-half', 'bi-stars', 'bi-stickies', 'bi-sticky', 'bi-stop', 'bi-stop-circle', 'bi-stopwatch', 'bi-subtract', 'bi-suit-club', 'bi-suit-diamond', 'bi-suit-heart', 'bi-suit-spade', 'bi-sun', 'bi-sunglasses', 'bi-symmetry-horizontal', 'bi-symmetry-vertical', 'bi-table', 'bi-tablet', 'bi-tag', 'bi-tags', 'bi-telegram', 'bi-telephone', 'bi-telephone-forward', 'bi-telephone-inbound', 'bi-telephone-minus', 'bi-telephone-outbound', 'bi-telephone-plus', 'bi-telephone-x', 'bi-terminal', 'bi-text-center', 'bi-text-left', 'bi-text-paragraph', 'bi-text-right', 'bi-textarea', 'bi-thermometer', 'bi-thermometer-half', 'bi-thermometer-high', 'bi-thermometer-low', 'bi-thermometer-snow', 'bi-thermometer-sun', 'bi-three-dots', 'bi-three-dots-vertical', 'bi-toggle-off', 'bi-toggle-on', 'bi-toggles', 'bi-tools', 'bi-tornado', 'bi-trash', 'bi-tree', 'bi-triangle', 'bi-triangle-half', 'bi-trophy', 'bi-tropical-storm', 'bi-truck', 'bi-tsunami', 'bi-tv', 'bi-twitch', 'bi-twitter', 'bi-type', 'bi-type-bold', 'bi-type-h1', 'bi-type-h2', 'bi-type-h3', 'bi-type-italic', 'bi-type-strikethrough', 'bi-type-underline', 'bi-ui-checks', 'bi-umbrella', 'bi-unlock', 'bi-upload', 'bi-vector-pen', 'bi-view-list', 'bi-view-stacked', 'bi-voicemail', 'bi-volume-down', 'bi-volume-mute', 'bi-volume-off', 'bi-volume-up', 'bi-wallet', 'bi-watch', 'bi-water', 'bi-whatsapp', 'bi-wifi', 'bi-wifi-off', 'bi-wind', 'bi-window', 'bi-wrench', 'bi-x', 'bi-x-circle', 'bi-x-diamond', 'bi-x-octagon', 'bi-x-square', 'bi-youtube', 'bi-zoom-in', 'bi-zoom-out'
+    ];
+
+    function openIconModal(targetInput) {
+        currentIconTarget = targetInput;
+        renderIcons(icons);
+        const iconModal = new bootstrap.Modal(document.getElementById('iconModal'));
+        iconModal.show();
+    }
+
+    function renderIcons(iconList) {
+        const grid = document.getElementById('iconGrid');
+        grid.innerHTML = '';
+        iconList.forEach(icon => {
+            const col = document.createElement('div');
+            col.className = 'col-2 col-md-1 text-center mb-3';
+            col.innerHTML = `<div class="p-2 border rounded icon-option" style="cursor:pointer; font-size: 1.5rem;" onclick="selectIcon('bi ${icon}')" title="${icon}">
+                                <i class="bi ${icon}"></i>
+                             </div>`;
+            grid.appendChild(col);
+        });
+    }
+
+    function selectIcon(iconClass) {
+        if (currentIconTarget) {
+            currentIconTarget.value = iconClass;
+            currentIconTarget.dispatchEvent(new Event('input'));
+        }
+        bootstrap.Modal.getInstance(document.getElementById('iconModal')).hide();
+    }
+
+    document.getElementById('iconSearch').addEventListener('input', function(e) {
+        const term = e.target.value.toLowerCase();
+        const filtered = icons.filter(icon => icon.toLowerCase().includes(term));
+        renderIcons(filtered);
+    });
+</script>
+
 <script>
     let featureCount = {{ isset($featureCount) ? max(1, $featureCount) : 1 }};
     let ingredientCount = {{ isset($ingredientCount) ? max(1, $ingredientCount) : 1 }};
@@ -543,9 +592,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text px-2" style="width: 35px; justify-content: center;"><i class="bi bi-hand-index"></i></span>
                         <input type="text" name="cooking_steps[${cookingStepCount}][icon]" class="form-control px-2" placeholder="Icon class" value="bi bi-hand-index" oninput="this.previousElementSibling.querySelector('i').className = this.value || 'bi bi-question'">
-                        <select class="form-select px-1" style="max-width: 60px;" onchange="if(this.value){let inp = this.previousElementSibling; inp.value = this.value; inp.dispatchEvent(new Event('input')); this.value='';}">
-                            @include('admin.products.icon_options')
-                        </select>
+                        <button class="btn btn-outline-secondary px-2" type="button" onclick="openIconModal(this.previousElementSibling)" title="Choose Icon"><i class="bi bi-grid-3x3-gap"></i></button>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -580,9 +627,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text px-2" style="width: 35px; justify-content: center;"><i class="bi bi-fire"></i></span>
                         <input type="text" name="features[${featureCount}][icon]" class="form-control px-2" placeholder="Icon class" value="bi bi-fire" oninput="this.previousElementSibling.querySelector('i').className = this.value || 'bi bi-question'">
-                        <select class="form-select px-1" style="max-width: 60px;" onchange="if(this.value){let inp = this.previousElementSibling; inp.value = this.value; inp.dispatchEvent(new Event('input')); this.value='';}">
-                            @include('admin.products.icon_options')
-                        </select>
+                        <button class="btn btn-outline-secondary px-2" type="button" onclick="openIconModal(this.previousElementSibling)" title="Choose Icon"><i class="bi bi-grid-3x3-gap"></i></button>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -607,9 +652,7 @@
                     <div class="input-group input-group-sm">
                         <span class="input-group-text px-2" style="width: 35px; justify-content: center;"><i class="bi bi-circle"></i></span>
                         <input type="text" name="ingredients_list[${ingredientCount}][icon]" class="form-control px-2" placeholder="Icon class" value="bi bi-circle" oninput="this.previousElementSibling.querySelector('i').className = this.value || 'bi bi-question'">
-                        <select class="form-select px-1" style="max-width: 60px;" onchange="if(this.value){let inp = this.previousElementSibling; inp.value = this.value; inp.dispatchEvent(new Event('input')); this.value='';}">
-                            @include('admin.products.icon_options')
-                        </select>
+                        <button class="btn btn-outline-secondary px-2" type="button" onclick="openIconModal(this.previousElementSibling)" title="Choose Icon"><i class="bi bi-grid-3x3-gap"></i></button>
                     </div>
                 </div>
                 <div class="col-md-7">

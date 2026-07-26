@@ -100,7 +100,7 @@
             <div class="details-rating"><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-half text-warning"></i><span>(120 Reviews)</span></div>
             
             <div class="mt-4 mb-4">
-                <p>{{ $recipe->short_description ?? strip_tags($recipe->description) }}</p>
+                <p>{{ \Illuminate\Support\Str::words(strip_tags($recipe->short_description ?? $recipe->description), 40, '...') }}</p>
             </div>
             
             <div class="row g-3 mb-4 text-muted">
@@ -215,7 +215,7 @@
                             </div>
                             <div class="recipe-card-body mt-3">
                                 <h3><a href="{{ route('recipe_details', $relRecipe->slug) }}" class="text-decoration-none text-dark">{{ $relRecipe->title }}</a></h3>
-                                <p class="text-muted">{{ Str::limit($relRecipe->short_description ?? strip_tags($relRecipe->description), 80) }}</p>
+                                <p class="text-muted">{{ \Illuminate\Support\Str::words(strip_tags($relRecipe->short_description ?? $relRecipe->description), 20, '...') }}</p>
                                 <div class="recipe-meta d-flex justify-content-between text-muted">
                                     <span><i class="bi bi-clock"></i> {{ $relRecipe->duration }}</span>
                                 </div>

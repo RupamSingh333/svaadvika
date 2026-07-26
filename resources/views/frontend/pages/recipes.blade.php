@@ -113,7 +113,7 @@
                         </div>
                         <div class="recipe-card-body">
                             <h3><a href="{{ route('recipe_details', $recipe->slug) }}">{{ $recipe->title }}</a></h3>
-                            <p>{{ $recipe->short_description ?? Str::limit(strip_tags($recipe->description), 100) }}</p>
+                            <p>{{ \Illuminate\Support\Str::words(strip_tags($recipe->short_description ?? $recipe->description), 10, '...') }}</p>
                             <div class="recipe-meta">
                                 <span><i class="bi bi-clock"></i> {{ $recipe->duration }}</span>
                                 <span class="recipe-spice">
@@ -169,7 +169,7 @@
                                 <p class="eyebrow text-uppercase fw-bold" style="color: var(--brand-gold);">{{ $recipe->category }}</p>
                                 <h2 id="recipeQuickTitle-{{ $recipe->id }}">{{ $recipe->title }}</h2>
                                 <div class="catalog-rating mb-3"><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-fill text-warning"></i><i class="bi bi-star-half text-warning"></i><small>(120)</small></div>
-                                <p>{{ $recipe->short_description ?? Str::limit(strip_tags($recipe->description), 150) }}</p>
+                                <p>{{ \Illuminate\Support\Str::words(strip_tags($recipe->short_description ?? $recipe->description), 20, '...') }}</p>
                                 <ul class="list-unstyled mb-4">
                                     <li class="mb-2"><strong>Time:</strong> {{ $recipe->duration ?? '30 mins' }}</li>
                                     <li class="mb-2"><strong>Difficulty:</strong> {{ $recipe->difficulty ?? 'Medium' }}</li>

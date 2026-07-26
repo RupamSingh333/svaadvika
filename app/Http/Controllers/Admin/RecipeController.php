@@ -26,14 +26,14 @@ class RecipeController extends Controller
 
         $recipes = $query->latest()->paginate(10);
         
-        $categories = ['Biryani', 'Starters', 'Main Course', 'Snacks', 'Rice', 'Desserts', 'Drinks'];
+        $categories = \App\Models\Category::where('is_active', 1)->pluck('name')->toArray();
         
         return view('admin.recipes.index', compact('recipes', 'categories'));
     }
 
     public function create()
     {
-        $categories = ['Biryani', 'Starters', 'Main Course', 'Snacks', 'Rice', 'Desserts', 'Drinks'];
+        $categories = \App\Models\Category::where('is_active', 1)->pluck('name')->toArray();
         $difficulties = ['Easy', 'Medium', 'Hard'];
         $dietTypes = ['Vegetarian', 'Non-Vegetarian', 'Vegan'];
         $spiceLevels = ['Mild', 'Medium', 'Hot'];
@@ -52,7 +52,7 @@ class RecipeController extends Controller
             'featured_image' => 'required|image|max:2048',
             'gallery_images.*' => 'nullable|image|max:2048',
             'youtube_url' => 'nullable|url',
-            'category' => 'required|in:Biryani,Starters,Main Course,Snacks,Rice,Desserts,Drinks',
+            'category' => 'required|string|max:255',
             'difficulty' => 'required|in:Easy,Medium,Hard',
             'diet_type' => 'required|in:Vegetarian,Non-Vegetarian,Vegan',
             'spice_level' => 'required|in:Mild,Medium,Hot',
@@ -85,7 +85,7 @@ class RecipeController extends Controller
 
     public function edit(Recipe $recipe)
     {
-        $categories = ['Biryani', 'Starters', 'Main Course', 'Snacks', 'Rice', 'Desserts', 'Drinks'];
+        $categories = \App\Models\Category::where('is_active', 1)->pluck('name')->toArray();
         $difficulties = ['Easy', 'Medium', 'Hard'];
         $dietTypes = ['Vegetarian', 'Non-Vegetarian', 'Vegan'];
         $spiceLevels = ['Mild', 'Medium', 'Hot'];
@@ -104,7 +104,7 @@ class RecipeController extends Controller
             'featured_image' => 'nullable|image|max:2048',
             'gallery_images.*' => 'nullable|image|max:2048',
             'youtube_url' => 'nullable|url',
-            'category' => 'required|in:Biryani,Starters,Main Course,Snacks,Rice,Desserts,Drinks',
+            'category' => 'required|string|max:255',
             'difficulty' => 'required|in:Easy,Medium,Hard',
             'diet_type' => 'required|in:Vegetarian,Non-Vegetarian,Vegan',
             'spice_level' => 'required|in:Mild,Medium,Hot',

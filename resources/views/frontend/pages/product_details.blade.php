@@ -98,7 +98,7 @@
                 @endfor
                 <span>({{ $reviewsCount }} Reviews)</span>
             </div>
-            <div id="detailsDescription" class="mt-3 mb-3">{!! $product->short_description !!}</div>
+            <div id="detailsDescription" class="mt-3 mb-3">{{ \Illuminate\Support\Str::words(strip_tags($product->short_description), 35, '...') }}</div>
             
             <ul class="list-unstyled mb-4 text-muted">
                 <li class="mb-2"><i class="bi bi-info-circle me-2"></i> <strong>Ingredients:</strong> {{ $product->ingredients ?? 'Premium spices, herbs and recipe base' }}</li>
@@ -203,9 +203,6 @@
         </section>
         @endif
 
-
-
-
         @if($product->long_description)
         <section class="details-panel mt-5">
           <h2>Product Description</h2>
@@ -230,7 +227,7 @@
         </section>
         @endif
 
-        <section class="details-media-grid">
+        <section class="{{ $product->video_url ? 'details-media-grid' : 'details-panel' }}">
           @if($product->video_url)
           <div class="details-panel video-panel">
             <div><h2>Video</h2><p>Watch our chef prepare {{ $product->name }} step by step.</p></div>
@@ -253,9 +250,9 @@
           </div>
         </section>
 
+      @if($reviewsCount > 0)
         <section class="details-panel reviews-panel">
           <h2>Customer Reviews</h2>
-          @if($reviewsCount > 0)
               <div class="reviews-grid">
                 <div class="overall-rating">
                     <strong>{{ $averageRating }}</strong>
@@ -295,14 +292,14 @@
                         @endfor
                     </div>
                     <small>Verified Buyer - {{ $review->created_at->format('M d, Y') }}</small>
-                    <p>{{ $review->review }}</p>
+                    <!-- <p>{{  $review->review }}</p>  -->
+                     <p>{{ substr($review->review, 0, 50) }}...</p>
+
                 </article>
                 @endforeach
               </div>
-          @else
-              <p class="text-muted mt-3">No reviews yet. Be the first to review this product after purchasing!</p>
-          @endif
         </section>
+      @endif
 
         <section class="details-related" id="detailsRelated">
           <h2>You May Also Like</h2>

@@ -40,7 +40,6 @@ Route::prefix('api')->name('api.')->group(function () {
     Route::post('/cart/add', [\App\Http\Controllers\Frontend\CartController::class, 'add'])->name('cart.add');
     Route::post('/cart/update', [\App\Http\Controllers\Frontend\CartController::class, 'update'])->name('cart.update');
     Route::post('/cart/remove', [\App\Http\Controllers\Frontend\CartController::class, 'remove'])->name('cart.remove');
-
     Route::get('/wishlist/count', [\App\Http\Controllers\Frontend\WishlistController::class, 'getCount'])->name('wishlist.count');
     Route::post('/wishlist/toggle', [\App\Http\Controllers\Frontend\WishlistController::class, 'toggle'])->name('wishlist.toggle');
 });
