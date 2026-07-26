@@ -34,6 +34,7 @@ class CheckoutController extends Controller
         $addresses = CustomerAddress::where('customer_id', $customer->id)->get();
 
         $subtotal = 0;
+        $taxAmount = 0;
         foreach ($cart->items as $item) {
             if ($item->product->is_out_of_stock || $item->product->stock_quantity <= 0) {
                 return redirect()->route('cart')->with('error', 'Some items in your cart are currently out of stock. Please remove them to proceed.');
@@ -41,13 +42,13 @@ class CheckoutController extends Controller
             if ($item->product->stock_quantity < $item->quantity) {
                 return redirect()->route('cart')->with('error', 'Insufficient stock for ' . $item->product->name . '. Please reduce the quantity.');
             }
-            $subtotal += $item->product->price * $item->quantity;
+            $price = $item->product->sale_price ?: $item->product->price;
+            $subtotal += $price * $item->quantity;
+            $productTax = $item->product->tax ? $item->product->tax->percentage : 0;
+            $taxAmount += ($price * $productTax / 100) * $item->quantity;
         }
 
-        // Simplistic tax/delivery for display, can be expanded
         $deliveryCharge = DeliverySetting::first()?->charge ?? 0;
-        $taxRate = Tax::first()?->rate ?? 0;
-        $taxAmount = ($subtotal * $taxRate) / 100;
         // Check for session coupon
         $couponId = session()->get('applied_coupon_id');
         $discountAmount = 0;
@@ -83,8 +84,12 @@ class CheckoutController extends Controller
         }
 
         $subtotal = 0;
+        $taxAmount = 0;
         foreach ($cart->items as $item) {
-            $subtotal += $item->product->price * $item->quantity;
+            $price = $item->product->sale_price ?: $item->product->price;
+            $subtotal += $price * $item->quantity;
+            $productTax = $item->product->tax ? $item->product->tax->percentage : 0;
+            $taxAmount += ($price * $productTax / 100) * $item->quantity;
         }
 
         $coupon = Coupon::where('code', $request->coupon_code)->first();
@@ -118,8 +123,6 @@ class CheckoutController extends Controller
         }
 
         $deliveryCharge = DeliverySetting::first()?->charge ?? 0;
-        $taxRate = Tax::first()?->rate ?? 0;
-        $taxAmount = ($subtotal * $taxRate) / 100;
         $total = $subtotal + $taxAmount + $deliveryCharge - $discountAmount;
 
         return response()->json([
@@ -137,15 +140,17 @@ class CheckoutController extends Controller
 
         $cart = $this->getCart();
         $subtotal = 0;
+        $taxAmount = 0;
         if ($cart) {
             foreach ($cart->items as $item) {
-                $subtotal += $item->product->price * $item->quantity;
+                $price = $item->product->sale_price ?: $item->product->price;
+                $subtotal += $price * $item->quantity;
+                $productTax = $item->product->tax ? $item->product->tax->percentage : 0;
+                $taxAmount += ($price * $productTax / 100) * $item->quantity;
             }
         }
 
         $deliveryCharge = DeliverySetting::first()?->charge ?? 0;
-        $taxRate = Tax::first()?->rate ?? 0;
-        $taxAmount = ($subtotal * $taxRate) / 100;
         $total = $subtotal + $taxAmount + $deliveryCharge;
 
         return response()->json([
@@ -204,6 +209,7 @@ class CheckoutController extends Controller
             }
 
             $subtotal = 0;
+            $taxAmount = 0;
             $lockedProducts = [];
             foreach ($cart->items as $item) {
                 $product = \App\Models\Product::where('id', $item->product_id)->lockForUpdate()->first();
@@ -211,12 +217,13 @@ class CheckoutController extends Controller
                     throw new \Exception('Product "' . ($product ? $product->name : 'Unknown') . '" is out of stock or requested quantity is unavailable.');
                 }
                 $lockedProducts[$item->id] = $product;
-                $subtotal += $product->price * $item->quantity;
+                $price = $product->sale_price ?: $product->price;
+                $subtotal += $price * $item->quantity;
+                $productTax = $product->tax ? $product->tax->percentage : 0;
+                $taxAmount += ($price * $productTax / 100) * $item->quantity;
             }
 
             $deliveryCharge = DeliverySetting::first()?->charge ?? 0;
-            $taxRate = Tax::first()?->rate ?? 0;
-            $taxAmount = ($subtotal * $taxRate) / 100;
             $couponId = session()->get('applied_coupon_id');
             $discountAmount = 0;
             $coupon = null;
@@ -262,8 +269,8 @@ class CheckoutController extends Controller
                     'order_id' => $order->id,
                     'product_id' => $item->product_id,
                     'quantity' => $item->quantity,
-                    'price' => $product->price,
-                    'total' => $product->price * $item->quantity,
+                    'price' => $product->sale_price ?: $product->price,
+                    'total' => ($product->sale_price ?: $product->price) * $item->quantity,
                 ]);
                 
                 $product->stock_quantity -= $item->quantity;
