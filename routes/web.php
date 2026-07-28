@@ -14,6 +14,11 @@ Route::get('/product/{slug}', [FrontendController::class, 'productDetails'])->na
 Route::get('/recipes', [FrontendController::class, 'recipes'])->name('recipes');
 Route::get('/recipe/{slug}', [FrontendController::class, 'recipeDetails'])->name('recipe_details');
 Route::get('/cart', [FrontendController::class, 'cart'])->name('cart');
+Route::get('/shipping-policy', [FrontendController::class, 'shippingPolicy'])->name('shipping-policy');
+Route::get('/refund-policy', [FrontendController::class, 'refundPolicy'])->name('refund-policy');
+Route::get('/privacy-policy', [FrontendController::class, 'privacyPolicy'])->name('privacy-policy');
+Route::get('/terms-and-conditions', [FrontendController::class, 'termsAndConditions'])->name('terms-and-conditions');
+Route::get('/cancellation-policy', [FrontendController::class, 'cancellationPolicy'])->name('cancellation-policy');
 
 
 Route::middleware('auth:customer')->prefix('customer')->name('customer.')->group(function () {

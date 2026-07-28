@@ -44,11 +44,11 @@
           </div>
           <div class="col-6 col-lg-3">
             <h3>Policies</h3>
-            <a href="{{ route('contact') }}">Shipping Policy</a>
-            <a href="{{ route('contact') }}">Refund Policy</a>
-            <a href="{{ route('contact') }}">Privacy Policy</a>
-            <a href="{{ route('contact') }}">Terms & Conditions</a>
-            <a href="{{ route('contact') }}">Cancellation Policy</a>
+            <a href="{{ route('shipping-policy') }}">Shipping Policy</a>
+            <a href="{{ route('refund-policy') }}">Refund Policy</a>
+            <a href="{{ route('privacy-policy') }}">Privacy Policy</a>
+            <a href="{{ route('terms-and-conditions') }}">Terms & Conditions</a>
+            <a href="{{ route('cancellation-policy') }}">Cancellation Policy</a>
           </div>
         </div>
         <div class="footer-bottom text-center" style="color: rgba(255,255,255,0.72);">© {{ date('Y') }} {{ $settings['site_name'] ?? config('app.name') }}. All Rights Reserved.</div>

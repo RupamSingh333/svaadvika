@@ -33,7 +33,26 @@ class FrontendController extends Controller
     {
         return view('frontend.pages.contact_us');
     }
-
+    public function shippingPolicy()
+    {
+        return view('frontend.pages.shipping_policy');
+    }
+    public function refundPolicy()
+    {
+        return view('frontend.pages.refund_policy');
+    }
+    public function privacyPolicy()
+    {
+        return view('frontend.pages.privacy_policy');
+    }
+    public function termsAndConditions()
+    {
+        return view('frontend.pages.terms_and_conditions');
+    }
+    public function cancellationPolicy()
+    {
+        return view('frontend.pages.cancellation_policy');
+    }
     public function products()
     {
         $products = Product::with(['category', 'images', 'featuredImage'])->where('status', 'active')->get();
