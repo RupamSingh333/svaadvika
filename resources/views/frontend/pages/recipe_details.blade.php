@@ -194,6 +194,26 @@
             </div>
         </section>
 
+        @if(is_array($recipe->faqs) && count($recipe->faqs) > 0)
+        <section class="details-panel mt-5 pt-4 border-top">
+            <h2>Frequently Asked Questions</h2>
+            <div class="accordion details-faq mt-4" id="detailsFaq">
+                @foreach($recipe->faqs as $index => $faq)
+                <div class="accordion-item">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq{{ $index }}">
+                            {{ $faq['question'] ?? '' }}
+                        </button>
+                    </h3>
+                    <div id="faq{{ $index }}" class="accordion-collapse collapse" data-bs-parent="#detailsFaq">
+                        <div class="accordion-body">{{ $faq['answer'] ?? '' }}</div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </section>
+        @endif
+
         @if($relatedRecipes->isNotEmpty())
         <section class="related-products mt-5 pt-5 border-top">
             <div class="section-title text-center mb-5">

@@ -62,7 +62,14 @@ class RecipeController extends Controller
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
             'schema_markup' => 'nullable|string',
+            'faqs' => 'nullable|array',
         ]);
+
+        if (isset($validated['faqs'])) {
+            $validated['faqs'] = array_values(array_filter($validated['faqs'], function($item) {
+                return !empty($item['question']) && !empty($item['answer']);
+            }));
+        }
 
         $validated['slug'] = \Illuminate\Support\Str::slug($validated['title']);
 
@@ -114,7 +121,14 @@ class RecipeController extends Controller
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
             'schema_markup' => 'nullable|string',
+            'faqs' => 'nullable|array',
         ]);
+
+        if (isset($validated['faqs'])) {
+            $validated['faqs'] = array_values(array_filter($validated['faqs'], function($item) {
+                return !empty($item['question']) && !empty($item['answer']);
+            }));
+        }
 
         if ($request->title !== $recipe->title) {
             $validated['slug'] = \Illuminate\Support\Str::slug($validated['title']);

@@ -28,9 +28,11 @@ class Recipe extends Model
         'meta_description',
         'meta_keywords',
         'schema_markup',
+        'faqs',
     ];
 
     protected $casts = [
         'gallery_images' => 'array',
+        'faqs' => 'array',
     ];
 }

@@ -42,6 +42,44 @@
                                 @error('ingredients')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 <small class="text-muted">Enter ingredients separated by commas.</small>
                             </div>
+                            <hr class="my-4">
+
+                            <!-- Frequently Asked Questions (FAQ) -->
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <label class="form-label fw-semibold mb-0">Frequently Asked Questions</label>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="addFaq()">+ Add FAQ</button>
+                                </div>
+                                <div id="faqsContainer">
+                                    @if(is_array($recipe->faqs) && count($recipe->faqs) > 0)
+                                        @foreach($recipe->faqs as $index => $faq)
+                                        <div class="row g-2 mb-2 faq-row">
+                                            <div class="col-md-5">
+                                                <input type="text" name="faqs[{{ $index }}][question]" class="form-control" placeholder="Question" value="{{ $faq['question'] ?? '' }}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" name="faqs[{{ $index }}][answer]" class="form-control" placeholder="Answer" value="{{ $faq['answer'] ?? '' }}">
+                                            </div>
+                                            <div class="col-md-1">
+                                                <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.faq-row').remove()"><i class="fa fa-trash"></i></button>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    @else
+                                        <div class="row g-2 mb-2 faq-row">
+                                            <div class="col-md-5">
+                                                <input type="text" name="faqs[0][question]" class="form-control" placeholder="Question">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" name="faqs[0][answer]" class="form-control" placeholder="Answer">
+                                            </div>
+                                            <div class="col-md-1">
+                                                <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.faq-row').remove()"><i class="fa fa-trash"></i></button>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
                             
                             <hr class="my-4">
                             <h5 class="fw-semibold mb-3">Additional Details</h5>
@@ -196,6 +234,25 @@
 
 @push('scripts')
 <script>
+    let faqCount = {{ is_array($recipe->faqs) ? count($recipe->faqs) : 1 }};
+    function addFaq() {
+        const html = `
+            <div class="row g-2 mb-2 faq-row">
+                <div class="col-md-5">
+                    <input type="text" name="faqs[${faqCount}][question]" class="form-control" placeholder="Question">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" name="faqs[${faqCount}][answer]" class="form-control" placeholder="Answer">
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-outline-danger w-100" onclick="this.closest('.faq-row').remove()"><i class="fa fa-trash"></i></button>
+                </div>
+            </div>
+        `;
+        document.getElementById('faqsContainer').insertAdjacentHTML('beforeend', html);
+        faqCount++;
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         const ytInput = document.getElementById('youtube_url');
         const previewContainer = document.getElementById('yt-preview-container');
