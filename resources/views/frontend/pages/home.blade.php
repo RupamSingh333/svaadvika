@@ -183,7 +183,7 @@
   </div>
 </section>
 
-<section class="video-band" id="recipes">
+<!-- <section class="video-band" id="recipes">
   <img src="https://images.unsplash.com/photo-1604909052743-94e838986d24?auto=format&fit=crop&w=1800&q=85" alt="Chef tossing biryani in a premium Indian kitchen" loading="lazy">
   <div class="video-content reveal-up">
     <p class="eyebrow">Cook Like A Chef</p>
@@ -191,7 +191,7 @@
     <p>That brings families together</p>
   </div>
   <button class="play-large" type="button" aria-label="Play culinary experience video"><i class="bi bi-play-fill"></i></button>
-</section>
+</section> -->
 
 <!-- <section class="section manufacturing-showcase">
         <div class="container-xl">
@@ -281,6 +281,118 @@
           <article><i class="bi bi-box-seam"></i><span><strong>Easy Returns</strong><small>Hassle free returns</small></span></article>
         </aside>
       </div>
+    </div>
+  </div>
+</section>
+<section class="contact-faq-section" id="faq">
+  <div class="container-xl">
+    <div class="contact-panel reveal-up">
+
+      <div class="section-head contact-faq-head">
+        <div>
+          <h2>Frequently Asked Questions</h2>
+        </div>
+        <!-- <a class="text-link" href="#faq">
+          View All FAQs <i class="bi bi-arrow-right"></i>
+        </a> -->
+      </div>
+
+      <div class="accordion" id="faqAccordion">
+
+        <!-- FAQ 1 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseOne"
+              aria-expanded="true"
+              aria-controls="collapseOne">
+             What's the difference between ready-to-eat and ready-to-cook?
+            </button>
+          </h2>
+
+          <div id="collapseOne"
+            class="accordion-collapse collapse show"
+            aria-labelledby="headingOne"
+            data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Ready-to-eat means just heat it and you're done. Ready-to-cook means we've done the prep and marination, you finish it on the stove, and take the credit for cooking.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo"
+              aria-expanded="false"
+              aria-controls="collapseTwo">
+              Is this actually healthy, or just convenient?
+            </button>
+          </h2>
+
+          <div id="collapseTwo"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingTwo"
+            data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Both, honestly. No artificial colors, no preservatives, ISO and FSSAI certified. Convenience doesn't have to mean cutting corners, that was the whole point of building Svaadvika.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseThree"
+              aria-expanded="false"
+              aria-controls="collapseThree">
+              What makes Svaadvika different from other ready-to-eat brands?
+            </button>
+          </h2>
+
+          <div id="collapseThree"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingThree"
+            data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Real recipes collected from real homes across India, tested with a chef until they tasted right, not just fine. No artificial colors, no preservatives, and certifications you can actually verify.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingFour">
+            <button class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseFour"
+              aria-expanded="false"
+              aria-controls="collapseFour">
+              Can I return a product if something's wrong?
+            </button>
+          </h2>
+
+          <div id="collapseFour"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingFour"
+            data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              We can't accept general returns since it's food, but if anything arrives damaged, wrong, or expired, we'll replace it or refund you, no argument. Just reach out within 48 hours with a photo.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </div>
 </section>

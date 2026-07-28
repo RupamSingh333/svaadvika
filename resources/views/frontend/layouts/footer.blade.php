@@ -31,15 +31,16 @@
             <a href="{{ route('home') }}">Home</a>
             <a href="{{ route('about') }}">About</a>
             <a href="{{ route('frontend.products') }}">Products</a>
-            <a href="{{ route('contact') }}">Recipes</a>
-            <a href="{{ route('recipes') }}">Contact</a>
+            <a href="{{ route('recipes') }}">Recipes</a>
+            <a href="{{ route('contact') }}">Contact</a>
           </div>      
           <div class="col-6 col-lg-3">
             <h3>Woocommerce</h3>
             <a href="{{ route('frontend.products') }}">Cart</a>
             <a href="{{ route('frontend.products') }}">Checkout</a>
-            <a href="{{ route('frontend.products') }}">Login</a>
-            <a href="{{ route('frontend.products') }}">Register</a>
+            <a href="{{ route('login') }}">Login</a>
+            <a href="{{ route('register') }}">Register</a>
+            {{--<a href="{{ route('forgot-password') }}">Forgot Password</a>--}}
           </div>
           <div class="col-6 col-lg-3">
             <h3>Policies</h3>
