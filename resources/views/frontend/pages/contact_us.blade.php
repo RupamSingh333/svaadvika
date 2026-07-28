@@ -1,6 +1,7 @@
 @extends('frontend.layouts.master')
 
 @section('content')
+
 <section class="contactmain-contact-hero">
   <div class="container-xl">
     <div class="contact-hero-copy reveal-up">

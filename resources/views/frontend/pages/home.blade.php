@@ -134,11 +134,11 @@
       </div>
       <div class="col-lg-6 story-copy reveal-right">
         <p class="eyebrow">Our Story</p>
-        <h2>Home Convenience. <br><span>Zero</span> Compromise.</h2>
-        <p>Svaadvika started with a simple belief: Indian flavours deserve pure ingredients, measured spice craft and the comfort of family kitchens.</p>
+        <h2>It Started With a Craving <br><span>We</span> Couldn't Satisfy</h2>
+        <p>You know that 11 PM feeling. Hotels are closed, you return from work and all you want is one meal that you can call home, without paying a fortune for something that barely tasted good.</p>
         <div class="story-actions">
           <a class="btn btn-green" href="{{ route('about') }}">Stock Your Pantry <i class="bi bi-arrow-right"></i></a>
-          <button class="video-btn dark" type="button"><i class="bi bi-play-fill"></i><span>Watch Our Journey</span></button>
+          <!-- <button class="video-btn dark" type="button"><i class="bi bi-play-fill"></i><span>Watch Our Journey</span></button> -->
         </div>
       </div>
     </div>
@@ -276,7 +276,7 @@
       </div> -->
       <div class="col-lg-3">
         <aside class="service-list reveal-right" aria-label="Store benefits">
-          <article><i class="bi bi-truck"></i><span><strong>Free Shipping</strong><small>On orders above ₹699</small></span></article>
+          <article><i class="bi bi-truck"></i><span><strong>Free Delivery</strong><small>On orders above ₹499<br>Below that, a flat ₹49 delivery charge applies</small></span></article>
           <article><i class="bi bi-shield-lock"></i><span><strong>Secure Payment</strong><small>100% protected</small></span></article>
           <article><i class="bi bi-box-seam"></i><span><strong>Easy Returns</strong><small>Hassle free returns</small></span></article>
         </aside>
