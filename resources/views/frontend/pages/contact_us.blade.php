@@ -16,7 +16,39 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Contact Svaadvika">
 <meta name="twitter:description" content="Order support, wholesale enquiries, or franchise interest — reach us directly.">
-<meta name="twitter:image" content="{{ asset('assets/images/og/contact-og.jpg') }}">
+    <meta name="twitter:image" content="{{ asset('assets/images/og/contact-og.jpg') }}">
+
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    @verbatim
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "Svaadvika",
+        "url": "https://www.svaadvika.com",
+        "logo": "https://www.svaadvika.com/assets/images/logo.png",
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "telephone": "+91-9999999999",
+            "contactType": "customer service",
+            "email": "support@svaadvika.com",
+            "availableLanguage": ["English", "Hindi"]
+          },
+          {
+            "@type": "ContactPoint",
+            "telephone": "+91-9999999999",
+            "contactType": "sales",
+            "email": "wholesale@svaadvika.com",
+            "availableLanguage": ["English", "Hindi"]
+          }
+        ]
+      }
+    }
+    @endverbatim
+    </script>
 @endpush
 
 @section('content')
