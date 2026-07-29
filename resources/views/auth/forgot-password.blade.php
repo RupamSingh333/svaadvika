@@ -2,16 +2,16 @@
 
 @section('content')
 <section class="contactmain-contact-hero">
-        <div class="container-xl">
-          <div class="contact-hero-copy reveal-up">
+    <div class="container-xl">
+        <div class="contact-hero-copy reveal-up">
             <nav class="breadcrumb-nav" aria-label="Breadcrumb">
-              <a href="{{ route('home') }}">Home</a>
-              <i class="bi bi-chevron-right"></i>
-              <span>Forgot Password</span>
-            </nav> 
-          </div>
+                <a href="{{ route('home') }}">Home</a>
+                <i class="bi bi-chevron-right"></i>
+                <span>Forgot Password</span>
+            </nav>
         </div>
-      </section>
+    </div>
+</section>
 <section class="login-section py-5 ">
     <div class="container">
 
@@ -27,9 +27,9 @@
 
                     <!-- Session Status -->
                     @if (session('status'))
-                        <div class="alert alert-success mb-4" role="alert">
-                            {{ session('status') }}
-                        </div>
+                    <div class="alert alert-success mb-4" role="alert">
+                        {{ session('status') }}
+                    </div>
                     @endif
 
                     <form method="POST" action="{{ route('password.email') }}" class="contact-panel contact-form reveal-up is-visible">
@@ -39,7 +39,7 @@
                             <label class="form-label">Email <span>*</span></label>
                             <input type="email" name="email" class="form-control" value="{{ old('email') }}" required autofocus placeholder="Enter your email address">
                             @error('email')
-                                <div class="text-danger mt-1"><small>{{ $message }}</small></div>
+                            <div class="text-danger mt-1"><small>{{ $message }}</small></div>
                             @enderror
                         </div>
 
