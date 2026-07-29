@@ -10,7 +10,7 @@
               @endif
               <span><strong>{{ strtoupper($settings['site_name'] ?? 'SVAADVIKA') }}</strong><small>{{ $settings['site_description'] ?? 'Flavours of India, Made Perfect' }}</small></span>
             </a>
-              @if(isset($settings['contact_phone']) || isset($settings['contact_email']))
+            @if(isset($settings['contact_phone']) || isset($settings['contact_email']))
             <div class="mt-4" style="font-size: 0.95rem; line-height: 1.8; color: rgba(255,255,255,0.8);">
               @if(isset($settings['contact_phone']))<div><i class="bi bi-telephone me-2" style="color: var(--gold, #c89b23);"></i>{{ $settings['contact_phone'] }}</div>@endif
               @if(isset($settings['contact_email']))<div><i class="bi bi-envelope me-2" style="color: var(--gold, #c89b23);"></i>{{ $settings['contact_email'] }}</div>@endif
@@ -24,7 +24,7 @@
               @if(isset($settings['pinterest_url']) && $settings['pinterest_url'])<a href="{{ $settings['pinterest_url'] }}" aria-label="Pinterest"><i class="bi bi-pinterest"></i></a>@endif
               @if(isset($settings['twitter_url']) && $settings['twitter_url'])<a href="{{ $settings['twitter_url'] }}" aria-label="Twitter"><i class="bi bi-twitter"></i></a>@endif
             </div>
-          
+
           </div>
           <div class="col-6 col-lg-3">
             <h3>Information</h3>
@@ -33,14 +33,14 @@
             <a href="{{ route('frontend.products') }}">Products</a>
             <a href="{{ route('recipes') }}">Recipes</a>
             <a href="{{ route('contact') }}">Contact</a>
-          </div>      
+          </div>
           <div class="col-6 col-lg-3">
             <h3>Woocommerce</h3>
             <a href="{{ route('frontend.products') }}">Cart</a>
             <a href="{{ route('frontend.products') }}">Checkout</a>
             <a href="{{ route('login') }}">Login</a>
             <a href="{{ route('register') }}">Register</a>
-            {{--<a href="{{ route('forgot-password') }}">Forgot Password</a>--}}
+            <a href="{{ route('password.request') }}">Forgot Password</a>
           </div>
           <div class="col-6 col-lg-3">
             <h3>Policies</h3>

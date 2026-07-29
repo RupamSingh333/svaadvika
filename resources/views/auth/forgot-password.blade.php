@@ -26,7 +26,11 @@
                     </div>
 
                     <!-- Session Status -->
-                    <x-auth-session-status class="mb-4" :status="session('status')" />
+                    @if (session('status'))
+                        <div class="alert alert-success mb-4" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 
                     <form method="POST" action="{{ route('password.email') }}" class="contact-panel contact-form reveal-up is-visible">
                         @csrf
