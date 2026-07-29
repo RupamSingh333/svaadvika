@@ -17,6 +17,26 @@
 <meta name="twitter:title" content="Our Story | Svaadvika">
 <meta name="twitter:description" content="A young food company built on real recipes and real certifications.">
 <meta name="twitter:image" content="{{ asset('assets/images/og/about-og.jpg') }}">
+
+<!-- Schema Markup -->
+<script type="application/ld+json">
+@verbatim
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why do I need to add my own protein and rice for the biryani kits?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "So you get to choose exactly what goes into your biryani, chicken, mutton, paneer, or vegetables, and how much of it. Our kit takes care of the gravy, masala, fried onions, and tadka, the part that actually takes time and skill."
+      }
+    }
+  ]
+}
+@endverbatim
+</script>
 @endpush
 
 @section('content')
