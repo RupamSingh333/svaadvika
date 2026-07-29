@@ -5,46 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    @if(request()->is('contact'))
-    <!-- Contact SEO -->
-    <title>Contact Svaadvika | Order Support, Wholesale & Franchise Enquiries</title>
-    <meta name="description" content="Get in touch with Svaadvika for order support, bulk/wholesale enquiries, or franchise opportunities. We reply within 24 hours. ISO & FSSAI certified food brand.">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="{{ url('/contact') }}">
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url('/contact') }}">
-    <meta property="og:title" content="Contact Svaadvika | Order Support & Enquiries">
-    <meta property="og:description" content="Order support, wholesale enquiries, or franchise interest — reach Svaadvika directly. We reply within 24 hours.">
-    <meta property="og:image" content="{{ asset('assets/images/og/contact-og.jpg') }}">
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Contact Svaadvika">
-    <meta name="twitter:description" content="Order support, wholesale enquiries, or franchise interest — reach us directly.">
-    <meta name="twitter:image" content="{{ asset('assets/images/og/contact-og.jpg') }}">
-    @elseif(request()->is('about'))
-    <!-- About SEO -->
-    <title>Our Story | Svaadvika - ISO & FSSAI Certified Indian Food Startup</title>
-    <meta name="description" content="Meet Svaadvika — a young, ISO certified, FSSAI licensed food startup on a mission to bring real Indian home-cooked flavour to your kitchen, minus the hours of prep.">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="{{ url('/about') }}">
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url('/about') }}">
-    <meta property="og:title" content="Our Story | Svaadvika - ISO & FSSAI Certified Indian Food Startup">
-    <meta property="og:description" content="A young food company built on real recipes and real certifications. ISO certified, FSSAI licensed, Startup India registered.">
-    <meta property="og:image" content="{{ asset('assets/images/og/about-og.jpg') }}">
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Our Story | Svaadvika">
-    <meta name="twitter:description" content="A young food company built on real recipes and real certifications.">
-    <meta name="twitter:image" content="{{ asset('assets/images/og/about-og.jpg') }}">
-    @else
-    <!-- Default SEO -->
     <title>@yield('title', ($settings['site_name'] ?? 'Svaadvika') . ' | Premium Indian Ready-to-Cook Food')</title>
     <meta name="description" content="@yield('meta_description', $settings['site_description'] ?? 'Svaadvika brings authentic Indian biryani kits, marinades and premium recipes to modern family kitchens with restaurant-quality taste.')">
-    <link rel="canonical" href="@yield('canonical_url', url()->current())">
+    @hasSection('meta_robots')
+    <meta name="robots" content="@yield('meta_robots')">
     @endif
+    <link rel="canonical" href="@yield('canonical_url', url()->current())">
+    @stack('seo_tags')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">

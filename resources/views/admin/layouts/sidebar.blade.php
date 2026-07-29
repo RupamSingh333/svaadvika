@@ -9,6 +9,9 @@
     
     <div class="sidebar-menu">
         <ul class="nav flex-column mb-0">
+            <!-- MAIN -->
+            <li class="nav-title text-uppercase text-muted px-3 mt-2 mb-1" style="font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;">Main</li>
+            
             @hasPermission('dashboard', 'view')
             <li class="nav-item">
                 <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
@@ -18,7 +21,17 @@
             </li>
             @endhasPermission
 
+            <!-- E-COMMERCE -->
+            <li class="nav-title text-uppercase text-muted px-3 mt-4 mb-1" style="font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;">E-Commerce</li>
 
+            @hasPermission('orders', 'view')
+            <li class="nav-item">
+                <a href="{{ route('admin.orders.index') }}" class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-receipt"></i>
+                    <span>Orders</span>
+                </a>
+            </li>
+            @endhasPermission
 
             @hasPermission('products', 'view')
             <li class="nav-item">
@@ -38,17 +51,6 @@
             </li>
             @endhasPermission
 
-
-
-            @hasPermission('orders', 'view')
-            <li class="nav-item">
-                <a href="{{ route('admin.orders.index') }}" class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-receipt"></i>
-                    <span>Orders</span>
-                </a>
-            </li>
-            @endhasPermission
-
             @hasPermission('coupons', 'view')
             <li class="nav-item">
                 <a href="{{ route('admin.coupons.index') }}" class="nav-link {{ request()->routeIs('admin.coupons.*') ? 'active' : '' }}">
@@ -58,15 +60,8 @@
             </li>
             @endhasPermission
 
-            @hasPermission('contacts', 'view')
-            <li class="nav-item">
-                <a href="{{ route('admin.contacts.index') }}" class="nav-link {{ request()->routeIs('admin.contacts.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-envelope"></i>
-                    <span>Contact Inquiries</span>
-                </a>
-            </li>
-            @endhasPermission
-
+            <!-- CONTENT & MARKETING -->
+            <li class="nav-title text-uppercase text-muted px-3 mt-4 mb-1" style="font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;">Content & Marketing</li>
 
             @hasPermission('recipes', 'view')
             <li class="nav-item">
@@ -86,7 +81,17 @@
             </li>
             @endhasPermission
 
+            @hasPermission('contacts', 'view')
+            <li class="nav-item">
+                <a href="{{ route('admin.contacts.index') }}" class="nav-link {{ request()->routeIs('admin.contacts.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>Contact Inquiries</span>
+                </a>
+            </li>
+            @endhasPermission
 
+            <!-- PEOPLE -->
+            <li class="nav-title text-uppercase text-muted px-3 mt-4 mb-1" style="font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;">People</li>
 
             @hasPermission('customers', 'view')
             <li class="nav-item">
@@ -97,15 +102,18 @@
             </li>
             @endhasPermission
 
-            @hasPermission('taxes', 'view')
+            @hasPermission('users', 'view')
             <li class="nav-item">
-                <a href="{{ route('admin.taxes.index') }}" class="nav-link {{ request()->routeIs('admin.taxes.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-percent"></i>
-                    <span>Tax Manager</span>
+                <a href="{{ route('admin.users.index') }}" class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-users"></i>
+                    <span>User Management</span>
                 </a>
             </li>
             @endhasPermission
 
+            <!-- SYSTEM & SETTINGS -->
+            <li class="nav-title text-uppercase text-muted px-3 mt-4 mb-1" style="font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;">System & Settings</li>
+            
             @hasPermission('delivery-settings', 'view')
             <li class="nav-item">
                 <a href="{{ route('admin.delivery-settings.index') }}" class="nav-link {{ request()->routeIs('admin.delivery-settings.*') ? 'active' : '' }}">
@@ -115,11 +123,11 @@
             </li>
             @endhasPermission
 
-            @hasPermission('users', 'view')
+            @hasPermission('taxes', 'view')
             <li class="nav-item">
-                <a href="{{ route('admin.users.index') }}" class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-users"></i>
-                    <span>Users Managers</span>
+                <a href="{{ route('admin.taxes.index') }}" class="nav-link {{ request()->routeIs('admin.taxes.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-percent"></i>
+                    <span>Tax Manager</span>
                 </a>
             </li>
             @endhasPermission

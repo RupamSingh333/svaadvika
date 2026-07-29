@@ -3,6 +3,7 @@
         .cart-btn {
           position: relative;
         }
+
         .cart-count-badge {
           position: absolute;
           top: 0;
@@ -19,13 +20,15 @@
           justify-content: center;
           border: 2px solid transparent;
         }
+
         .site-header.scrolled .cart-count-badge {
           border-color: #fff;
         }
+
         body.dark-mode .site-header.scrolled .cart-count-badge {
           border-color: #08140e;
         }
-        
+
         .account-btn {
           background: rgba(255, 255, 255, 0.1);
           color: #ffffff;
@@ -34,18 +37,22 @@
           transition: all 0.3s ease;
           border: 1px solid transparent;
         }
+
         .account-btn:hover {
           background: rgba(255, 255, 255, 0.2);
           color: #ffffff;
         }
+
         .site-header.scrolled .account-btn {
           background: rgba(0, 0, 0, 0.05);
           color: #12241A;
         }
+
         .site-header.scrolled .account-btn:hover {
           background: rgba(0, 0, 0, 0.1);
           color: #12241A;
         }
+
         body.dark-mode .site-header.scrolled .account-btn,
         body.dark-mode .site-header .account-btn {
           background: rgba(255, 255, 255, 0.1);
@@ -56,9 +63,9 @@
         <div class="container-xl">
           <a class="brand" href="{{ route('home') }}" aria-label="{{ $settings['site_name'] ?? 'Svaadvika' }} home">
             @if(isset($settings['site_logo']) && $settings['site_logo'])
-                <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="{{ $settings['site_name'] ?? 'Svaadvika' }}" style="height: 40px; margin-right: 10px; border-radius: 4px;">
+            <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="{{ $settings['site_name'] ?? 'Svaadvika' }}" style="height: 40px; margin-right: 10px; border-radius: 4px;">
             @else
-                <span class="brand-emblem">{{ substr($settings['site_name'] ?? 'S', 0, 1) }}</span>
+            <span class="brand-emblem">{{ substr($settings['site_name'] ?? 'S', 0, 1) }}</span>
             @endif
             <span>
               <strong>{{ strtoupper($settings['site_name'] ?? 'SVAADVIKA') }}</strong>
@@ -72,8 +79,8 @@
             <ul class="navbar-nav main-nav">
               <li class="nav-item"><a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a></li>
               <li class="nav-item"><a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">About</a></li>
-               <li class="nav-item"><a class="nav-link {{ request()->routeIs('products') ? 'active' : '' }}" href="{{ route('frontend.products') }}">Products</a></li>
-            
+              <li class="nav-item"><a class="nav-link {{ request()->routeIs('products') ? 'active' : '' }}" href="{{ route('frontend.products') }}">Products</a></li>
+
               <li class="nav-item"><a class="nav-link {{ request()->routeIs('recipes') ? 'active' : '' }}" href="{{ route('recipes') }}">Recipes</a></li>
               <!-- <li class="nav-item"><a class="nav-link" href="{{ route('home') }}#manufacturing">Manufacturing</a></li> -->
               <li class="nav-item"><a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contact</a></li>
@@ -81,54 +88,56 @@
           </div>
           <div class="header-actions d-none d-xl-flex">
             @php
-                $cartCount = 0;
-                $wishlistCount = 0;
-                if (Auth::guard('customer')->check()) {
-                    $cart = \App\Models\Cart::where('customer_id', Auth::guard('customer')->id())->first();
-                    if ($cart) $cartCount = $cart->items()->sum('quantity');
-                    
-                    $wishlist = \App\Models\Wishlist::where('customer_id', Auth::guard('customer')->id())->first();
-                    if ($wishlist) $wishlistCount = $wishlist->items()->count();
-                } else {
-                    $cart = \App\Models\Cart::where('session_id', session()->getId())->first();
-                    if ($cart) $cartCount = $cart->items()->sum('quantity');
-                    
-                    $wishlist = \App\Models\Wishlist::where('session_id', session()->getId())->first();
-                    if ($wishlist) $wishlistCount = $wishlist->items()->count();
-                }
+            $cartCount = 0;
+            $wishlistCount = 0;
+            if (Auth::guard('customer')->check()) {
+            $cart = \App\Models\Cart::where('customer_id', Auth::guard('customer')->id())->first();
+            if ($cart) $cartCount = $cart->items()->sum('quantity');
+
+            $wishlist = \App\Models\Wishlist::where('customer_id', Auth::guard('customer')->id())->first();
+            if ($wishlist) $wishlistCount = $wishlist->items()->count();
+            } else {
+            $cart = \App\Models\Cart::where('session_id', session()->getId())->first();
+            if ($cart) $cartCount = $cart->items()->sum('quantity');
+
+            $wishlist = \App\Models\Wishlist::where('session_id', session()->getId())->first();
+            if ($wishlist) $wishlistCount = $wishlist->items()->count();
+            }
             @endphp
             <!-- <button class="icon-btn search-open" type="button" aria-label="Search" aria-haspopup="dialog"><i class="bi bi-search"></i></button> -->
             <!-- <a href="{{ Auth::guard('customer')->check() ? route('customer.dashboard').'#wishlist' : route('login') }}" class="icon-btn wishlist-btn" aria-label="Wishlist"><i class="bi bi-heart"></i><span class="wishlist-count-badge">{{ $wishlistCount }}</span></a> -->
             <a href="{{ route('cart') }}" class="icon-btn cart-btn" aria-label="Cart"><i class="bi bi-bag"></i><span class="cart-count-badge">{{ $cartCount }}</span></a>
             <!-- <button class="icon-btn theme-toggle" type="button" aria-label="Toggle dark mode"><i class="bi bi-moon-stars"></i></button> -->
             @auth('customer')
-              <div class="dropdown d-inline-block ms-2">
-                <a href="#" class="account-btn d-flex align-items-center gap-2 px-3 py-1" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Account">
-                  @if(Auth::guard('customer')->user()->image)
-                    <img src="{{ asset('storage/' . Auth::guard('customer')->user()->image) }}" alt="Profile" class="rounded-circle" style="width: 24px; height: 24px; object-fit: cover;">
-                  @else
-                    <i class="bi bi-person-circle fs-5"></i>
-                  @endif
-                  @php
-                      $lastName = Auth::guard('customer')->user()->last_name ?: Auth::guard('customer')->user()->first_name;
-                  @endphp
-                  <span class="d-none d-md-inline fw-medium">{{ $lastName }}</span>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" aria-labelledby="accountDropdown">
-                  <li><a class="dropdown-item py-2" href="{{ route('customer.dashboard') }}"><i class="bi bi-person me-2 text-muted"></i>Dashboard</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li>
-                    <form method="POST" action="{{ route('logout') }}" onsubmit="confirmFormSubmit(event, this, '')">
-                      @csrf
-                      <button type="submit" class="dropdown-item text-danger py-2">
-                        <i class="bi bi-box-arrow-right me-2"></i>Logout
-                      </button>
-                    </form>
-                  </li>
-                </ul>
-              </div>
+            <div class="dropdown d-inline-block ms-2">
+              <a href="#" class="account-btn d-flex align-items-center gap-2 px-3 py-1" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Account">
+                @if(Auth::guard('customer')->user()->image)
+                <img src="{{ asset('storage/' . Auth::guard('customer')->user()->image) }}" alt="Profile" class="rounded-circle" style="width: 24px; height: 24px; object-fit: cover;">
+                @else
+                <i class="bi bi-person-circle fs-5"></i>
+                @endif
+                @php
+                $lastName = Auth::guard('customer')->user()->last_name ?: Auth::guard('customer')->user()->first_name;
+                @endphp
+                <span class="d-none d-md-inline fw-medium">{{ $lastName }}</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" aria-labelledby="accountDropdown">
+                <li><a class="dropdown-item py-2" href="{{ route('customer.dashboard') }}"><i class="bi bi-person me-2 text-muted"></i>Dashboard</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li>
+                  <form method="POST" action="{{ route('logout') }}" onsubmit="confirmFormSubmit(event, this, '')">
+                    @csrf
+                    <button type="submit" class="dropdown-item text-danger py-2">
+                      <i class="bi bi-box-arrow-right me-2"></i>Logout
+                    </button>
+                  </form>
+                </li>
+              </ul>
+            </div>
             @else
-              <a href="{{ route('login') }}" class="icon-btn" aria-label="Login"><i class="bi bi-person"></i></a>
+            <a href="{{ route('login') }}" class="icon-btn" aria-label="Login"><i class="bi bi-person"></i></a>
             @endauth
           </div>
         </div>

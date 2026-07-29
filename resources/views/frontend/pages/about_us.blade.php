@@ -1,5 +1,24 @@
 @extends('frontend.layouts.master')
 
+@section('title', 'Our Story | Svaadvika - ISO & FSSAI Certified Indian Food Startup')
+@section('meta_description', 'Meet Svaadvika — a young, ISO certified, FSSAI licensed food startup on a mission to bring real Indian home-cooked flavour to your kitchen, minus the hours of prep.')
+@section('meta_robots', 'index, follow')
+@section('canonical_url', url('/about'))
+
+@push('seo_tags')
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ url('/about') }}">
+<meta property="og:title" content="Our Story | Svaadvika - ISO & FSSAI Certified Indian Food Startup">
+<meta property="og:description" content="A young food company built on real recipes and real certifications. ISO certified, FSSAI licensed, Startup India registered.">
+<meta property="og:image" content="{{ asset('assets/images/og/about-og.jpg') }}">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Our Story | Svaadvika">
+<meta name="twitter:description" content="A young food company built on real recipes and real certifications.">
+<meta name="twitter:image" content="{{ asset('assets/images/og/about-og.jpg') }}">
+@endpush
+
 @section('content')
 <section class="about-hero">
   <div class="container-xl">

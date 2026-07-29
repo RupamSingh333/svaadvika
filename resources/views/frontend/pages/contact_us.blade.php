@@ -1,5 +1,24 @@
 @extends('frontend.layouts.master')
 
+@section('title', 'Contact Svaadvika | Order Support, Wholesale & Franchise Enquiries')
+@section('meta_description', 'Get in touch with Svaadvika for order support, bulk/wholesale enquiries, or franchise opportunities. We reply within 24 hours. ISO & FSSAI certified food brand.')
+@section('meta_robots', 'index, follow')
+@section('canonical_url', url('/contact'))
+
+@push('seo_tags')
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ url('/contact') }}">
+<meta property="og:title" content="Contact Svaadvika | Order Support & Enquiries">
+<meta property="og:description" content="Order support, wholesale enquiries, or franchise interest — reach Svaadvika directly. We reply within 24 hours.">
+<meta property="og:image" content="{{ asset('assets/images/og/contact-og.jpg') }}">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contact Svaadvika">
+<meta name="twitter:description" content="Order support, wholesale enquiries, or franchise interest — reach us directly.">
+<meta name="twitter:image" content="{{ asset('assets/images/og/contact-og.jpg') }}">
+@endpush
+
 @section('content')
 
 <section class="contactmain-contact-hero">
