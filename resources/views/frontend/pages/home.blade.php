@@ -1,5 +1,49 @@
 @extends('frontend.layouts.master')
-
+@push('seo_tags')
+<!-- Schema Markup -->
+<script type="application/ld+json">
+@verbatim
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What's the difference between ready-to-eat and ready-to-cook?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ready-to-eat means just heat it and you're done. Ready-to-cook means we've done the prep and marination, you finish it on the stove, and take the credit for cooking."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this actually healthy, or just convenient?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Both, honestly. No artificial colors, no preservatives, ISO and FSSAI certified. Convenience doesn't have to mean cutting corners."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What makes Svaadvika different from other ready-to-eat brands?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Real recipes collected from real homes across India, tested with a chef until they tasted right, not just fine. No artificial colors, no preservatives, and certifications you can actually verify."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I return a product if something's wrong?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We can't accept general returns since it's food, but if anything arrives damaged, wrong, or expired, we'll replace it or refund you, no argument. Just reach out within 48 hours with a photo."
+      }
+    }
+  ]
+}
+@endverbatim
+</script>
+@endpush
 @section('content')
 <section class="hero-section" id="home">
   <div class="hero-bg" aria-hidden="true"></div>

@@ -7,48 +7,60 @@
 
 @push('seo_tags')
 <!-- Open Graph -->
-<meta property="og:type" content="website">
+<!-- <meta property="og:type" content="website">
 <meta property="og:url" content="{{ url('/contact') }}">
-<meta property="og:title" content="Contact Svaadvika | Order Support & Enquiries">
-<meta property="og:description" content="Order support, wholesale enquiries, or franchise interest — reach Svaadvika directly. We reply within 24 hours.">
-<meta property="og:image" content="{{ asset('assets/images/og/contact-og.jpg') }}">
+<meta property="og:title" content="Contact Svaadvika | Order Support, Wholesale & Franchise Enquiries">
+<meta property="og:description" content="Get in touch with Svaadvika for order support, bulk/wholesale enquiries, or franchise opportunities. We reply within 24 hours. ISO & FSSAI certified food brand.">
+<meta property="og:image" content="{{ asset('assets/images/og/contact-og.jpg') }}"> -->
 <!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Contact Svaadvika">
-<meta name="twitter:description" content="Order support, wholesale enquiries, or franchise interest — reach us directly.">
-    <meta name="twitter:image" content="{{ asset('assets/images/og/contact-og.jpg') }}">
+<!-- <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contact Svaadvika | Order Support, Wholesale & Franchise Enquiries">
+<meta name="twitter:description" content="Get in touch with Svaadvika for order support, bulk/wholesale enquiries, or franchise opportunities. We reply within 24 hours. ISO & FSSAI certified food brand.">
+    <meta name="twitter:image" content="{{ asset('assets/images/og/contact-og.jpg') }}"> -->
 
     <!-- Schema Markup -->
     <script type="application/ld+json">
-    @verbatim
+@verbatim
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
     {
-      "@context": "https://schema.org",
-      "@type": "ContactPage",
-      "mainEntity": {
-        "@type": "Organization",
-        "name": "Svaadvika",
-        "url": "https://www.svaadvika.com",
-        "logo": "https://www.svaadvika.com/assets/images/logo.png",
-        "contactPoint": [
-          {
-            "@type": "ContactPoint",
-            "telephone": "+91-9999999999",
-            "contactType": "customer service",
-            "email": "support@svaadvika.com",
-            "availableLanguage": ["English", "Hindi"]
-          },
-          {
-            "@type": "ContactPoint",
-            "telephone": "+91-9999999999",
-            "contactType": "sales",
-            "email": "wholesale@svaadvika.com",
-            "availableLanguage": ["English", "Hindi"]
-          }
-        ]
+      "@type": "Question",
+      "name": "How long does it take to get a response?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We typically reply within 24 hours on business days."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I change or cancel my order?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Reach out as soon as possible after placing your order — if it hasn't shipped yet, we'll do our best to help."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer bulk, wholesale, or corporate orders?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — use the Business Inquiries email for wholesale pricing and support."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer franchise opportunities?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, Svaadvika offers franchise and distribution opportunities. Use the Business Inquiries option and mention Franchise in your message."
       }
     }
-    @endverbatim
-    </script>
+  ]
+}
+@endverbatim
+</script>
 @endpush
 
 @section('content')

@@ -11,6 +11,17 @@
     <meta name="robots" content="@yield('meta_robots')">
     @endif
     <link rel="canonical" href="@yield('canonical_url', url()->current())">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="@yield('canonical_url', url()->current())">
+    <meta property="og:title" content="@yield('title', ($settings['site_name'] ?? 'Svaadvika') . ' | Premium Indian Ready-to-Cook Food')">
+    <meta property="og:description" content="@yield('meta_description', $settings['site_description'] ?? 'Svaadvika brings authentic Indian biryani kits, marinades and premium recipes to modern family kitchens with restaurant-quality taste.')}}">
+    <meta property="og:image" content="{{ asset('assets/images/og/contact-og.jpg') }}">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@yield('title', ($settings['site_name'] ?? 'Svaadvika') . ' | Premium Indian Ready-to-Cook Food')">
+    <meta name="twitter:description" content="@yield('meta_description', $settings['site_description'] ?? 'Svaadvika brings authentic Indian biryani kits, marinades and premium recipes to modern family kitchens with restaurant-quality taste.')">
+    <meta name="twitter:image" content="{{ asset('assets/images/og/contact-og.jpg') }}">
     @stack('seo_tags')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

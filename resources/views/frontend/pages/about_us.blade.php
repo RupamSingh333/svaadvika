@@ -7,46 +7,58 @@
 
 @push('seo_tags')
 <!-- Open Graph -->
-<meta property="og:type" content="website">
+<!-- <meta property="og:type" content="website">
 <meta property="og:url" content="{{ url('/about') }}">
 <meta property="og:title" content="Our Story | Svaadvika - ISO & FSSAI Certified Indian Food Startup">
 <meta property="og:description" content="A young food company built on real recipes and real certifications. ISO certified, FSSAI licensed, Startup India registered.">
-<meta property="og:image" content="{{ asset('assets/images/og/about-og.jpg') }}">
+<meta property="og:image" content="{{ asset('assets/images/og/about-og.jpg') }}"> -->
 <!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
+<!-- <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Our Story | Svaadvika">
 <meta name="twitter:description" content="A young food company built on real recipes and real certifications.">
-<meta name="twitter:image" content="{{ asset('assets/images/og/about-og.jpg') }}">
+<meta name="twitter:image" content="{{ asset('assets/images/og/about-og.jpg') }}"> -->
 
 <!-- Schema Markup -->
 <script type="application/ld+json">
 @verbatim
-[
-  {
-    "@context": "https://schema.org",
-    "@type": "AboutPage",
-    "name": "About Svaadvika",
-    "description": "Meet Svaadvika — a young, ISO certified, FSSAI licensed food startup on a mission to bring real Indian home-cooked flavour to your kitchen.",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Svaadvika"
-    }
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Why do I need to add my own protein and rice for the biryani kits?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "So you get to choose exactly what goes into your biryani, chicken, mutton, paneer, or vegetables, and how much of it. Our kit takes care of the gravy, masala, fried onions, and tadka, the part that actually takes time and skill."
-        }
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is Svaadvika a real, registered company?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Svaadvika is a brand of JVVoris Solutions Pvt Ltd, officially registered under the Government of India's Startup India initiative, ISO certified, and FSSAI licensed."
       }
-    ]
-  }
-]
+    },
+    {
+      "@type": "Question",
+      "name": "How long has Svaadvika been around?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We're a young company, Svaadvika launched recently, not decades ago. What we lack in history, we make up for in how carefully every recipe and certification was done from day one."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What certifications does Svaadvika actually hold?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ISO certification and an active FSSAI license."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who's behind Svaadvika?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Svaadvika was founded by Anup and Tushar, built around a simple idea, real Indian flavour shouldn't require hours in the kitchen."
+      }
+    }
+  ]
+}
 @endverbatim
 </script>
 @endpush
@@ -72,9 +84,11 @@
       <div class="col-lg-6">
         <div class="about-story-copy reveal-up">
           <p class="eyebrow">Our Story</p>
-          <h2>A Journey Rooted in Tradition, <span>Inspired by India</span></h2>
-          <p>Svaadvika was born from a simple belief - that every home deserves restaurant flavour without the hours of preparation.</p>
-          <p>We blend authentic recipes, premium ingredients and modern technology to deliver purity, taste and trust. From our kitchens to your home, we ensure every bite brings the warmth of tradition and the comfort of home.</p>
+          <h2> It Started With a Craving We <span>Couldn't Satisfy</span></h2>
+          <p class="mt-3">You know that 11 PM feeling. After a long day, all you want is a meal that feels like home.</p>
+  <p>Our journey took us across India, where families welcomed us with unforgettable home-cooked food. Inspired by those authentic flavors, we began collecting cherished family recipes, starting with our own mothers' and many others along the way.</p> 
+  <p>Working with expert chefs, we perfected every recipe without compromising on quality or authenticity.</p>
+  <p>That's how <strong>Svaadvika</strong> was born—bringing real home-style recipes to your table, so every meal feels warm, comforting, and made with love.</p>
           <a class="btn btn-gold" href="{{ route('frontend.products') }}">Explore Our Products</a>
         </div>
       </div>
@@ -122,15 +136,15 @@
     <div class="founder-card reveal-up">
       <div class="founder-portrait">
         <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=500&q=85" alt="Neha Sharma, co-founder of Svaadvika" loading="lazy">
-        <strong>Neha Sharma</strong>
-        <small>Co-Founder</small>
+        <strong>Anup & Tushar</strong>
+        <small>Founder</small>
       </div>
       <div class="founder-message">
         <p class="eyebrow">Founder&rsquo;s Message</p>
         <h2>Bringing Authentic Flavours To Every Home</h2>
         <p>At Svaadvika, we believe food is an emotion that connects hearts and creates memories. Our mission is to make authentic, wholesome and delicious meals accessible to every home with convenience and trust.</p>
         <p>Thank you for letting us be a part of your culinary journey.</p>
-        <span>Neha Sharma</span>
+        <span>Anup & Tushar</span>
       </div>
     </div>
   </div>
@@ -138,7 +152,7 @@
 
 
 
-<section class="mission-section">
+<!-- <section class="mission-section">
   <div class="container-xl">
     <div class="row g-4">
       <div class="col-lg-6">
@@ -161,7 +175,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 <section class="values-section">
   <div class="container-xl">
@@ -193,7 +207,7 @@
   </div>
 </section>
 
-<section class="about-manufacturing">
+<!-- <section class="about-manufacturing">
   <div class="container-xl">
     <div class="about-manufacturing-card reveal-up">
       <div>
@@ -208,9 +222,9 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
-<section class="cert-achievement-section">
+<!-- <section class="cert-achievement-section">
   <div class="container-xl">
     <div class="row g-4">
       <div class="col-lg-6">
@@ -237,7 +251,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 <section class="contact-faq-section" id="faq">
   <div class="container-xl">
     <div class="contact-panel reveal-up">

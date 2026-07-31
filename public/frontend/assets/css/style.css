@@ -1492,6 +1492,10 @@ blockquote {
 .recipe-card-body h3 {
   font-size: 1.14rem;
   margin-bottom: 8px;
+      display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 
 .recipe-card-body h3 a {
@@ -1503,6 +1507,10 @@ blockquote {
   color: var(--text);
   font-size: 0.88rem;
   margin-bottom: 12px;
+      display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
 }
 
 .recipe-meta {
@@ -2886,6 +2894,10 @@ blockquote {
 .catalog-body h3 {
   margin: 0 0 4px;
   font-size: 1.05rem;
+      display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 
 .catalog-rating {
@@ -2907,6 +2919,10 @@ blockquote {
   color: var(--text);
   font-size: 0.84rem;
   line-height: 1.45;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 }
 
 .catalog-body strong {
@@ -5642,4 +5658,83 @@ button.icon-btn.search-open {
   color: #08140e !important;
       background: #fff !important;
       padding:20px 20px !important;
+}
+
+
+/* policy pages */
+ .shipping-policy-section{
+    padding: 20px 0;
+}
+
+.policy-wrapper{
+    /* background:#fff; */
+    border-radius:18px;
+    padding:30px 50px;
+    box-shadow:0 10px 35px rgba(0,0,0,.08);
+}
+
+.policy-title{
+    font-size:38px;
+    font-weight:700;
+    color:#0f301f;
+    margin-bottom:10px;
+}
+
+.policy-subtitle{
+    color:#777;
+    margin-bottom:40px;
+}
+
+.policy-card{
+    border-left:5px solid #0f301f;
+    /* background:#fcfcfa; */
+    border-radius:10px;
+    padding:25px;
+    margin-bottom:30px;
+    transition:.3s;
+}
+
+.policy-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.policy-card h3{
+    font-size:22px;
+    color:#0f301f;
+    margin-bottom:18px;
+    font-weight:600;
+}
+
+.policy-card p{
+    margin-bottom:0;
+    text-align:justify;
+    line-height:1.9;
+    color:#555;
+}
+
+.policy-card a{
+    color:#0f301f;
+    font-weight:600;
+    text-decoration:none;
+}
+
+.policy-card a:hover{
+    text-decoration:underline;
+}
+
+@media(max-width:768px){
+
+.policy-wrapper{
+    padding:25px;
+}
+
+.policy-title{
+    font-size:30px;
+}
+
+.policy-card h3{
+    font-size:20px;
+}
+
 }

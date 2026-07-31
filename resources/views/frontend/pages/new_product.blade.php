@@ -1,4 +1,24 @@
 @extends('frontend.layouts.master')
+@push('seo_tags')
+<script type="application/ld+json">
+@verbatim
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why do I need to add my own protein and rice for the biryani kits?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "So you get to choose exactly what goes into your biryani, chicken, mutton, paneer, or vegetables, and how much of it. Our kit takes care of the gravy, masala, fried onions, and tadka, the part that actually takes time and skill."
+      }
+    }
+  ]
+}
+@endverbatim
+</script>
+@endpush
 @section('content')
 <section class="products-hero">
   <div class="container-xl">
