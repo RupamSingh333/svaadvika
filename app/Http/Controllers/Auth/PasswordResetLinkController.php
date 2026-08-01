@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use Throwable;
 
 class PasswordResetLinkController extends Controller
 {
@@ -39,18 +41,28 @@ class PasswordResetLinkController extends Controller
             ]);
         }
 
-        // We will send the password reset link to this user. Once we have attempted
-        // to send the link, we will examine the response then see the message we
-        // need to show to the user. Finally, we'll send out a proper response.
-        $status = Password::broker('customers')->sendResetLink(
-            $request->only('email')
-        );
+        try {
+            // We will send the password reset link to this user. Once we have attempted
+            // to send the link, we will examine the response then see the message we
+            // need to show to the user. Finally, we'll send out a proper response.
+            $status = Password::broker('customers')->sendResetLink(
+                $request->only('email')
+            );
 
-        if ($status === Password::RESET_LINK_SENT || $status === 'passwords.throttled') {
-            return back()->with('status', __('If your email is registered, we have sent you a password reset link. Please check your inbox.'));
+            if ($status === Password::RESET_LINK_SENT || $status === 'passwords.throttled') {
+                return back()->with('status', __('If your email is registered, we have sent you a password reset link. Please check your inbox.'));
+            }
+
+            return back()->withInput($request->only('email'))
+                ->withErrors(['email' => __($status)]);
+        } catch (Throwable $e) {
+            Log::error('Password reset email failed', [
+                'email' => $request->email,
+                'exception' => $e->getMessage(),
+            ]);
+
+            return back()->withInput($request->only('email'))
+                ->withErrors(['email' => __('We could not send the password reset email right now. Please try again later.')]);
         }
-
-        return back()->withInput($request->only('email'))
-            ->withErrors(['email' => __($status)]);
     }
 }
