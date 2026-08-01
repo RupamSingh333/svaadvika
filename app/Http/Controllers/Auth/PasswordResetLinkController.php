@@ -42,24 +42,12 @@ class PasswordResetLinkController extends Controller
         }
 
         try {
-            // We will send the password reset link to this user. Once we have attempted
-            // to send the link, we will examine the response then see the message we
-            // need to show to the user. Finally, we'll send out a proper response.
-            $status = Password::broker('customers')->sendResetLink(
-                $request->only('email')
+            // Queue the notification or send reset link in background to prevent 45s server timeout
+            $customer->sendPasswordResetNotification(
+                Password::broker('customers')->createToken($customer)
             );
 
-            if ($status === Password::RESET_LINK_SENT) {
-                return back()->with('status', __('A password reset link has been sent to your email address. Please check your inbox.'));
-            }
-
-            if ($status === 'passwords.throttled') {
-                return back()->withInput($request->only('email'))
-                    ->withErrors(['email' => __('Please wait before requesting another password reset link.')]);
-            }
-
-            return back()->withInput($request->only('email'))
-                ->withErrors(['email' => __($status)]);
+            return back()->with('status', __('A password reset link has been sent to your email address. Please check your inbox.'));
         } catch (Throwable $e) {
             Log::error('Password reset email failed', [
                 'email' => $request->email,
