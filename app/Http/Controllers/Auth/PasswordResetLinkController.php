@@ -46,7 +46,7 @@ class PasswordResetLinkController extends Controller
             $request->only('email')
         );
 
-        if ($status === Password::RESET_LINK_SENT || $status === Password::THROTTLED) {
+        if ($status === Password::RESET_LINK_SENT || $status === 'passwords.throttled') {
             return back()->with('status', __('If your email is registered, we have sent you a password reset link. Please check your inbox.'));
         }
 
