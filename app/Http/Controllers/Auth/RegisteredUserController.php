@@ -45,6 +45,7 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
+        $user->notify(new \App\Notifications\WelcomeCustomerNotification());
 
         return back()->with('success', 'Registration successful! You can now login.');
     }

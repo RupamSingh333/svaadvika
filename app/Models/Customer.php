@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\CustomerResetPasswordNotification;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,6 +12,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Customer extends Authenticatable
 {
     use HasFactory, Notifiable, SoftDeletes, CanResetPassword;
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new CustomerResetPasswordNotification($token));
+    }
 
     protected $fillable = [
         'first_name',

@@ -2,16 +2,16 @@
 
 @section('content')
 <section class="contactmain-contact-hero">
-        <div class="container-xl">
-          <div class="contact-hero-copy reveal-up">
+    <div class="container-xl">
+        <div class="contact-hero-copy reveal-up">
             <nav class="breadcrumb-nav" aria-label="Breadcrumb">
-              <a href="{{ route('home') }}">Home</a>
-              <i class="bi bi-chevron-right"></i>
-              <span>Forgot Password</span>
-            </nav> 
-          </div>
+                <a href="{{ route('home') }}">Home</a>
+                <i class="bi bi-chevron-right"></i>
+                <span>Forgot Password</span>
+            </nav>
         </div>
-      </section>
+    </div>
+</section>
 <section class="login-section py-5 ">
     <div class="container">
 
@@ -21,29 +21,35 @@
 
                 <div class="login-card">
 
-                    <form class="contact-panel contact-form reveal-up is-visible" id="contactForm" novalidate>
+                    <!-- Session Status -->
+                    @if (session('status'))
+                    <div class="alert alert-success mb-4" role="alert">
+                        {{ session('status') }}
+                    </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('password.email') }}" class="contact-panel contact-form reveal-up is-visible">
+                        @csrf
 
                         <div class="mb-4">
                             <label class="form-label">Email <span>*</span></label>
-                            <input type="email" class="" placeholder="Enter your email address">
-                        </div>
- 
-
-                        <div class="d-flex justify-content-end mb-4">
-                            <a href="#" class="forgot-link">Register Now</a>
+                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required autofocus placeholder="Enter your email address">
+                            @error('email')
+                            <div class="text-danger mt-1"><small>{{ $message }}</small></div>
+                            @enderror
                         </div>
 
                         <button type="submit" class="btn btn-green w-100">
-                            Forgot Password
+                            Send Reset Link
                         </button>
 
                         <p class="text-center mt-4 mb-0">
                             Remember your password?
-                            <a href="#" class="forgot-link">Login Here</a>
+                            <a href="{{ route('login') }}" class="forgot-link">Login Here</a>
                         </p>
- <p class="text-center mt-4 mb-0">
+                        <p class="text-center mt-4 mb-0">
                             New here?
-                            <a href="#" class="forgot-link">Create an account</a>
+                            <a href="{{ route('register') }}" class="forgot-link">Create an account</a>
                         </p>
                     </form>
 
